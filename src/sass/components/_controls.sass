@@ -1,0 +1,178 @@
+@use '../abstracts' as *
+
+// $control__indicator: var(--pref-color-0)
+// $control__bg_checked: var(--brand-color)
+// $control__bg_active: var(--brand-color-alt)
+// $control__bg_intent: var(--brand-color)
+// $control__bg_disabled: var(--brand-color)
+
+// .control
+// 	position: relative
+// 	display: inline-block
+// 	width: px-em(30, 16)
+// 	height: px-em(30, 16)
+// 	margin: 0
+// 	transform: translateY(25%)
+// 	cursor: pointer
+// 	font-size: px-em(18, 16)
+// 	transition: all 0.3s ease-in-out
+
+// 	input
+// 		position: absolute
+// 		z-index: -1
+// 		opacity: 0
+
+// 		&:checked
+// 			& ~ .control__indicator
+
+// 				@if $nm-design == true
+// 					box-shadow: var(--nm-inset-small)
+// 				@else
+// 					background: $control__bg_checked
+
+// 				&:after
+// 					display: block
+
+// 					@if $nm-design == true
+// 						opacity: 1
+        
+// 		&:disabled
+// 			& ~ .control__indicator
+// 				background: $control__bg_disabled
+// 				opacity: 0.2
+// 				pointer-events: none
+
+// 				@if $nm-design == true
+// 					border: solid px-rem(2) var(--pref-color-nm-glow)
+// 					box-shadow: none
+
+// .control__indicator
+// 	position: absolute
+// 	top: px-em(2, 16)
+// 	left: 0
+// 	height: px-em(30, 16)
+// 	width: px-em(30, 16)
+// 	transition: all 0.3s ease-in-out
+
+// 	@if $nm-design == true
+// 		box-shadow: var(--nm-outset-small)
+// 	@else 
+// 		background: $control__bg_active
+
+// 	&:after
+// 		content: ''
+// 		position: absolute
+// 		transition: all 0.3s ease-in-out
+
+// 		@if $nm-design == true
+// 			opacity: 0.1
+// 			display: block
+// 		@else 
+// 			display: none
+
+// .control:hover input ~ .control__indicator
+// 	@if $nm-design == true
+// 		outline: solid px-em(4, 16) $control__bg_intent
+// 		outline-offset: px-em(4, 16)
+// 	@else
+// 		background: $control__bg_intent
+
+// .control input:focus ~ .control__indicator
+// 	outline: solid $control__bg_intent px-em(4, 16)
+// 	outline-offset: px-em(4, 16)
+
+// .control:hover input:not([disabled]):checked ~ .control__indicator,
+// .control input:checked:focus ~ .control__indicator
+// 	@if $nm-design == true
+// 		outline: solid px-em(4, 16) $control__bg_intent
+// 		outline-offset: px-em(4, 16)
+// 	@else
+// 		background: $control__bg_intent
+			
+
+// .control--radio
+// 	.control__indicator
+// 		border-radius: 50%
+
+// 		&:after
+// 			left: 50%
+// 			top: 50%
+// 			transform: translate(-50%, -50%)
+// 			height: px-em(10, 16)
+// 			width: px-em(10, 16)
+// 			border-radius: 50%
+// 			background: $control__indicator
+
+// 	input
+// 		&:disabled
+// 			& ~ .control__indicator
+// 				&:after
+// 					background: $control__indicator
+
+// .control--checkbox
+// 	.control__indicator
+// 		&:after
+// 			top: 50%
+// 			left: 50%
+// 			transform: translate(-50%, -50%) rotate(45deg)
+// 			width: px-em(9, 16)
+// 			height: px-em(17, 16)
+// 			border: solid $control__indicator
+// 			border-width: 0 px-em(4, 16) px-em(4, 16) 0
+
+// 	input
+// 		&:disabled
+// 			& ~ .control__indicator
+// 				&:after
+// 					border-color: $control__indicator
+
+// .select
+// 	position: relative
+// 	display: inline-block
+// 	width: 100%
+// 	margin-bottom: px-em(15, 16)
+
+// 	select
+// 		display: inline-block
+// 		width: 100%
+// 		padding: px-em(10, 16) px-em(15, 16)
+// 		border: 0
+// 		border-radius: 0
+// 		background: $control__bg_active
+// 		color: $control__bg_intent
+// 		cursor: pointer
+// 		outline: 0
+// 		appearance: none
+// 		-webkit-appearance: none
+// 		-moz-appearance: none
+
+// 		&::-ms-expand
+// 			display: none
+
+// 		&:disabled
+// 			opacity: 0.5
+// 			pointer-events: none
+
+// 			& ~ .select__arrow
+// 				border-top-color: #ccc
+
+// .select select:hover,
+// .select select:focus
+// 	color: #000
+// 	background: #ccc
+
+// .select__arrow
+// 	position: absolute
+// 	top: 50%
+// 	right: px-em(15, 16)
+// 	transform: translateY(-50%)
+// 	width: 0
+// 	height: 0
+// 	border-style: solid
+// 	border-width: px-em(8, 16) px-em(5, 16) 0 px-em(5, 16)
+// 	border-color: $control__bg_intent transparent transparent transparent
+// 	pointer-events: none
+
+// .select select:hover ~ .select__arrow,
+// .select select:focus ~ .select__arrow
+// 	border-top-color: #000

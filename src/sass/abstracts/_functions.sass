@@ -1,0 +1,93 @@
+@use 'sass:math'
+@use 'constants' as *
+
+@function decimal-round($number, $digits: 0, $mode: round)
+    $n: 1
+    // $number must be a number
+    @if type-of($number) != number
+        @warn '#{ $number } is not a number.'
+        @return $number
+
+    // $digits must be a unitless number
+    @if type-of($digits) != number
+        @warn '#{ $digits } is not a number.'
+        @return $number
+    @else if not unitless($digits)
+        @warn '#{ $digits } has a unit.'
+        @return $number
+
+    @for $i from 1 through $digits
+        $n: $n * 10
+
+    @if $mode == round
+        @return math.div(round($number * $n), $n)
+    @else if $mode == ceil
+        @return math.div(ceil($number * $n), $n)
+    @else if $mode == floor
+        @return math.div(floor($number * $n), $n)
+    @else
+        @warn '#{ $mode } is undefined keyword.'
+        @return $number
+
+
+
+@function px-rem($px, $media: d, $precision: 2, $mode: round)
+    $target: 16px
+    
+    @if $media == d
+        $target: map-get(map-get($design-sizes-map, desktop), fs)
+    @else if $media == t
+        $target: map-get(map-get($design-sizes-map, tablet), fs)
+    @else if $media == m
+        $target: map-get(map-get($design-sizes-map, mobile), fs)
+
+    @if type-of($precision) == number and $precision > 0
+        @return #{decimal-round(math.div($px, $target), $precision, $mode) + 'rem'}
+
+
+    @return #{math.div($px, $target) + 'rem'}
+
+
+@function px-em($px, $em, $precision: 2, $mode: round)
+
+    @if type-of($precision) == number and $precision > 0
+        @return #{decimal-round(math.div($px, $em), $precision, $mode) + 'em'}
+
+    @return #{math.div($px, $em) + 'em'}
+
+
+@function px-vw($px, $media: d, $precision: 2, $mode: round)
+    $target: 100vw
+    
+    @if $media == d
+        $target: map-get(map-get($design-sizes-map, desktop), vw)
+    @else if $media == t
+        $target: map-get(map-get($design-sizes-map, tablet), vw)
+    @else if $media == m
+        $target: map-get(map-get($design-sizes-map, mobile), vw)
+
+    @if type-of($precision) == number and $precision > 0
+        @return #{decimal-round((math.div($px, $target) * 100), $precision, $mode) + 'vw'}
+
+    @return #{(math.div($px, $target) * 100) + 'vw'}
+
+
+@function pct-calc($side1, $side2)
+    $return: math.div($side1, $side2) * 100
+    @return $return
+
+
+@function px-pct($px, $media: d, $precision: 2, $mode: round, $measurement: '%')
+    $target: 100vw
+
+    @if $media == d
+        $target: map-get(map-get($design-sizes-map, desktop), vw)
+    @else if $media == t
+        $target: map-get(map-get($design-sizes-map, tablet), vw)
+    @else if $media == m
+        $target: map-get(map-get($design-sizes-map, mobile), vw)
+
+    @if type-of($precision) == number and $precision > 0
+        @return #{decimal-round(pct-calc($px, $target), $precision, $mode) + $measurement}
+
+    @return #{(math.div($px, $target) * 100) + '%'}

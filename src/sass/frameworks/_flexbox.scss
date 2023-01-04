@@ -1,0 +1,164 @@
+@use 'sass:math';
+@use '../abstracts' as *;
+
+@mixin flexbox-position {
+    list-style: none;
+    padding-left: 0;
+
+    &.flush-outline {
+        padding: calc(-1 * var(--flex-gutter));
+    }
+
+    &.flow-column { flex-flow: column; }
+    &.flow-row { flex-flow: row; }
+
+    &.flow-column-reverse { flex-flow: column-reverse; }
+    &.flow-row-reverse {  flex-flow: row-reverse; }
+
+    &.align-start { align-items: flex-start; }
+    &.align-center { align-items: center; }
+    &.align-stretch { align-items: stretch; }
+    &.align-end { align-items: flex-end; }
+
+    &.justify-start { justify-content: flex-start; }
+    &.justify-center { justify-content: center; }
+    &.justify-stretch { justify-content: stretch; }
+    &.justify-end { justify-content: flex-end; }
+    &.justify-space-around { justify-content: space-around; }
+    &.justify-space-between { justify-content: space-between; }
+    &.justify-space-evenly { justify-content: space-evenly; }
+
+    &.no-wrap {
+        flex-wrap: nowrap;
+    }
+
+    &.m-flow-column { @include until($mobile) { flex-flow: column; } }
+    &.m-flow-row { @include until($mobile) { flex-flow: row; } }
+
+    &.m-flow-column-reverse { @include until($mobile) { flex-flow: column-reverse; } }
+    &.m-flow-row-reverse {  @include until($mobile) { flex-flow: row-reverse; } }
+
+    &.m-align-start { @include until($mobile) { align-items: flex-start; } }
+    &.m-align-center { @include until($mobile) { align-items: center; } }
+    &.m-align-stretch { @include until($mobile) { align-items: stretch; } }
+    &.m-align-end { @include until($mobile) { align-items: flex-end; } }
+
+    &.m-justify-start { @include until($mobile) { justify-content: flex-start; } }
+    &.m-justify-center { @include until($mobile) { justify-content: center; } }
+    &.m-justify-stretch { @include until($mobile) { justify-content: stretch; } }
+    &.m-justify-end { @include until($mobile) { justify-content: flex-end; } }
+    &.m-justify-space-around { @include until($mobile) { justify-content: space-around; } }
+    &.m-justify-space-between { @include until($mobile) { justify-content: space-between; } }
+    &.m-justify-space-evenly { @include until($mobile) { justify-content: space-evenly; } }
+    
+    &.m-wrap { @include until($mobile) { flex-wrap: wrap; } }
+
+}
+
+[class^="gwssc-flex-"],
+[class*="gwssc-flex-"] {
+    padding: var(--flex-gutter);
+}
+
+.gwssc-flex {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+
+    @include flexbox-position;
+
+    > [class^="flex-"],
+    > [class*=" flex-"] {
+        padding: 0;
+    }
+
+    @for $size from 1 to 100 {
+        &.gap-#{$size} {
+            @include props-val((margin-left, margin-right), px-rem(math.div($size, 2) * -1));
+
+            > [class^="flex-"],
+            > [class*=" flex-"] {
+                padding: px-rem(math.div($size, 2));
+            }
+
+            &.gap-no-top { margin-top: px-rem(math.div($size, 2) * -1); }
+
+            &.gap-no-bottom { margin-bottom: px-rem(math.div($size, 2) * -1); }
+        }
+    }
+}
+
+.gwssc-flexbox {
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 calc(-1 * var(--flex-gutter));
+
+    @include flexbox-position;
+}
+
+// Removed flexbox on mobile
+// Useful when need to make slideshow on mobile/desktop
+.gwssc-flexbox-desktop {
+    @include at-least($mobile) {
+        position: relative;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0 calc(-1 * var(--flex-gutter));
+    }
+
+    @include flexbox-position;
+}
+
+.gwssc-woocommerce-product-gallery {
+    [class^="flex-"],
+    [class*=" flex-"] {
+        padding: initial;
+    }
+}
+
+
+// REMINDER: FIND OUT WHAT SORT OF LEGACY SPAGHETTI CODE IS GOING ON HERE
+@each $flex in $screen-sizes {
+    $key: nth($flex, 1);
+    $value: nth($flex, 2);
+
+    // Bellow condition seems to be redundant
+    @if($key != 0) { // Why, what, for what reason??? old fix? sound like something from lailii?
+        @include until($value) {
+            [class*=gwssc-offset-] {
+                width: 100%;
+                margin: 0;
+            }
+        }
+
+        @include at-least($value) {
+            @for $i from 1 through $flex-columns {
+                .gwssc-flex-#{$key}#{$i} {
+                    width: calc(100% / (#{$flex-columns} / #{$i}));
+                }
+            
+                .gwssc-offset-#{$key}#{$i} {
+                    margin-left: calc(100% / (#{$flex-columns} / #{$i}));
+                }
+            }
+        }
+    } @else {
+        @include until($value) {
+            [class*=gwssc-offset-] {
+                width: 100%;
+                margin: 0;
+            }
+        }
+
+        @for $i from 1 through $flex-columns {
+            .gwssc-flex-#{$key}#{$i} {
+                width: calc(100% / (#{$flex-columns} / #{$i}));
+            }
+        
+            .gwssc-offset-#{$key}#{$i} {
+                margin-left: calc(100% / (#{$flex-columns} / #{$i}));
+            }
+        }
+    }
+}

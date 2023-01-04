@@ -1,0 +1,114 @@
+@use '../abstracts' as *;
+
+@mixin gridbox-position {
+
+    $i: 0;
+    @for $size from 0 to $flex-columns {
+        $i: $i + 1;
+        $j: null;
+        &.col-#{$i} {
+            @for $size from 0 to $i { $j: $j 1fr; }
+            grid-template-columns: $j;
+        }
+    }
+
+    &.flow-column { flex-flow: column; }
+    &.flow-row { flex-flow: row; }
+
+    &.flow-column-reverse { flex-flow: column-reverse; }
+    &.flow-row-reverse {  flex-flow: row-reverse; }
+
+    &.align-start { align-items: flex-start; }
+    &.align-center { align-items: center; }
+    &.align-stretch { align-items: stretch; }
+    &.align-end { align-items: flex-end; }
+
+    &.justify-start { justify-content: flex-start; }
+    &.justify-center { justify-content: center; }
+    &.justify-stretch { justify-content: stretch; }
+    &.justify-end { justify-content: flex-end; }
+    &.justify-space-around { justify-content: space-around; }
+    &.justify-space-between { justify-content: space-between; }
+    &.justify-space-evenly { justify-content: space-evenly; }
+
+    &.no-wrap {
+        flex-wrap: nowrap;
+    }
+
+    &.m-flow-column { @include until($mobile) { flex-flow: column; } }
+    &.m-flow-row { @include until($mobile) { flex-flow: row; } }
+
+    &.m-flow-column-reverse { @include until($mobile) { flex-flow: column-reverse; } }
+    &.m-flow-row-reverse {  @include until($mobile) { flex-flow: row-reverse; } }
+
+    &.m-align-start { @include until($mobile) { align-items: flex-start; } }
+    &.m-align-center { @include until($mobile) { align-items: center; } }
+    &.m-align-stretch { @include until($mobile) { align-items: stretch; } }
+    &.m-align-end { @include until($mobile) { align-items: flex-end; } }
+
+    &.m-justify-start { @include until($mobile) { justify-content: flex-start; } }
+    &.m-justify-center { @include until($mobile) { justify-content: center; } }
+    &.m-justify-stretch { @include until($mobile) { justify-content: stretch; } }
+    &.m-justify-end { @include until($mobile) { justify-content: flex-end; } }
+    &.m-justify-space-around { @include until($mobile) { justify-content: space-around; } }
+    &.m-justify-space-between { @include until($mobile) { justify-content: space-between; } }
+    &.m-justify-space-evenly { @include until($mobile) { justify-content: space-evenly; } }
+    
+    &.m-wrap { @include until($mobile) { flex-wrap: wrap; } }
+
+    &.full-width { width: 100%; }
+
+}
+
+.gwssc-grid {
+    display: grid;
+    $grid-temp-col-count: null;
+    @for $size from 0 to $flex-columns { $grid-temp-col-count: $grid-temp-col-count 1fr; }
+    grid-template-columns: $grid-temp-col-count;
+
+    @include gridbox-position;
+}
+
+@each $flex in $screen-sizes {
+    $key: nth($flex, 1);   // Screen Size
+    $value: nth($flex, 2); // Screen Size value
+
+    // No Offset in Grid
+
+    @if($key != "") { // If not Mobile
+        @include at-least($value) {
+            @for $i from 1 through $flex-columns {
+                .gwssc-grid-#{$key}#{$i} {
+                    grid-column: span #{$i};
+                }
+            }
+
+            .gwssc-grid {
+                @for $size from 0 to 101 {
+                    &.gap-#{$key}#{$size} { gap: px-rem($size); }
+            
+                    &.gap-row-#{$key}#{$size} { row-gap: px-rem($size); }
+            
+                    &.gap-col-#{$key}#{$size} { column-gap: px-rem($size); }
+                }
+            }
+        }
+    } @else { // If Mobile
+
+        @for $i from 1 through $flex-columns {
+            .gwssc-grid-#{$i} {
+                grid-column: span #{$i};
+            }
+        }
+
+        .gwssc-grid {
+            @for $size from 0 to 101 {
+                &.gap-#{$size} { gap: px-rem($size); }
+        
+                &.gap-row-#{$size} { row-gap: px-rem($size); }
+        
+                &.gap-col-#{$size} { column-gap: px-rem($size); }
+            }
+        }
+    }
+}

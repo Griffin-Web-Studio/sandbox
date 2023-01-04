@@ -1,0 +1,323 @@
+@use '../abstracts' as *;
+
+:root {
+    // VCs (Light Steps)
+    @for $size from 0 to 101 {
+        --pref-color-light-#{$size}: #{darken($full-light, $size)};
+    }
+
+    // VCs (Light Steps Transparentize)
+    @for $size from 0 to 101 {
+        --pref-color-light-t-#{$size}: #{transparentize($full-light, div($size, 100))};
+    }
+    
+    // VCs (Dark Steps)
+    @for $size from 0 to 101 {
+        --pref-color-dark-#{$size}: #{lighten($full-dark, $size)};
+    }
+    
+    // VCs (Dark Steps Transparentize)
+    @for $size from 0 to 101 {
+        --pref-color-dark-t-#{$size}: #{transparentize($full-dark, div($size, 100))};
+    }
+
+    --pref-color-wt: #{$full-light};
+    --pref-color-bk: #{$full-dark};
+}
+    
+@media (prefers-color-scheme: dark) {
+    :root {
+        // VCs (Dark Steps)
+        @for $size from 0 to 101 {
+            --pref-color-#{$size}: var(--pref-color-dark-#{$size});
+        }
+
+        // VC Child Pref Color Intensity Grow Step (AUto)
+        --pref-color-AU: #{transparentize(lighten($full-dark, 99), 0.99)};
+        // VS Full Pref Reverse
+        --pref-color-RV: #{$full-light};
+        // VS Full Pref Shadow
+        --pref-color-shadow: var(--pref-color-20);
+        // VS Full Pref Neumorphic Shadow
+        --pref-color-nm-shadow: var(--pref-color-dark-t-0);
+        // VS Full Pref Neumorphic Shadow weak
+        --pref-color-nm-shadow-weak: var(--pref-color-dark-t-50);
+        // VS Full Pref Neumorphic Light Shadow
+        --pref-color-nm-glow: var(--pref-color-light-t-90);
+        // VS Full Pref Neumorphic Light Shadow weak
+        --pref-color-nm-glow-weak:   var(--pref-color-light-t-90);
+        // VS Full Pref Neumorphic Rim color
+        --pref-color-nm-rim: var(--pref-color-2);
+        // VS Full Pref Neumorphic outward shadow
+        --nm-outset:
+            #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
+            #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
+        --ds-nm-outset:
+            drop-shadow(#{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
+            drop-shadow(#{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
+        
+        // VS Full Pref Neumorphic outward shadow (Small)
+        --nm-outset-small:
+            #{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow),
+            #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow);
+        --ds-nm-outset-small:
+            drop-shadow(#{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow))
+            drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow));
+        
+        // VS Full Pref Neumorphic inward shadow
+        --nm-inset:
+            inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
+            inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
+        --ds-nm-inset:
+            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
+            drop-shadow(inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
+        
+        // VS Full Pref Neumorphic inward Out shadow
+        --nm-inset-out:
+            inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak),
+            inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow),
+            #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak);
+        --ds-nm-inset-out:
+            drop-shadow(inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak))
+            drop-shadow(inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow))
+            drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak));
+        
+        // VS Full Pref Neumorphic inward (Small)
+        --nm-inset-small:
+            inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
+            inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
+        --ds-nm-inset-small:
+            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
+            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
+        
+        // VS Full Pref Neumorphic inward Out (Small)
+        --nm-inset-out-small:
+            inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
+            inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
+            #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
+        --ds-nm-inset-out-small:
+            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
+            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+            drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
+
+        // VC Main BG Color
+        --main-bg-color:     var(--pref-color-5);
+        // VC Main BG Color Alt
+        --main-bg-color-alt: var(--pref-color-7);
+
+        // VTCs (Variable Text Colors)
+        --text-color: var(--pref-color-RV);
+        --link-color: var(--brand-color);
+    }
+}
+
+
+@media (prefers-color-scheme: light) {
+    :root {
+        // VCs (Light Steps)
+        @for $size from 0 to 101 {
+            --pref-color-#{$size}: var(--pref-color-light-#{$size});
+        }
+
+        // VC Child Pref Color Intensity Grow Step (AUto)
+        --pref-color-AU:             #{transparentize(darken($full-light, 99), 0.99)};
+        // VS Full Pref Reverse
+        --pref-color-RV:             #{$full-dark};
+        // VS Full Pref Shadow
+        --pref-color-shadow:         var(--pref-color-20);
+        // VS Full Pref Neumorphic Shadow
+        --pref-color-nm-shadow:      var(--pref-color-dark-t-88);
+        // VS Full Pref Neumorphic Shadow Weak
+        --pref-color-nm-shadow-weak:      var(--pref-color-dark-t-80);
+        // VS Full Pref Neumorphic Light Shadow
+        --pref-color-nm-glow:        var(--pref-color-light-t-20);
+        // VS Full Pref Neumorphic Light Shadow
+        --pref-color-nm-glow-weak:   var(--pref-color-light-t-60);
+        // VS Full Pref Neumorphic Rim color
+        --pref-color-nm-rim:         var(--pref-color-2);
+
+        // VS Full Pref Neumorphic outward shadow
+        --nm-outset:
+            #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow),
+            #{px-rem(0)} #{px-rem(0)} #{px-rem(12)} #{px-rem(6)} var(--pref-color-nm-glow);
+        --ds-nm-outset:
+            drop-shadow(#{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow))
+            drop-shadow(#{px-rem(-6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-glow));
+
+        // VS Full Pref Neumorphic outward shadow (Small)
+        --nm-outset-small:
+            #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow),
+            #{px-rem(0)} #{px-rem(0)} #{px-rem(6)} #{px-rem(3)} var(--pref-color-nm-glow);
+        --ds-nm-outset-small:
+            drop-shadow(#{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+            drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(6)} var(--pref-color-nm-glow));
+
+        // VS Full Pref Neumorphic outward shadow (Small)
+        --nm-outset-xsmall:
+            #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
+            #{px-rem(0)} #{px-rem(0)} #{px-rem(3)} #{px-rem(1.5)} var(--pref-color-nm-glow);
+        --ds-nm-outset-xsmall:
+            drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow))
+            drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(3)} var(--pref-color-nm-glow));
+
+        // VS Full Pref Neumorphic inward shadow
+        --nm-inset:
+            inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
+            inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
+        --ds-nm-inset:
+            drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
+            drop-shadow(inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
+
+        // VS Full Pref Neumorphic inward Out shadow
+        --nm-inset-out:
+            inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
+            inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
+            #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
+        --ds-nm-inset-out:
+            drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+            drop-shadow(inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
+            drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
+
+        // VS Full Pref Neumorphic inward (Small)
+        --nm-inset-small:
+            inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
+            inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
+        --ds-nm-inset-small:
+            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
+            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
+
+        // VS Full Pref Neumorphic inward Out (Small)
+        --nm-inset-out-small:
+            inset #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
+            inset #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(3)} var(--pref-color-nm-glow-weak),
+            #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(1.5)} var(--pref-color-nm-shadow-weak);
+        --ds-nm-inset-out-small:
+            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
+            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+            drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
+
+        // VC Main BG Color
+        --main-bg-color:     var(--pref-color-6);
+        // VC Main BG Color Alt
+        --main-bg-color-alt: var(--pref-color-10);
+
+        // VTCs (Variable Text Colors)
+        --text-color: var(--pref-color-RV);
+        --link-color: var(--brand-color-secondary-alt);
+    }
+}
+
+
+
+// Desktop Specific Root Vars
+:root {
+    // TFs (Theme Fonts)
+    --font-size:   #{px-vw(map-get(map-get($design-sizes-map, mobile), fs), m)};
+    --line-height: #{px-em(map-get(map-get($design-sizes-map, mobile), lh), map-get(map-get($design-sizes-map, mobile), fs))};
+
+    --font-family:       'Montserrat', sans-serif;
+    --font-family-2:     'Libre Baskerville', serif;
+    --font-family-3:     'Baskervville', serif;
+    --font-family-icons: 'icons';
+        
+    --headings-font-family: var(--font-family-2);
+    --headings-font-weight: 400;
+    --headings-line-height: 1.3;
+
+    // RVCs (Reserved Variable colours)
+
+    --color-1:  hsl(0, 0%, 100%);                   // white
+    --color-2:  hsl(0, 0%, 0%);                     // black
+    --color-3:  hsl(218, 58%, 28%);                 // #1e3c71
+    --color-4:  hsl(206, 62%, 64%);                 // #6aabdc
+    --color-5:  #{darken(hsl(218, 58%, 28%), 10)};  // #1e3c71
+    --color-6:  #{darken(hsl(206, 62%, 64%), 10)};  // #6aabdc
+    --color-7:  hsl(0, 0%, 0%);                     // #na
+    --color-8:  hsl(0, 0%, 0%);                     // #na
+    --color-9:  hsl(0, 0%, 0%);                     // #na
+    --color-10: hsl(0, 0%, 0%);                     // #na
+    --color-11: hsl(0, 0%, 0%);                     // #na
+    --color-12: hsl(0, 0%, 0%);                     // #na
+    --color-13: hsl(0, 0%, 0%);                     // #na
+    --color-14: hsl(0, 0%, 0%);                     // #na
+
+    // VBCs (Variable Brand Colors)
+    --brand-color:               var(--color-3);
+    --brand-color-alt:           var(--color-5);
+    --brand-color-secondary:     var(--color-4);
+    --brand-color-secondary-alt: var(--color-6);
+
+    --button-color:      var(--brand-color);
+    --button-text-color: var(--pref-color-light-0);
+    --headings-color:    var(--brand-color);
+
+    // VSS (Viewport & Screen Sizes)
+    --s-mobile:  #{$s-mobile};
+    --m-mobile:  #{$m-mobile};
+    --l-mobile:  #{$l-mobile};
+    --s-tablet:  #{$s-tablet};
+    --m-tablet:  #{$m-tablet};
+    --l-tablet:  #{$l-tablet};
+    --s-laptop:  #{$s-laptop};
+    --m-laptop:  #{$m-laptop};
+    --l-laptop:  #{$l-laptop};
+    --s-desktop: #{$s-desktop};
+    --m-desktop: #{$m-desktop};
+    --l-desktop: #{$l-desktop};
+
+    //// Cvw (Center ViewportWidth)
+    @each $label_i, $map_i in $center-vw-map {
+        --centre-vw-#{$label_i}: #{px-vw(map-get($map_i, mobile), m)};
+    }
+        
+    // DCSs (Design Column Settings)
+    --flex-gutter: #{px-rem(20)};
+    
+    //Header Options
+    --header-height:       #{px-rem(96, m)};
+    --header-small-height: #{px-rem(60, m)};
+
+    // Hamburger
+    --hamburger-height:      #{px-rem(24, m)};
+    --hamburger-width:       #{px-rem(28.19, m)};
+    --hamburger-line-height: #{px-rem(4, m)};
+    --hamburger-translateY:  (var(--hamburger-height) - var(--hamburger-line-height)) / 2;
+
+    --mobile-break: #{$mobile};
+    --tablet-break: #{$tablet};
+}
+
+
+
+// Mobile (ROOT) Variables
+@include at-least($mobile) {
+    :root {
+        // TFSs (Theme Fonts Sizes)
+        --font-size:   #{px-vw(map-get(map-get($design-sizes-map, desktop), fs), d)};
+        --line-height: #{px-em(map-get(map-get($design-sizes-map, desktop), lh), map-get(map-get($design-sizes-map, desktop), fs))};
+
+        //// Cvw (Center ViewportWidth)
+        @each $label_i, $map_i in $center-vw-map {
+            --centre-vw-#{$label_i}: #{px-vw(map-get($map_i, desktop), d)};
+        }
+
+        // Header
+        --header-height: #{px-rem(72, d)};
+        --header-small-height: #{px-rem(100)};
+
+        // Hamburger
+        --hamburger-height:      #{px-rem(30, d)};
+        --hamburger-width:       #{px-rem(38, d)};
+        --hamburger-line-height: #{px-rem(4, d)};
+        --hamburger-translateY:  (var(--hamburger-height) - var(--hamburger-line-height)) / 2;
+    }
+}
+
+// Tablet Specific Root Vars
+// @media only screen and (min-width: $l-mobile) {
+//     :root {
+//         // Cvw (Center ViewportWidth)
+//         --centre-view-width:       #{px-vw(331, t)}
+//         --centre-view-width-small: #{px-vw(600, t)}    
+//     }
+// }

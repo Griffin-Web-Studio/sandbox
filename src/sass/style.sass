@@ -1,0 +1,299 @@
+/**
+ * ========== ABSTRACTS
+ *
+ * all Sass tools and helpers used across the project.
+ * Every global variable, function, mixin and placeholder should be put in here.
+ */
+@use 'abstracts' as *
+/**
+ * ============================================================
+ */
+
+
+
+/**
+ * ========== VENDORS
+ *
+ * The CSS files from external libraries and frameworks
+ */
+@use 'vendors'
+/**
+ * ============================================================
+ */
+
+
+
+ /**
+  * ========== FRAMEWORK
+  *
+  * all Sass tools and helpers used across the project.
+  * Every global variable, function, mixin and placeholder should be put in here.
+  */
+@use 'frameworks'
+/**
+  * ============================================================
+  */
+
+
+
+ /**
+  * ========== BASE
+  *
+  * The boilerplate code for the project. In there, you might find some typographic
+  * rules, and probably a stylesheet defining some standard styles for commonly
+  * used HTML elements.
+  *
+  */
+@use 'base'
+/**
+  * ============================================================
+  */
+
+
+
+/**
+ * ========== COMPONENTS
+ *
+ * For smaller components, there is the components folder.
+ * While layout/ is macro (defining the global wireframe), components/ is more
+ * focused on widgets. It contains all kind of specific modules like a slider,
+ * a loader, a widget, and basically anything along those lines. There are usually
+ * a lot of files in components/ since the whole site/application should be mostly
+ * composed of tiny modules.
+ */
+@use 'components'
+/**
+ * ============================================================
+ */
+
+
+
+/**
+ * ========== LAYOUT
+ *
+ * Everything that takes part in laying out the site or application.
+ * This folder could have stylesheet for the main parts of the site (header,
+ * footer, navigation, sidebar…), the flexbox or even CSS styles
+ * for all the forms.
+ */
+@use 'layout'
+/**
+ * ============================================================
+ */
+
+
+
+/**
+ * ========== WooCommerce
+ *
+ * For smaller components, there is the components folder.
+ * While layout/ is macro (defining the global wireframe), components/ is more
+ * focused on widgets. It contains all kind of specific modules like a slider,
+ * a loader, a widget, and basically anything along those lines. There are usually
+ * a lot of files in components/ since the whole site/application should be mostly
+ * composed of tiny modules.
+ */
+//@use 'woocommerce'
+/**
+ * ============================================================
+ */
+
+
+
+/**
+ * ========== Animations
+ *
+ * Any CSS animations such as those that use @keyframes should be stored in here.
+ * Feel free to create file for each complex animation but if's something that
+ * take about 10 ~ 20 lines (roughly, not a hard line) try and store it in animations
+ * file. Once created a new file don't forget to add it to the _+animations.scss order.
+ */
+@use 'animations'
+/**
+ * ============================================================
+ */
+
+
+
+/**
+ * ========== Hard Overrides
+ *
+ * To override any of the styles above use the space below
+ */
+html
+    scroll-behavior: smooth
+
+html,
+body
+    width: 100%
+    height: 100%
+
+*,
+*:before,
+*:after
+    box-sizing: border-box
+
+img
+    display: block
+    max-width: 100%
+    height: auto
+
+.emoji
+    font-weight: 100
+
+.gwssc-install-pwa-prompt
+    position: fixed
+    top: 0
+    right: 0
+    z-index: 9999999999
+
+    width: 100%
+    height: 100%
+
+    background-color: var(--pref-color-dark-t-50)
+
+    &__container-outer
+        position: absolute
+        top: 50%
+        left: 50%
+        z-index: 999999
+        transform: translate(-50%, -50%)
+
+    &__container-inner
+        padding-top: px-rem(55)
+        padding-bottom: px-rem(10)
+        padding-inline: px-rem(20)
+        border-radius: px-rem(10)
+
+        color: var(--pref-color-100)
+        background-color: var(--main-bg-color)
+
+    &__logo-container
+        display: block
+        width: px-rem(110)
+        padding: px-rem(10)
+        border-radius: 100%
+        margin-inline: auto
+        margin-bottom: px-rem(-55)
+
+        background-color: var(--main-bg-color)
+
+    &__logo
+        display: block
+        border-radius: 100%
+        overflow: hidden
+
+.gwssc
+
+    &__container
+        position: fixed
+        top: 0
+        right: 0
+        bottom: 0
+        z-index: 9999999999
+
+        width: 100%
+        max-width: px-rem(780)
+        border-left: solid px-em(2, 20) black
+
+        background-color: var(--main-bg-color-alt)
+        font-family: "Courier New", Courier, monospace
+        box-shadow: 0 0 1.25em rgba(0, 0, 0, 0.2)
+        transition: all 0.6s ease-in-out
+
+        &.hide
+            transform: translateX(100%)
+
+    &__toggle
+        font-size: px-rem(16)
+        position: absolute
+        top: 10%
+        right: 100% /*20px*/
+        padding: px-em(15, 16) px-em(5, 16)
+        background-color: black
+        color: white
+        border-radius: 0.5em 0 0 0.5em
+        box-shadow: 0 10px 1.25em rgba(0, 0, 0, 0.2)
+        text-decoration: none
+        cursor: pointer
+
+    &__toggle-ico
+        display: inline-block
+        transition: all 0.3s ease-in-out
+        
+        &--hide
+            transform: rotate(180deg) translateX(-.1em)
+
+    &__toggle-label
+        writing-mode: tb !important
+
+    &__container-inner
+        padding: px-rem(20) px-rem(40)
+        max-height: 100vh
+        overflow: scroll
+
+    &__logo-container
+        grid-column-start: 7
+        grid-column-end: 18
+        font-weight: 700
+        text-align: right
+        font-size: 0.8rem
+        margin-left: px-rem(45)
+
+    &__logo
+        width: 100%
+
+    &__testing-container
+        overflow: hidden
+        position: relative
+
+    &__website-iframe-container
+        z-index: 1
+
+    &__image-container
+        z-index: 2
+        pointer-events: none
+
+    &__website-iframe-container,
+    &__image-container
+        position: absolute
+        top: 0
+        right: 0
+        left: 0
+        width: 100%
+        display: flex
+        align-items: flex-end
+
+        &--invert
+            filter: invert(1)
+
+    &__website-iframe,
+    &__image
+        position: absolute
+        top: 0
+        left: 50%
+        width: 100%
+        max-width: none
+        margin: 0 auto
+        transform-origin: top
+
+    &__copyright
+        display: block
+        text-align: center
+
+body,
+html
+    margin: 0
+    padding: 0
+    min-height: 100vh
+
+html
+    display: flex
+    align-items: center
+    justify-content: center
+
+body
+    position: relative
+
+iframe
+    border: none

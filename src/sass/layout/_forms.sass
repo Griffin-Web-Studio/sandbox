@@ -1,0 +1,184 @@
+@use '../abstracts' as *
+
+@mixin label
+    display: block
+    max-width: 100%
+    color: var(--text-color)
+    font-weight: 600
+
+@mixin input
+    font-size: px-rem(14)
+
+    @include placeholder
+        // user input text inherits properties from placeholder!
+        font-size: px-rem(14)
+        line-height: px-em(50, 14)
+        font-weight: 400
+        color: var(--text-color)
+        opacity: 0.5
+
+    width: 100%
+    max-width: 100%
+    padding-inline: px-em(20, 14)
+    margin: 0
+    border: none
+
+    background-color: var(--main-bg-color-alt)
+    box-shadow: var(--nm-inset-small)
+
+    color: var(--text-color)
+    opacity: 1
+
+    &.full-height
+        height: 100%
+
+    @include elementRadius(10)
+
+label.gwssc-label
+    @include label
+
+.gwssc-input-wrap
+    padding: px-rem(10)
+    // border: solid px-rem(2) var(--pref-color-20)
+    overflow: hidden
+    background-color: var(--main-bg-color)
+
+    @include elementRadius(20)
+
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+.gwssc-input
+    &.gwssc-input
+        @include input
+        transition: box-shadow 0.3s ease-in-out
+
+        &:focus
+            border-color: #999999
+            outline: none
+
+            @if $nm-design == true
+                box-shadow: var(--nm-outset-small)
+
+input[type="number"]
+    &.gwssc-input
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button
+            -webkit-appearance: none
+            -moz-appearance: textfield
+            margin: 0
+
+.gwssc-input-like,
+fieldset.gwssc-group
+    margin-inline-start: px-em(0, 20)
+    margin-inline-end: px-em(0, 20)
+    min-inline-size: min-content
+    padding: 0
+    border: none
+    
+    filter: var(--ds-nm-outset)
+    box-shadow: none
+
+    input
+        &[type=range]
+            width: 100%
+            padding: 0
+            margin: 0
+
+
+    legend.gwssc-legend
+        padding-top: px-rem(2)
+        padding-inline: px-rem(10)
+        font-weight: 700
+        // border: solid px-em(2, 20) var(--pref-color-20)
+        // border-bottom: none
+        border-radius: px-em(20, 20) px-em(20, 20) 0 0
+        line-height: px-em(30, 20)
+
+        background-color: var(--pref-color-20)
+        box-shadow: var(--nm-inset-out-small)
+
+
+.gwssc-input-like
+    input
+        &[type=number]
+            -moz-appearance: textfield
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button
+                -webkit-appearance: none
+                margin: 0
+
+.gwssc-input-like
+    background-color: var(--main-bg-color-alt)
+    border: solid px-rem(2) var(--pref-color-20)
+    overflow: hidden
+
+    &.no-padding
+        padding: 0
+
+    &.no-border
+        border: none
+
+    .gwssc-legend
+        border: none
+        border-radius: 0
+        margin: 0
+
+    .gwssc-input
+        border: none
+        border-width: px-rem(1)
+        border-radius: 0
+
+    select
+        width: 100%
+        border: none
+
+textarea
+    line-height: 1.5
+    min-height: 118px
+    padding: 10px 12px
+
+select
+    padding: px-rem(8) px-rem(15)
+    -webkit-appearance: none
+    background-color: transparent
+    border-radius: 0
+    color: var(--text-color)
+    font-family: var(--font-family)
+    line-height: var(--line-height)
+    outline: none
+
+.gwssc-form
+    input[type=range].spec-opacity
+        width: 100%
+        display: block
+        padding-block: px-rem(20)
+
+    .gwssc-code-child
+        background-color: black
+        color: white
+        border-radius: px-em(10, 10)
+        font-size: px-rem(12)
+        max-width: 100%
+        min-width: 100%
+        overflow: hidden
+
+    .gwssc-client-com-note
+        font-weight: 700
+        letter-spacing: px-em(2, 16)
+        font-size: px-rem(16)
+        line-height: px-em(18, 16)
+        margin-block: px-em(10, 16)

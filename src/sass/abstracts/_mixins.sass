@@ -1,0 +1,187 @@
+@use 'sass:math'
+@use 'constants' as *
+@use 'functions' as *
+
+@mixin at-least($media-width)
+    @if $media-width < 1
+        $media-width: -1px
+        
+    @media screen and (min-width: ($media-width + 1))
+        @content
+
+
+
+@mixin until($media-width)
+    @media screen and (max-width: ($media-width))
+        @content
+
+
+
+@mixin between($media-width-start, $media-width-end)
+    @if $media-width-start < 1
+        $media-width-start: -1px
+
+    @media screen and (min-width: ($media-width-start + 1)) and (max-width: $media-width-end)
+        @content
+
+
+
+@mixin font-icon
+    line-height: 1
+    font-style: normal !important
+    font-weight: normal !important
+    font-variant: normal !important
+    text-transform: none !important
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    font-family: var(--font-family-icons)
+
+
+
+@mixin placeholder
+    @content
+
+    &::-webkit-input-placeholder
+        @content
+    &::-moz-placeholder
+        @content
+    &::-moz-placeholder
+        @content
+    &::-ms-input-placeholder
+        @content
+
+
+
+@mixin props-val($props, $val)
+    @each $prop in $props
+        #{$prop}: #{$val}
+
+    
+    
+@mixin gradient($direction, $top_color, $bottom_color)
+    background-image: linear-gradient($direction, $top_color 0%, $bottom_color 100%)
+    background-repeat: repeat-x
+
+
+
+@mixin bg-cover
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+
+
+
+@mixin bg-contain
+    background-size: contain
+    background-position: center
+    background-repeat: no-repeat
+
+
+
+@mixin center-vw-override($media, $media-map, $key: "")
+    .#{$key}full-width-override
+        $design-vw: map-get(map-get($design-sizes-map, $media), vw)
+        margin-inline: calc( ( ( ( 100vw - #{px-rem(16)} ) - #{pct-calc($media-map, $design-vw) + 'vw'} ) / 2) * -1 )
+        
+        @media (pointer:coarse)
+            margin-inline: calc( ( ( 100vw - #{pct-calc($media-map, $design-vw) + 'vw'} ) / 2) * -1 )
+
+
+    
+@mixin center-vw($sizes-lable, $sizes-map)
+    @each $media, $media-map in $sizes-map
+        @each $flex in $screen-sizes
+            $key: nth($flex, 1)   // Screen Size
+            $value: nth($flex, 2) // Screen Size value
+
+            // No Offset in Grid
+
+            @if $key != "" // If not Mobile
+                @if $media == tablet
+                    @include between($mobile, $tablet)
+                        @include center-vw-override($media, $media-map, $key)
+
+                @else if $media == desktop
+                    @include at-least($tablet)
+                        @include center-vw-override($media, $media-map, $key)
+
+            @else // If Mobile
+                @if $media == mobile
+                    max-width: var(--centre-vw-#{$sizes-lable})
+
+                    @include until($mobile)
+                        @include center-vw-override($media, $media-map, $key)
+
+
+@mixin elementRadius($size, $type: 'rem', $em: map-get(map-get($design-sizes-map, desktop), fs))
+    @if type-of($type) != string
+        @warn '#{ $type } is not a string.'
+
+    @if type-of($em) != number
+        @warn '#{ $em } is not a number.'
+
+    @if $type == rem
+        &--radius
+            border-radius: px-rem($size)
+
+        &--radius-bottom
+            border-bottom-right-radius: px-rem($size)
+            border-bottom-left-radius: px-rem($size)
+
+        &--radius-top
+            border-top-left-radius: px-rem($size)
+            border-top-right-radius: px-rem($size)
+
+        &--radius-left
+            border-top-left-radius: px-rem($size)
+            border-bottom-left-radius: px-rem($size)
+
+        &--radius-right
+            border-top-right-radius: px-rem($size)
+            border-bottom-right-radius: px-rem($size)
+
+        &--radius-top-left
+            border-top-left-radius: px-rem($size)
+
+        &--radius-top-right
+            border-top-right-radius: px-rem($size)
+
+        &--radius-bottom-right
+            border-bottom-right-radius: px-rem($size)
+
+        &--radius-bottom-left
+            border-bottom-left-radius: px-rem($size)
+
+    @else if $type == em
+        &--radius
+            border-radius: px-em($size, $em)
+            
+        &--radius-bottom
+            border-bottom-right-radius: px-em($size, $em)
+            border-bottom-left-radius: px-em($size, $em)
+
+        &--radius-top
+            border-top-left-radius: px-em($size, $em)
+            border-top-right-radius: px-em($size, $em)
+
+        &--radius-left
+            border-top-left-radius: px-em($size, $em)
+            border-bottom-left-radius: px-em($size, $em)
+
+        &--radius-right
+            border-top-right-radius: px-em($size, $em)
+            border-bottom-right-radius: px-em($size, $em)
+
+        &--radius-top-left
+            border-top-left-radius: px-em($size, $em)
+
+        &--radius-top-right
+            border-top-right-radius: px-em($size, $em)
+
+        &--radius-bottom-right
+            border-bottom-right-radius: px-em($size, $em)
+
+        &--radius-bottom-left
+            border-bottom-left-radius: px-em($size, $em)
+         
+    

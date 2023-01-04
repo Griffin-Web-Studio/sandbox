@@ -1,0 +1,158 @@
+@use '../abstracts' as *
+
+//// Styles
+// .fancyDropdown,
+// .dropdown
+//     // Variables
+//     $input_height: px-em(55, 14)
+//     $border_radius: 0
+//     $gray_light: #fff
+//     $gray_lighter: #fff
+
+//     @include gradient(to bottom, rgba(255, 255, 255, .25), rgba(255, 255, 255, 0))
+//     position: relative
+//     display: block
+//     min-width: px-rem(200)
+//     width: auto
+//     padding-left: px-em(18, 14)
+//     padding-right: px-em(30, 14)
+//     // border: solid px-em(1, 14) $gray_light
+//     border-radius: $border_radius
+//     outline: none
+    
+//     font-size: px-rem(14)
+//     font-weight: normal
+//     line-height: $input_height
+//     text-align: left !important
+//     white-space: nowrap
+
+//     transition: all 0.2s ease-in-out
+//     user-select: none
+//     cursor: pointer
+        
+//     background-color: $gray_lighter
+//     box-shadow: 0 px-em(1, 14) 0 rgba(0, 0, 0, 0.0075)
+    
+//     &:focus
+//         outline: solid var(--brand-color) px-em(2, 16)
+//         outline-offset: px-em(4, 16)
+
+//     &:hover
+//         // background-color: darken($gray_lighter, 1%)
+
+//     &:active
+//         // background-color: darken($gray_lighter, 2.5%) !important
+
+//     // Arrow
+//     &:before,
+//     &:after
+//         content: ''
+//         position: absolute
+//         pointer-events: none
+//         transition: all 0.125s ease-in-out
+
+//     &:before
+//         top: 0
+//         right: 0
+//         width: px-em(55, 14)
+//         height: px-em(55, 14)
+//         background-color: var(--color-9)
+
+//     &:after
+//         top: 50%
+//         right: px-rem(div(55, 2))
+//         width: px-em(15, 14)
+//         height: px-em(15, 14)
+//         border-right: solid px-em(1, 14) var(--color-11)
+//         border-bottom: solid px-em(1, 14) var(--color-11)
+//         transform: translate(50%, -50%) rotate(45deg)
+
+//     &.open
+//         @extend :active
+
+//         &:after
+//             transform: translate(50%, -20%) rotate(-45deg) scale(1, -1)
+
+//         .list
+//             transform: scale(1)
+//             opacity: 1
+//             pointer-events: auto
+
+//         .option
+//             cursor: pointer
+
+//     &.wide
+//         width: 100%
+
+//         .list
+//             left: 0 !important
+//             right: 0 !important
+
+//     .list
+//         position: fixed
+//         top: 50%
+//         left: 50%
+//         z-index: 9999
+//         margin-top: px-em(4, 14)
+//         // padding: px-em(5, 14)
+//         border-radius: $border_radius
+
+//         opacity: 0
+//         overflow: hidden
+//         transition: all .15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity .1s linear, top 0s linear, left 0s linear
+//         transform: scale(.75)
+//         transform-origin: 50% 0
+
+//         pointer-events: none
+
+//         background-color: #fff
+
+//         &:hover .option:not(:hover)
+//             background-color: transparent !important
+
+//         ul
+//             list-style: none
+//             margin: 0
+//             padding: 0
+//             // padding: px-em(10, 14)
+//             // padding-right: px-rem(5)
+//             max-height: 50vh
+//             overflow-y: auto
+
+//             background-color: #fff
+            
+//             &::-webkit-scrollbar-track
+//                 background-color: transparent
+
+//     .option
+//         padding-left: 18px
+//         padding-right: 29px
+//         border-bottom: solid px-em(1, 14) var(--pref-color-20)
+//         border-radius: 0
+//         margin-bottom: 0
+//         outline: none
+
+//         font-weight: 400
+//         line-height: px-em(40, 14)
+//         text-align: left
+
+//         cursor: default
+//         transition: all 0.2s ease-in-out
+
+//         background-color: #fff
+
+//         &:hover,
+//         &:focus
+//             background-color: $gray_lighter !important
+
+//         &:last-of-type
+//             margin-bottom: 0
+//             border-bottom: none
+
+//         &.selected
+//             font-weight: 600
+
+//             background: $gray_lighter
+
+//         &.selected:focus
+//             background: $gray_lighter

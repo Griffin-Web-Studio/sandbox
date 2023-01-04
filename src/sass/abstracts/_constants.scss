@@ -1,0 +1,125 @@
+@use 'sass:math';
+
+$build-select: dev;
+$debug: false;
+$nm-design: false;
+
+@if ($build-select == dev) {
+    $debug: true;
+    //@debug "Debug: #{$debug}"
+} @else if ($build-select == build) {
+    $debug: false;
+    //@debug "Debug: #{$debug}"
+}
+
+//// CONSTANT VIEWPORT SIZES (Should not be changed)
+// Mobile
+$s-mobile:  320px;
+$m-mobile:  375px;
+$l-mobile:  425px;
+// Tablet
+$s-tablet:  540px;
+$m-tablet:  655px;
+$l-tablet:  768px;
+// Laptop
+$s-laptop:  854px;
+$m-laptop:  940px;
+$l-laptop:  1024px;
+// Desktop
+$s-desktop: 1440px;
+$m-desktop: 1920px;
+$l-desktop: 2560px;
+
+//// SUPPORTED SCREEN SIZES
+$screen-sizes: (
+    // Mobile
+        "": 0px, // MIN MOBILE (Must Stay Enabled)
+        //"sm-": $s-mobile,
+        //"mm-": $m-mobile,
+        //"lm-": $l-mobile,
+    // Tablet
+        //"st-": $s-tablet,
+        //"mt-": $m-tablet,
+        "lt-": $l-tablet,
+    // Laptop
+        //"sl-": $s-laptop,
+        //"ml-": $m-laptop,
+        //"ll-": $l-laptop,
+    // Desktop
+        //"sd-": $s-desktop,
+        //"md-": $m-desktop,
+        //"ld-": $l-desktop
+);
+
+//// CONSTANT DESIGN SIZES
+$design-sizes-map: (
+    mobile: (
+        vw: 428,
+        fs: 18,
+        lh: 25
+    ),
+    tablet: (
+        vw: 428,
+        fs: 20,
+        lh: 25
+    ),
+    desktop: (
+        vw: 1920,
+        fs: 20,
+        lh: 32
+    )
+);
+
+//// CONSTANT DESIGN CENTER VIEWPORT
+// Desktop
+$center-vw-map: (
+    default: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 1160
+    ),
+    medium: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 996
+    ),
+    x-medium: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 964
+    ),
+    small: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 940
+    ),
+    x-small: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 898
+    ),
+    xx-small: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 866
+    ),
+    xxx-small: (
+        mobile: 388,
+        tablet: 388,
+        desktop: 800
+    ),
+);
+
+// Get Tablet 
+$tablet: $l-laptop;
+
+// Get mobile 
+$mobile: $l-tablet;
+
+// CONSTANT DESIGN COLUMN SETTINGS
+$flex-columns: 24;
+$flex-gutter: math.div(20, map-get(map-get($design-sizes-map, desktop), fs));
+
+// CONSTANT COLOURS
+$full-dark: rgb(0, 0, 0);
+$full-light: rgb(255, 255, 255);
