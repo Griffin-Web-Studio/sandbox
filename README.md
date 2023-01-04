@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to GWS SVG Previewer Tool 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-0.0.2-blue.svg?cacheSeconds=2592000" />
   <a href="https://gitlab.griffin-studio.dev/external-projects/gws-svg-previewer/-/wikis/home" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -57,8 +57,8 @@ Give a ⭐️ if this project helped you!
 
 ## 📝 License
 
-Copyright © 2022 [Griffin Web Studio Limited](https://griffin-web.studio).<br />
-Copyright © 2022 [Rihards Simanovics](https://gitlab.griffin-studio.dev/rihards-s).<br />
+Copyright © 2023 [Griffin Web Studio Limited](https://griffin-web.studio).<br />
+Copyright © 2023 [Rihards Simanovics](https://gitlab.griffin-studio.dev/rihards-s).<br />
 This project is [Modified GNU General Public License (GPL) version 3](https://gitlab.griffin-studio.dev/external-projects/gws-svg-previewer/-/blob/main/LICENSE) licensed.
 
 ---
