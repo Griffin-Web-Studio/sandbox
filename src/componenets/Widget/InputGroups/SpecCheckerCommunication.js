@@ -3,10 +3,10 @@ import CodemirrorInput from "../../UI/CodemirrorInput";
 
 export default function SpecCheckerCommunication(props) {
     return (
-        <fieldset className="gwssc-group">
-            <div className="gwssc-grid gap-col-4">
-                <div className="gwssc-grid-24">
-                    <legend className="gwssc-legend" style={{ textAlign: "center" }}>
+        <fieldset className="group">
+            <div className="grid gap-col-4">
+                <div className="grid-24">
+                    <legend className="legend" style={{ textAlign: "center" }}>
                         <label>
                             <span>Client &lt; </span>
                             <span className="communication-line-1">=</span>
@@ -19,11 +19,11 @@ export default function SpecCheckerCommunication(props) {
                     </legend>
                 </div>
 
-                <div className="gwssc-grid-24">
-                    <div className="gwssc-input-wrap gwssc-input-wrap--radius-bottom">
-                        <p className="gwssc-client-com-note">For this SpecChecker (host) to automatically correct frame (client) height, you need to add this script anywhere before the end of the body. Do it on each page you want to spec check.</p>
+                <div className="grid-24">
+                    <div className="input-wrap input-wrap--radius-bottom">
+                        <p className="client-com-note">For this SpecChecker (host) to automatically correct frame (client) height, you need to add this script anywhere before the end of the body. Do it on each page you want to spec check.</p>
 
-                        <div className="gwssc-input-wrap gwssc-input-wrap--radius-top gwssc-input-wrap--radius-bottom">
+                        <div className="input-wrap input-wrap--radius-top input-wrap--radius-bottom">
                             <CodemirrorInput
                                 value={
                                     `<script>\n` +

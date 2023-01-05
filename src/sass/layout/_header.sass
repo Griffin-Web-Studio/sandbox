@@ -1,1 +1,32 @@
 @use '../abstracts' as *
+
+.header
+    border-bottom: solid px-rem(2) var(--pref-color-0)
+
+    &__gws-logo
+        height: px-rem(70)
+        padding: px-rem(5)
+
+        svg
+            height: 100%
+            width: auto
+
+    &__reset .button
+        font-size: px-rem(40)
+        line-height: px-em(70, 40)
+
+    &__preferred-color .button
+        width: px-rem(70)
+
+    &__preferred-color-svg
+        height: px-rem(50)
+        width: px-rem(50)
+        margin-inline: auto
+
+        #rotator
+            transform-origin: 50% 60%
+            transition: all 1s ease-in-out
+
+        &--dark
+            #rotator
+                transform: rotate(170deg)

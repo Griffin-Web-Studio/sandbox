@@ -125,176 +125,19 @@ img
 .emoji
     font-weight: 100
 
-.App
-    text-align: center
+.gws-svg-prev
+    &__code-block,
+    &__code-preview
+        min-height: calc(100vh - px-rem(70))
 
-    &-logo
-        height: 40vmin
-        pointer-events: none
+        #client-com,
+        #client-com .cm-editor
+            max-height: calc(100vh - px-rem(70))
+            min-height: calc(100vh - px-rem(70))
 
-@media (prefers-reduced-motion: no-preference)
-    .App-logo
-        animation: App-logo-spin infinite 20s linear
-
-.App-header
-    background-color: #282c34
-    min-height: 100vh
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    font-size: calc(10px + 2vmin)
-    color: white
-
-.App-link
-    color: #61dafb
-
-@keyframes App-logo-spin
-    from
-        transform: rotate(0deg)
-
-    to
-        transform: rotate(360deg)
-
-.gwssc-install-pwa-prompt
-    position: fixed
-    top: 0
-    right: 0
-    z-index: 9999999999
-
-    width: 100%
-    height: 100%
-
-    background-color: var(--pref-color-dark-t-50)
-
-    &__container-outer
-        position: absolute
-        top: 50%
-        left: 50%
-        z-index: 999999
-        transform: translate(-50%, -50%)
-
-    &__container-inner
-        padding-top: px-rem(55)
-        padding-bottom: px-rem(10)
-        padding-inline: px-rem(20)
-        border-radius: px-rem(10)
-
-        color: var(--pref-color-100)
-        background-color: var(--main-bg-color)
-
-    &__logo-container
-        display: block
-        width: px-rem(110)
-        padding: px-rem(10)
-        border-radius: 100%
-        margin-inline: auto
-        margin-bottom: px-rem(-55)
-
-        background-color: var(--main-bg-color)
-
-    &__logo
-        display: block
-        border-radius: 100%
-        overflow: hidden
-
-.gwssc
-
-    &__container
-        position: fixed
-        top: 0
-        right: 0
-        bottom: 0
-        z-index: 9999999999
-
-        width: 100%
-        max-width: px-rem(780)
-        border-left: solid px-em(2, 20) black
-
-        background-color: var(--main-bg-color-alt)
-        font-family: "Courier New", Courier, monospace
-        box-shadow: 0 0 1.25em rgba(0, 0, 0, 0.2)
-        transition: all 0.6s ease-in-out
-
-        &.hide
-            transform: translateX(100%)
-
-    &__toggle
-        font-size: px-rem(16)
-        position: absolute
-        top: 10%
-        right: 100% /*20px*/
-        padding: px-em(15, 16) px-em(5, 16)
-        background-color: black
-        color: white
-        border-radius: 0.5em 0 0 0.5em
-        box-shadow: 0 10px 1.25em rgba(0, 0, 0, 0.2)
-        text-decoration: none
-        cursor: pointer
-
-    &__toggle-ico
-        display: inline-block
-        transition: all 0.3s ease-in-out
-
-        &--hide
-            transform: rotate(180deg) translateX(-.1em)
-
-    &__toggle-label
-        writing-mode: tb !important
-
-    &__container-inner
-        padding: px-rem(20) px-rem(40)
-        max-height: 100vh
-        overflow: scroll
-
-    &__logo-container
-        grid-column-start: 7
-        grid-column-end: 18
-        font-weight: 700
-        text-align: right
-        font-size: 0.8rem
-        margin-left: px-rem(45)
-
-    &__logo
-        width: 100%
-
-    &__testing-container
-        overflow: hidden
-        position: relative
-
-    &__website-iframe-container
-        z-index: 1
-
-    &__image-container
-        z-index: 2
-        pointer-events: none
-
-    &__website-iframe-container,
-    &__image-container
-        position: absolute
-        top: 0
-        right: 0
-        left: 0
-        width: 100%
-        display: flex
-        align-items: flex-end
-
-        &--invert
-            filter: invert(1)
-
-    &__website-iframe,
-    &__image
-        position: absolute
-        top: 0
-        left: 50%
-        width: 100%
-        max-width: none
-        margin: 0 auto
-        transform-origin: top
-
-    &__copyright
-        display: block
-        text-align: center
+        svg
+            height: auto
+            width: auto
 
 body,
 html

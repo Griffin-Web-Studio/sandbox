@@ -34,10 +34,10 @@
 
     @include elementRadius(10)
 
-label.gwssc-label
+label.label
     @include label
 
-.gwssc-input-wrap
+.input-wrap
     padding: px-rem(10)
     // border: solid px-rem(2) var(--pref-color-20)
     overflow: hidden
@@ -60,8 +60,8 @@ input[type="tel"],
 input[type="time"],
 input[type="url"],
 textarea,
-.gwssc-input
-    &.gwssc-input
+.input
+    &.input
         @include input
         transition: box-shadow 0.3s ease-in-out
 
@@ -73,15 +73,15 @@ textarea,
                 box-shadow: var(--nm-outset-small)
 
 input[type="number"]
-    &.gwssc-input
+    &.input
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button
             -webkit-appearance: none
             -moz-appearance: textfield
             margin: 0
 
-.gwssc-input-like,
-fieldset.gwssc-group
+.input-like,
+fieldset.group
     margin-inline-start: px-em(0, 20)
     margin-inline-end: px-em(0, 20)
     min-inline-size: min-content
@@ -98,7 +98,7 @@ fieldset.gwssc-group
             margin: 0
 
 
-    legend.gwssc-legend
+    legend.legend
         padding-top: px-rem(2)
         padding-inline: px-rem(10)
         font-weight: 700
@@ -111,7 +111,7 @@ fieldset.gwssc-group
         box-shadow: var(--nm-inset-out-small)
 
 
-.gwssc-input-like
+.input-like
     input
         &[type=number]
             -moz-appearance: textfield
@@ -121,7 +121,7 @@ fieldset.gwssc-group
                 -webkit-appearance: none
                 margin: 0
 
-.gwssc-input-like
+.input-like
     background-color: var(--main-bg-color-alt)
     border: solid px-rem(2) var(--pref-color-20)
     overflow: hidden
@@ -132,12 +132,12 @@ fieldset.gwssc-group
     &.no-border
         border: none
 
-    .gwssc-legend
+    .legend
         border: none
         border-radius: 0
         margin: 0
 
-    .gwssc-input
+    .input
         border: none
         border-width: px-rem(1)
         border-radius: 0
@@ -161,13 +161,13 @@ select
     line-height: var(--line-height)
     outline: none
 
-.gwssc-form
+.form
     input[type=range].spec-opacity
         width: 100%
         display: block
         padding-block: px-rem(20)
 
-    .gwssc-code-child
+    .code-child
         background-color: black
         color: white
         border-radius: px-em(10, 10)
@@ -176,7 +176,7 @@ select
         min-width: 100%
         overflow: hidden
 
-    .gwssc-client-com-note
+    .client-com-note
         font-weight: 700
         letter-spacing: px-em(2, 16)
         font-size: px-rem(16)

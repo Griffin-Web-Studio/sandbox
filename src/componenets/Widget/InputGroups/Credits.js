@@ -2,24 +2,24 @@ import CreditAuthor from "../../UI/CreditAuthor";
 
 export default function SpecCheckerCredits(props) {
     return (
-        <fieldset className="gwssc-group">
-            <div className="gwssc-grid gap-col-4">
-                <div className="gwssc-grid-24">
-                    <legend className="gwssc-legend" style={{ textAlign: "center" }}>
+        <fieldset className="group">
+            <div className="grid gap-col-4">
+                <div className="grid-24">
+                    <legend className="legend" style={{ textAlign: "center" }}>
                         <label>
                             <span>Credits</span>
                         </label>
                     </legend>
                 </div>
 
-                <div className="gwssc-grid-24">
-                    <div className="gwssc-input-wrap gwssc-input-wrap--radius-bottom">
+                <div className="grid-24">
+                    <div className="input-wrap input-wrap--radius-bottom">
                         <p>This software uses the following open source projects:</p>
 
-                        <div className="gwssc-input-wrap gwssc-input-wrap--radius-top gwssc-input-wrap--radius-bottom">
-                            <table className="gwssc-credits">
+                        <div className="input-wrap input-wrap--radius-top input-wrap--radius-bottom">
+                            <table className="credits">
 
-                                <thead className="gwssc-credits__header">
+                                <thead className="credits__header">
                                     <tr>
                                         <th>Project</th>
                                         <th>License</th>
@@ -27,7 +27,7 @@ export default function SpecCheckerCredits(props) {
                                     </tr>
                                 </thead>
 
-                                <tbody className="gwssc-credits__body">
+                                <tbody className="credits__body">
                                     <CreditAuthor projectName="ReactJS" projectAuthor="Facebook, Inc. and its affiliates" projectLicense="MIT" projectUrl="https://reactjs.org/" />
                                     <CreditAuthor projectName="CodeMirror" projectAuthor="Marijn Haverbeke and others" projectLicense="MIT" projectUrl="https://codemirror.net/" />
                                     <CreditAuthor projectName="React-Codemirror" projectAuthor="[UIW]" projectLicense="MIT" projectUrl="https://uiwjs.github.io/react-codemirror/" />

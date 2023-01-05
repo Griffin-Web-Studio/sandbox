@@ -55,12 +55,12 @@
 
 }
 
-[class^="gwssc-flex-"],
-[class*="gwssc-flex-"] {
+[class^="flex-"],
+[class*="flex-"] {
     padding: var(--flex-gutter);
 }
 
-.gwssc-flex {
+.flex {
     display: flex;
     flex-flow: row wrap;
     margin: 0;
@@ -88,7 +88,7 @@
     }
 }
 
-.gwssc-flexbox {
+.flexbox {
     position: relative;
     display: flex;
     flex-flow: row wrap;
@@ -99,7 +99,7 @@
 
 // Removed flexbox on mobile
 // Useful when need to make slideshow on mobile/desktop
-.gwssc-flexbox-desktop {
+.flexbox-desktop {
     @include at-least($mobile) {
         position: relative;
         display: flex;
@@ -110,7 +110,7 @@
     @include flexbox-position;
 }
 
-.gwssc-woocommerce-product-gallery {
+.woocommerce-product-gallery {
     [class^="flex-"],
     [class*=" flex-"] {
         padding: initial;
@@ -126,7 +126,7 @@
     // Bellow condition seems to be redundant
     @if($key != 0) { // Why, what, for what reason??? old fix? sound like something from lailii?
         @include until($value) {
-            [class*=gwssc-offset-] {
+            [class*=offset-] {
                 width: 100%;
                 margin: 0;
             }
@@ -134,29 +134,29 @@
 
         @include at-least($value) {
             @for $i from 1 through $flex-columns {
-                .gwssc-flex-#{$key}#{$i} {
+                .flex-#{$key}#{$i} {
                     width: calc(100% / (#{$flex-columns} / #{$i}));
                 }
             
-                .gwssc-offset-#{$key}#{$i} {
+                .offset-#{$key}#{$i} {
                     margin-left: calc(100% / (#{$flex-columns} / #{$i}));
                 }
             }
         }
     } @else {
         @include until($value) {
-            [class*=gwssc-offset-] {
+            [class*=offset-] {
                 width: 100%;
                 margin: 0;
             }
         }
 
         @for $i from 1 through $flex-columns {
-            .gwssc-flex-#{$key}#{$i} {
+            .flex-#{$key}#{$i} {
                 width: calc(100% / (#{$flex-columns} / #{$i}));
             }
         
-            .gwssc-offset-#{$key}#{$i} {
+            .offset-#{$key}#{$i} {
                 margin-left: calc(100% / (#{$flex-columns} / #{$i}));
             }
         }

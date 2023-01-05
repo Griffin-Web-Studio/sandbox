@@ -34,39 +34,39 @@ export default function FormWrapper(props) {
     };
 
     return (
-        <form method="get" className="gwssc-form">
-            <div className="gwssc-grid col-1 gap-row-20">
-                <div className="gwssc-grid-1">
+        <form method="get" className="form">
+            <div className="grid col-1 gap-row-20">
+                <div className="grid-1">
                     <WebsiteFrameLoader specOptions={options} onChange={onSpecOptionsChangeHandler} />
                 </div>
 
-                <div className="gwssc-grid-1">
+                <div className="grid-1">
                     <WebsiteSpecLoader specOptions={options} onChange={onSpecOptionsChangeHandler} />
                 </div>
 
                 {options.specIsLoaded && options.frameIsLoaded ? (
-                    <div className="gwssc-grid-1">
+                    <div className="grid-1">
                         <SpecOpacityChanger specOptions={options} onChange={onSpecOptionsChangeHandler} />
                     </div>
                 ) : null}
 
                 {options.specIsLoaded && options.frameIsLoaded ? (
-                    <div className="gwssc-grid-1">
+                    <div className="grid-1">
                         <SpecPositionAdjust specOptions={options} onChange={onSpecOptionsChangeHandler} />
                     </div>
                 ) : null}
 
                 {options.specIsLoaded && options.frameIsLoaded ? (
-                    <div className="gwssc-grid-1">
+                    <div className="grid-1">
                         <MediaOptions  specOptions={options} onChange={onSpecOptionsChangeHandler} />
                     </div>
                 ) : null}
 
-                <div className="gwssc-grid-1">
+                <div className="grid-1">
                     <SpecCheckerCommunication  specOptions={options} onChange={onSpecOptionsChangeHandler} />
                 </div>
 
-                <div className="gwssc-grid-1">
+                <div className="grid-1">
                     <SpecCheckerCredits />
                 </div>
             </div>

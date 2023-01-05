@@ -1,5 +1,29 @@
 @use '../abstracts' as *;
 
+@mixin dark-mode {
+    @media (prefers-color-scheme: dark) {
+        :root {
+            @content;
+        }
+    }
+
+    [pref-color="dark"] {
+        @content;
+    }
+}
+
+@mixin light-mode {
+    @media (prefers-color-scheme: light) {
+        :root {
+            @content;
+        }
+    }
+
+    [pref-color="light"] {
+        @content;
+    }
+}
+
 :root {
     // VCs (Light Steps)
     @for $size from 0 to 101 {
@@ -25,186 +49,182 @@
     --pref-color-bk: #{$full-dark};
 }
     
-@media (prefers-color-scheme: dark) {
-    :root {
-        // VCs (Dark Steps)
-        @for $size from 0 to 101 {
-            --pref-color-#{$size}: var(--pref-color-dark-#{$size});
-        }
-
-        // VC Child Pref Color Intensity Grow Step (AUto)
-        --pref-color-AU: #{transparentize(lighten($full-dark, 99), 0.99)};
-        // VS Full Pref Reverse
-        --pref-color-RV: #{$full-light};
-        // VS Full Pref Shadow
-        --pref-color-shadow: var(--pref-color-20);
-        // VS Full Pref Neumorphic Shadow
-        --pref-color-nm-shadow: var(--pref-color-dark-t-0);
-        // VS Full Pref Neumorphic Shadow weak
-        --pref-color-nm-shadow-weak: var(--pref-color-dark-t-50);
-        // VS Full Pref Neumorphic Light Shadow
-        --pref-color-nm-glow: var(--pref-color-light-t-90);
-        // VS Full Pref Neumorphic Light Shadow weak
-        --pref-color-nm-glow-weak:   var(--pref-color-light-t-90);
-        // VS Full Pref Neumorphic Rim color
-        --pref-color-nm-rim: var(--pref-color-2);
-        // VS Full Pref Neumorphic outward shadow
-        --nm-outset:
-            #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
-            #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
-        --ds-nm-outset:
-            drop-shadow(#{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
-            drop-shadow(#{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
-        
-        // VS Full Pref Neumorphic outward shadow (Small)
-        --nm-outset-small:
-            #{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow),
-            #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow);
-        --ds-nm-outset-small:
-            drop-shadow(#{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow))
-            drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow));
-        
-        // VS Full Pref Neumorphic inward shadow
-        --nm-inset:
-            inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
-            inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
-        --ds-nm-inset:
-            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
-            drop-shadow(inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
-        
-        // VS Full Pref Neumorphic inward Out shadow
-        --nm-inset-out:
-            inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak),
-            inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow),
-            #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak);
-        --ds-nm-inset-out:
-            drop-shadow(inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak))
-            drop-shadow(inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow))
-            drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak));
-        
-        // VS Full Pref Neumorphic inward (Small)
-        --nm-inset-small:
-            inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
-            inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
-        --ds-nm-inset-small:
-            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
-            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
-        
-        // VS Full Pref Neumorphic inward Out (Small)
-        --nm-inset-out-small:
-            inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
-            inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
-            #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
-        --ds-nm-inset-out-small:
-            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
-            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-            drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
-
-        // VC Main BG Color
-        --main-bg-color:     var(--pref-color-5);
-        // VC Main BG Color Alt
-        --main-bg-color-alt: var(--pref-color-7);
-
-        // VTCs (Variable Text Colors)
-        --text-color: var(--pref-color-RV);
-        --link-color: var(--brand-color);
+@include dark-mode {
+    // VCs (Dark Steps)
+    @for $size from 0 to 101 {
+        --pref-color-#{$size}: var(--pref-color-dark-#{$size});
     }
+
+    // VC Child Pref Color Intensity Grow Step (AUto)
+    --pref-color-AU: #{transparentize(lighten($full-dark, 99), 0.99)};
+    // VS Full Pref Reverse
+    --pref-color-RV: #{$full-light};
+    // VS Full Pref Shadow
+    --pref-color-shadow: var(--pref-color-20);
+    // VS Full Pref Neumorphic Shadow
+    --pref-color-nm-shadow: var(--pref-color-dark-t-0);
+    // VS Full Pref Neumorphic Shadow weak
+    --pref-color-nm-shadow-weak: var(--pref-color-dark-t-50);
+    // VS Full Pref Neumorphic Light Shadow
+    --pref-color-nm-glow: var(--pref-color-light-t-90);
+    // VS Full Pref Neumorphic Light Shadow weak
+    --pref-color-nm-glow-weak:   var(--pref-color-light-t-90);
+    // VS Full Pref Neumorphic Rim color
+    --pref-color-nm-rim: var(--pref-color-2);
+    // VS Full Pref Neumorphic outward shadow
+    --nm-outset:
+        #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
+        #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
+    --ds-nm-outset:
+        drop-shadow(#{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
+        drop-shadow(#{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
+    
+    // VS Full Pref Neumorphic outward shadow (Small)
+    --nm-outset-small:
+        #{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow),
+        #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow);
+    --ds-nm-outset-small:
+        drop-shadow(#{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow))
+        drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow));
+    
+    // VS Full Pref Neumorphic inward shadow
+    --nm-inset:
+        inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
+        inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
+    --ds-nm-inset:
+        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
+        drop-shadow(inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
+    
+    // VS Full Pref Neumorphic inward Out shadow
+    --nm-inset-out:
+        inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak),
+        inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow),
+        #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak);
+    --ds-nm-inset-out:
+        drop-shadow(inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak))
+        drop-shadow(inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow))
+        drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak));
+    
+    // VS Full Pref Neumorphic inward (Small)
+    --nm-inset-small:
+        inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
+        inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
+    --ds-nm-inset-small:
+        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
+        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
+    
+    // VS Full Pref Neumorphic inward Out (Small)
+    --nm-inset-out-small:
+        inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
+        inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
+        #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
+    --ds-nm-inset-out-small:
+        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
+        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+        drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
+
+    // VC Main BG Color
+    --main-bg-color:     var(--pref-color-5);
+    // VC Main BG Color Alt
+    --main-bg-color-alt: var(--pref-color-7);
+
+    // VTCs (Variable Text Colors)
+    --text-color: var(--pref-color-RV);
+    --link-color: var(--brand-color);
 }
 
 
-@media (prefers-color-scheme: light) {
-    :root {
-        // VCs (Light Steps)
-        @for $size from 0 to 101 {
-            --pref-color-#{$size}: var(--pref-color-light-#{$size});
-        }
-
-        // VC Child Pref Color Intensity Grow Step (AUto)
-        --pref-color-AU:             #{transparentize(darken($full-light, 99), 0.99)};
-        // VS Full Pref Reverse
-        --pref-color-RV:             #{$full-dark};
-        // VS Full Pref Shadow
-        --pref-color-shadow:         var(--pref-color-20);
-        // VS Full Pref Neumorphic Shadow
-        --pref-color-nm-shadow:      var(--pref-color-dark-t-88);
-        // VS Full Pref Neumorphic Shadow Weak
-        --pref-color-nm-shadow-weak:      var(--pref-color-dark-t-80);
-        // VS Full Pref Neumorphic Light Shadow
-        --pref-color-nm-glow:        var(--pref-color-light-t-20);
-        // VS Full Pref Neumorphic Light Shadow
-        --pref-color-nm-glow-weak:   var(--pref-color-light-t-60);
-        // VS Full Pref Neumorphic Rim color
-        --pref-color-nm-rim:         var(--pref-color-2);
-
-        // VS Full Pref Neumorphic outward shadow
-        --nm-outset:
-            #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow),
-            #{px-rem(0)} #{px-rem(0)} #{px-rem(12)} #{px-rem(6)} var(--pref-color-nm-glow);
-        --ds-nm-outset:
-            drop-shadow(#{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow))
-            drop-shadow(#{px-rem(-6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-glow));
-
-        // VS Full Pref Neumorphic outward shadow (Small)
-        --nm-outset-small:
-            #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow),
-            #{px-rem(0)} #{px-rem(0)} #{px-rem(6)} #{px-rem(3)} var(--pref-color-nm-glow);
-        --ds-nm-outset-small:
-            drop-shadow(#{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-            drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(6)} var(--pref-color-nm-glow));
-
-        // VS Full Pref Neumorphic outward shadow (Small)
-        --nm-outset-xsmall:
-            #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
-            #{px-rem(0)} #{px-rem(0)} #{px-rem(3)} #{px-rem(1.5)} var(--pref-color-nm-glow);
-        --ds-nm-outset-xsmall:
-            drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow))
-            drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(3)} var(--pref-color-nm-glow));
-
-        // VS Full Pref Neumorphic inward shadow
-        --nm-inset:
-            inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
-            inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
-        --ds-nm-inset:
-            drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
-            drop-shadow(inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
-
-        // VS Full Pref Neumorphic inward Out shadow
-        --nm-inset-out:
-            inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
-            inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
-            #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
-        --ds-nm-inset-out:
-            drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-            drop-shadow(inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
-            drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
-
-        // VS Full Pref Neumorphic inward (Small)
-        --nm-inset-small:
-            inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
-            inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
-        --ds-nm-inset-small:
-            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
-            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
-
-        // VS Full Pref Neumorphic inward Out (Small)
-        --nm-inset-out-small:
-            inset #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
-            inset #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(3)} var(--pref-color-nm-glow-weak),
-            #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(1.5)} var(--pref-color-nm-shadow-weak);
-        --ds-nm-inset-out-small:
-            drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
-            drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-            drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
-
-        // VC Main BG Color
-        --main-bg-color:     var(--pref-color-6);
-        // VC Main BG Color Alt
-        --main-bg-color-alt: var(--pref-color-10);
-
-        // VTCs (Variable Text Colors)
-        --text-color: var(--pref-color-RV);
-        --link-color: var(--brand-color-secondary-alt);
+@include light-mode {
+    // VCs (Light Steps)
+    @for $size from 0 to 101 {
+        --pref-color-#{$size}: var(--pref-color-light-#{$size});
     }
+
+    // VC Child Pref Color Intensity Grow Step (AUto)
+    --pref-color-AU:             #{transparentize(darken($full-light, 99), 0.99)};
+    // VS Full Pref Reverse
+    --pref-color-RV:             #{$full-dark};
+    // VS Full Pref Shadow
+    --pref-color-shadow:         var(--pref-color-20);
+    // VS Full Pref Neumorphic Shadow
+    --pref-color-nm-shadow:      var(--pref-color-dark-t-88);
+    // VS Full Pref Neumorphic Shadow Weak
+    --pref-color-nm-shadow-weak:      var(--pref-color-dark-t-80);
+    // VS Full Pref Neumorphic Light Shadow
+    --pref-color-nm-glow:        var(--pref-color-light-t-20);
+    // VS Full Pref Neumorphic Light Shadow
+    --pref-color-nm-glow-weak:   var(--pref-color-light-t-60);
+    // VS Full Pref Neumorphic Rim color
+    --pref-color-nm-rim:         var(--pref-color-2);
+
+    // VS Full Pref Neumorphic outward shadow
+    --nm-outset:
+        #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow),
+        #{px-rem(0)} #{px-rem(0)} #{px-rem(12)} #{px-rem(6)} var(--pref-color-nm-glow);
+    --ds-nm-outset:
+        drop-shadow(#{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow))
+        drop-shadow(#{px-rem(-6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-glow));
+
+    // VS Full Pref Neumorphic outward shadow (Small)
+    --nm-outset-small:
+        #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow),
+        #{px-rem(0)} #{px-rem(0)} #{px-rem(6)} #{px-rem(3)} var(--pref-color-nm-glow);
+    --ds-nm-outset-small:
+        drop-shadow(#{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+        drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(6)} var(--pref-color-nm-glow));
+
+    // VS Full Pref Neumorphic outward shadow (Small)
+    --nm-outset-xsmall:
+        #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
+        #{px-rem(0)} #{px-rem(0)} #{px-rem(3)} #{px-rem(1.5)} var(--pref-color-nm-glow);
+    --ds-nm-outset-xsmall:
+        drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow))
+        drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(3)} var(--pref-color-nm-glow));
+
+    // VS Full Pref Neumorphic inward shadow
+    --nm-inset:
+        inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
+        inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
+    --ds-nm-inset:
+        drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
+        drop-shadow(inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
+
+    // VS Full Pref Neumorphic inward Out shadow
+    --nm-inset-out:
+        inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
+        inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
+        #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
+    --ds-nm-inset-out:
+        drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+        drop-shadow(inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
+        drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
+
+    // VS Full Pref Neumorphic inward (Small)
+    --nm-inset-small:
+        inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
+        inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
+    --ds-nm-inset-small:
+        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
+        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
+
+    // VS Full Pref Neumorphic inward Out (Small)
+    --nm-inset-out-small:
+        inset #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
+        inset #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(3)} var(--pref-color-nm-glow-weak),
+        #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(1.5)} var(--pref-color-nm-shadow-weak);
+    --ds-nm-inset-out-small:
+        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
+        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
+        drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
+
+    // VC Main BG Color
+    --main-bg-color:     var(--pref-color-6);
+    // VC Main BG Color Alt
+    --main-bg-color-alt: var(--pref-color-10);
+
+    // VTCs (Variable Text Colors)
+    --text-color: var(--pref-color-RV);
+    --link-color: var(--brand-color-secondary-alt);
 }
 
 

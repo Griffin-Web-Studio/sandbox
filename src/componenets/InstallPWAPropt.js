@@ -11,44 +11,44 @@ export const InstallPWAPrompt = (props) => {
         return null;
     }
     return (
-        <div className="gwssc-install-pwa-prompt">
-            <div className="gwssc-install-pwa-prompt__container-outer">
-                <div className="gwssc-install-pwa-prompt__logo-container">
-                    <Logo className="gwssc-install-pwa-prompt__logo" />
+        <div className="install-pwa-prompt">
+            <div className="install-pwa-prompt__container-outer">
+                <div className="install-pwa-prompt__logo-container">
+                    <Logo className="install-pwa-prompt__logo" />
                 </div>
 
-                <div className="gwssc-install-pwa-prompt__container-inner">
-                    <h2 className="gwssc-h3 gwssc-aligncenter">Install this website as a PWA</h2>
+                <div className="install-pwa-prompt__container-inner">
+                    <h2 className="h3 aligncenter">Install this website as a PWA</h2>
                     <p>Please note that this app does not require you to download a setup file.</p>
 
-                    <div className="gwssc-install-pwa-prompt__content">
+                    <div className="install-pwa-prompt__content">
                         {iosInstallPrompt && (
                         <>
-                            <div className="gwssc-aligncenter">
+                            <div className="aligncenter">
                                 <p>
                                     Tap <span className="icon-apple-share"></span> then &quot;Add to Home Screen&quot;
                                 </p>
                             </div>
-                            <button className="gwssc-button__secondary gwssc-button__secondary--radius gwssc-button__secondary--large-font gwssc-button__secondary--width-auto gwssc-aligncenter" onClick={handleIOSInstallDeclined}>
+                            <button className="button__secondary button__secondary--radius button__secondary--large-font button__secondary--width-auto aligncenter" onClick={handleIOSInstallDeclined}>
                                 Close
                             </button>
                         </>
                         )}
                         {webInstallPrompt && (
                             <>
-                                <div className="gwssc-aligncenter">
+                                <div className="aligncenter">
                                     <p>
                                         This PWA app is available for installation on your device.
                                     </p>
                                 </div>
-                                <div className="gwssc-grid gap-col-10">
-                                    <div className="gwssc-grid-12">
-                                        <button className="gwssc-button gwssc-button--radius" onClick={handleWebInstallAccepted}>
+                                <div className="grid gap-col-10">
+                                    <div className="grid-12">
+                                        <button className="button button--radius" onClick={handleWebInstallAccepted}>
                                             Install
                                         </button>
                                     </div>
-                                    <div className="gwssc-grid-12">
-                                        <button className="gwssc-button__secondary gwssc-button__secondary--radius" onClick={handleWebInstallDeclined}>Close</button>
+                                    <div className="grid-12">
+                                        <button className="button__secondary button__secondary--radius" onClick={handleWebInstallDeclined}>Close</button>
                                     </div>
                                 </div>
                             </>

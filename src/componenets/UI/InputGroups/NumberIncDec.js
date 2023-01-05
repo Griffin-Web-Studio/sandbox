@@ -32,31 +32,31 @@ export default function NumberIncDec(props) {
     };
 
     return (
-        <div className="gwssc-grid col-12 gap-col-4">
-            <div className="gwssc-grid-12">
-                <label htmlFor={id} className="gwssc-label">
+        <div className="grid col-12 gap-col-4">
+            <div className="grid-12">
+                <label htmlFor={id} className="label">
                     {label}
                 </label>
             </div>
 
-            <div className={inputValue !== resetValue ? "gwssc-grid-9" : "gwssc-grid-11"}>
-                <input type="number" id={id} name={id} className="gwssc-input full-height gwssc-input--radius-left" value={inputValue} onChange={onInputChangeHandler} />
+            <div className={inputValue !== resetValue ? "grid-9" : "grid-11"}>
+                <input type="number" id={id} name={id} className="input full-height input--radius-left" value={inputValue} onChange={onInputChangeHandler} />
             </div>
 
             {inputValue !== resetValue ? (
-                <div className="gwssc-grid-2">
-                    <button className="gwssc-button gwssc-button--large-font" onClick={onResetHandler}>
+                <div className="grid-2">
+                    <button className="button button--large-font" onClick={onResetHandler}>
                         <i className="icon-reset"></i>
                     </button>
                 </div>
             ) : null}
 
-            <div className="gwssc-grid col-1 gwssc-grid-1 gap-row-4">
-                <div className="gwssc-grid-1">
+            <div className="grid col-1 grid-1 gap-row-4">
+                <div className="grid-1">
                     <IncrementButton value={inputValue} onChange={onButtonPressHandler} increaseAmount={increaseAmount} interval={increaseInterval} firstDelay={firstIncrementDelay} maxValue={maxValue} />
                 </div>
 
-                <div className="gwssc-grid-1">
+                <div className="grid-1">
                     <DecrementButton value={inputValue} onChange={onButtonPressHandler} decreaseAmount={decreaseAmount} interval={decreesInterval} firstDelay={firstDecrementDelay} minValue={minValue} />
                 </div>
             </div>

@@ -24,7 +24,7 @@ export default function WidgetContainer(props) {
                 </button>
 
                 <div className="gwssc__container-inner">
-                    <div className="gwssc-grid col-1 gap-row-40">
+                    <div className="grid col-1 gap-row-40">
                         <WidgetHeader />
 
                         <FormWrapper onFormChange={onFormChangeHandler} specOptions={specOptions} />

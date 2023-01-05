@@ -59,7 +59,7 @@ const DecrementButton = (props) => {
     return (
         <button
             type="button"
-            className="gwssc-button gwssc-button__secondary-alt gwssc-button__secondary-alt--short gwssc-button__secondary-alt--radius-bottom-right"
+            className="button button__secondary-alt button__secondary-alt--short button__secondary-alt--radius-bottom-right"
             onMouseDown={() => setIsDecrementing(true)}
             onMouseUp={() => setIsDecrementing(false)}
             onMouseLeave={() => setIsDecrementing(false)}

@@ -47,23 +47,23 @@ export default function WebsiteSpecLoader(props) {
     };
 
     return (
-        <fieldset className="gwssc-group">
-            <div className="gwssc-grid gap-col-4">
-                <div className="gwssc-grid-12">
-                    <legend className="gwssc-legend">
+        <fieldset className="group">
+            <div className="grid gap-col-4">
+                <div className="grid-12">
+                    <legend className="legend">
                         <label htmlFor="spec-img">Spec Image URL</label>
                     </legend>
                 </div>
 
-                <div className={`gwssc-grid-${specOptions.specIsLoaded ? "5" : "12"}`}>
-                    <button className="gwssc-button gwssc-button--radius-top" onClick={onLoadHandler}>
+                <div className={`grid-${specOptions.specIsLoaded ? "5" : "12"}`}>
+                    <button className="button button--radius-top" onClick={onLoadHandler}>
                         Load
                     </button>
                 </div>
 
                 {specOptions.specIsLoaded ? (
-                    <div className={`gwssc-grid-2`}>
-                        <button className="gwssc-button__secondary-alt gwssc-button__secondary-alt--radius-top" onClick={onReloadHandler}>
+                    <div className={`grid-2`}>
+                        <button className="button__secondary-alt button__secondary-alt--radius-top" onClick={onReloadHandler}>
                             <i className="icon-reset-bold"></i>
                         </button>
                     </div>
@@ -72,8 +72,8 @@ export default function WebsiteSpecLoader(props) {
                 )}
 
                 {specOptions.specIsLoaded ? (
-                    <div className="gwssc-grid-5">
-                        <button className="gwssc-button gwssc-button__secondary--radius-top gwssc-button__secondary" onClick={onUnloadHandler}>
+                    <div className="grid-5">
+                        <button className="button button__secondary--radius-top button__secondary" onClick={onUnloadHandler}>
                             Unload
                         </button>
                     </div>
@@ -81,20 +81,20 @@ export default function WebsiteSpecLoader(props) {
                     ""
                 )}
 
-                <div className="gwssc-grid-24">
-                    <div className="gwssc-input-wrap gwssc-input-wrap--radius-bottom">
-                        <div className="gwssc-grid gap-col-8">
-                            <div className={`gwssc-grid-${specOptions.specIsLoaded ? '21' : '24'}`}>
-                                <input type="url" id="spec-img" name="spec-img" className={`gwssc-input gwssc-input--radius-${specOptions.specIsLoaded ? 'left' : 'bottom'}`} placeholder="https://path.to.spec/image.png" value={specImg} onChange={onSpecChangeHandler} />
+                <div className="grid-24">
+                    <div className="input-wrap input-wrap--radius-bottom">
+                        <div className="grid gap-col-8">
+                            <div className={`grid-${specOptions.specIsLoaded ? '21' : '24'}`}>
+                                <input type="url" id="spec-img" name="spec-img" className={`input input--radius-${specOptions.specIsLoaded ? 'left' : 'bottom'}`} placeholder="https://path.to.spec/image.png" value={specImg} onChange={onSpecChangeHandler} />
                             </div>
 
                             {specOptions.specIsLoaded && (
-                                <div className="gwssc-grid-3">
+                                <div className="grid-3">
                                     <button
                                         className={
-                                            `gwssc-button${specOptions.mouseEventsOn === 'spec' ? "" : "__alt"} ` +
-                                            `gwssc-button${specOptions.mouseEventsOn === 'spec' ? "" : "__alt"}--radius-right ` +
-                                            `gwssc-button${specOptions.mouseEventsOn === 'spec' ? "" : "__alt"}--large-font`
+                                            `button${specOptions.mouseEventsOn === 'spec' ? "" : "__alt"} ` +
+                                            `button${specOptions.mouseEventsOn === 'spec' ? "" : "__alt"}--radius-right ` +
+                                            `button${specOptions.mouseEventsOn === 'spec' ? "" : "__alt"}--large-font`
                                         }
                                         onClick={onSpecPrimaryFocusHandler}>
                                         <i className={`icon-focus-${specOptions.mouseEventsOn === 'spec' ? 'top' : 'bottom'}`}></i>

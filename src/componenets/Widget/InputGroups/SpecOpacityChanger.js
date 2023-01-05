@@ -48,47 +48,47 @@ export default function SpecOpacityChanger(props) {
     };
 
     return (
-        <fieldset className="gwssc-group">
-            <div className="gwssc-grid gap-col-4">
-                <div className="gwssc-grid-12">
-                    <legend className="gwssc-legend">
+        <fieldset className="group">
+            <div className="grid gap-col-4">
+                <div className="grid-12">
+                    <legend className="legend">
                         <label htmlFor="spec-opacity">Spec Image Opacity</label>
                     </legend>
                 </div>
 
-                <div className="gwssc-grid-6">{/*Spacer*/}</div>
+                <div className="grid-6">{/*Spacer*/}</div>
 
-                <div className="gwssc-grid-3">
-                    <button className="gwssc-button gwssc-button__secondary--radius-top gwssc-button__secondary" onClick={OnDecrementHandler}>
+                <div className="grid-3">
+                    <button className="button button__secondary--radius-top button__secondary" onClick={OnDecrementHandler}>
                         -
                     </button>
                 </div>
 
-                <div className="gwssc-grid-3">
-                    <button className="gwssc-button gwssc-button--radius-top" onClick={OnIncrementHandler}>
+                <div className="grid-3">
+                    <button className="button button--radius-top" onClick={OnIncrementHandler}>
                         +
                     </button>
                 </div>
 
-                <div className="gwssc-grid-24">
-                    <div className="gwssc-input-wrap gwssc-input-wrap--radius-bottom">
-                        <div className="gwssc-grid gap-col-8">
-                            <div className="gwssc-grid-3">
-                                <input type="text" className="gwssc-input full-height gwssc-input--radius-left" value={value * 100 + '%'} disabled />
+                <div className="grid-24">
+                    <div className="input-wrap input-wrap--radius-bottom">
+                        <div className="grid gap-col-8">
+                            <div className="grid-3">
+                                <input type="text" className="input full-height input--radius-left" value={value * 100 + '%'} disabled />
                             </div>
 
-                            <div className="gwssc-grid-18">
-                                <div className="gwssc-input">
+                            <div className="grid-18">
+                                <div className="input">
                                     <input type="range" id="spec-opacity" name="spec-opacity" className="spec-opacity" value={value} min="0" max="1" step="0.1" onChange={onSelectHandler} />
                                 </div>
                             </div>
 
-                            <div className="gwssc-grid-3">
+                            <div className="grid-3">
                                 <button
                                     className={
-                                        `gwssc-button__${specOptions.invertSpec ? "secondary" : "secondary-alt"} ` +
-                                        `gwssc-button__${specOptions.invertSpec ? "secondary" : "secondary-alt"}--radius-right ` +
-                                        `gwssc-button__${specOptions.invertSpec ? "secondary" : "secondary-alt"}--large-font`
+                                        `button__${specOptions.invertSpec ? "secondary" : "secondary-alt"} ` +
+                                        `button__${specOptions.invertSpec ? "secondary" : "secondary-alt"}--radius-right ` +
+                                        `button__${specOptions.invertSpec ? "secondary" : "secondary-alt"}--large-font`
                                     }
                                     onClick={onSpecColoursInverseHandler}>
                                     <i className="icon-inverted"></i>

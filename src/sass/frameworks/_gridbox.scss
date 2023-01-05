@@ -60,7 +60,7 @@
 
 }
 
-.gwssc-grid {
+.grid {
     display: grid;
     $grid-temp-col-count: null;
     @for $size from 0 to $flex-columns { $grid-temp-col-count: $grid-temp-col-count 1fr; }
@@ -78,12 +78,12 @@
     @if($key != "") { // If not Mobile
         @include at-least($value) {
             @for $i from 1 through $flex-columns {
-                .gwssc-grid-#{$key}#{$i} {
+                .grid-#{$key}#{$i} {
                     grid-column: span #{$i};
                 }
             }
 
-            .gwssc-grid {
+            .grid {
                 @for $size from 0 to 101 {
                     &.gap-#{$key}#{$size} { gap: px-rem($size); }
             
@@ -96,12 +96,12 @@
     } @else { // If Mobile
 
         @for $i from 1 through $flex-columns {
-            .gwssc-grid-#{$i} {
+            .grid-#{$i} {
                 grid-column: span #{$i};
             }
         }
 
-        .gwssc-grid {
+        .grid {
             @for $size from 0 to 101 {
                 &.gap-#{$size} { gap: px-rem($size); }
         

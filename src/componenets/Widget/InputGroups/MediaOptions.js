@@ -26,26 +26,26 @@ export default function MediaOptions(props) {
     };
 
     return (
-        <fieldset className="gwssc-group">
-            <div className="gwssc-grid gap-col-4">
-                <div className="gwssc-grid-12">
-                    <legend className="gwssc-legend">
+        <fieldset className="group">
+            <div className="grid gap-col-4">
+                <div className="grid-12">
+                    <legend className="legend">
                         <label htmlFor="site-width-preset">Media Options</label>
                     </legend>
                 </div>
 
-                <div className="gwssc-grid-24 gwssc-input-wrap gwssc-input-wrap--radius-bottom gwssc-input-wrap--radius-top-right">
-                    <div className="gwssc-grid col-2 gap-row-10">
-                        <div className="gwssc-grid-2">
-                            <div className="gwssc-grid col-1 gap-col-10 ">
-                                <div className="gwssc-grid-1">
-                                    <label htmlFor="site-width-preset" className="gwssc-label full">
+                <div className="grid-24 input-wrap input-wrap--radius-bottom input-wrap--radius-top-right">
+                    <div className="grid col-2 gap-row-10">
+                        <div className="grid-2">
+                            <div className="grid col-1 gap-col-10 ">
+                                <div className="grid-1">
+                                    <label htmlFor="site-width-preset" className="label full">
                                         Media Presets
                                     </label>
                                 </div>
 
-                                <div className="gwssc-grid-1">
-                                    <select className="gwssc-input gwssc-input--radius-top gwssc-input--radius-bottom" name="site-width-preset" id="site-width-preset" onChange={OnSelectHandler} value={mediaWidth}>
+                                <div className="grid-1">
+                                    <select className="input input--radius-top input--radius-bottom" name="site-width-preset" id="site-width-preset" onChange={OnSelectHandler} value={mediaWidth}>
                                         {/* Mobile */}
                                         <option value="320">s-mobile (320px)</option>
                                         <option value="375">m-mobile (375px)</option>
@@ -67,9 +67,9 @@ export default function MediaOptions(props) {
                             </div>
                         </div>
 
-                        <div className="gwssc-grid-2">
-                            <div className="gwssc-grid col-2 gap-col-10">
-                                <div className="gwssc-grid-1">
+                        <div className="grid-2">
+                            <div className="grid col-2 gap-col-10">
+                                <div className="grid-1">
                                     <NumberInputIncDec
                                         value={mediaWidth}
                                         onChange={onMediaWidthChangeHandler}
@@ -86,7 +86,7 @@ export default function MediaOptions(props) {
                                     />
                                 </div>
 
-                                <div className="gwssc-grid-1">
+                                <div className="grid-1">
                                     <NumberInputIncDec
                                         value={specOptions.mediaZoom}
                                         onChange={onMediaZoomChangeHandler}

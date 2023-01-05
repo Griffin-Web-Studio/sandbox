@@ -16,17 +16,17 @@ export default function SpecPositionAdjust(props) {
     };
 
     return (
-        <fieldset className="gwssc-group">
-            <div className="gwssc-grid gap-col-4">
-                <div className="gwssc-grid-12">
-                    <legend className="gwssc-legend">
+        <fieldset className="group">
+            <div className="grid gap-col-4">
+                <div className="grid-12">
+                    <legend className="legend">
                         <label htmlFor="spec-opacity">Spec Axis Adjust</label>
                     </legend>
                 </div>
 
-                <div className="gwssc-grid-24">
-                    <div className="gwssc-grid col-2 gap-col-10 gwssc-input-wrap gwssc-input-wrap--radius-bottom gwssc-input-wrap--radius-top-right">
-                        <div className="gwssc-grid-1">
+                <div className="grid-24">
+                    <div className="grid col-2 gap-col-10 input-wrap input-wrap--radius-bottom input-wrap--radius-top-right">
+                        <div className="grid-1">
                             <NumberInputIncDec
                                 label="X Axis Adjust"
                                 id="spec-x-adjust"
@@ -35,7 +35,7 @@ export default function SpecPositionAdjust(props) {
                             />
                         </div>
 
-                        <div className="gwssc-grid-1">
+                        <div className="grid-1">
                             <NumberInputIncDec
                                 label="Y Axis Adjust"
                                 id="spec-y-adjust"
