@@ -2,7 +2,7 @@
 // https://github.com/rfoel/use-prefers-color-scheme
 
 import React, { useState, useEffect } from "react";
-import usePrefersColorScheme from 'use-prefers-color-scheme'
+import usePrefersColorScheme from "use-prefers-color-scheme";
 import fileContents from "./images/logo.svg";
 import { ReactComponent as LightDark } from "./images/light-dark.svg";
 import { ReactComponent as GWSlogo } from "./images/gws-logo.svg";
@@ -11,7 +11,11 @@ import CodemirrorInput from "./componenets/UI/CodemirrorInput";
 
 function App() {
     const ThemeMode = usePrefersColorScheme();
-    const [preferredTheme, setPreferredTheme] = useState('none');
+    const themeModeReverse = ThemeMode === "dark" ? "light" : "dark";
+    const [preferredTheme, setPreferredTheme] = useState("none");
+    const prefThemeReverse = preferredTheme !== "none" ? (preferredTheme === "dark" ? "light" : "dark") : "none";
+    const currentReverseThemeMode = prefThemeReverse === "none" ? themeModeReverse : prefThemeReverse;
+    const currentThemeMode = prefThemeReverse === "none" ? ThemeMode : preferredTheme;
     const [isPreviewLoaded, setIsPreviewLoaded] = useState(false);
     const [codeBlock, setCodeBlock] = useState("");
 
@@ -34,12 +38,21 @@ function App() {
     };
 
     const onButtonDarkModeHandler = () => {
-        if (preferredTheme === "dark") {
-            setPreferredTheme("light");
-            document.querySelector("body").setAttribute("pref-color", "light")
-        } else {
-            setPreferredTheme("dark");
-            document.querySelector("body").setAttribute("pref-color", "dark")
+        switch (preferredTheme) {
+            case "light":
+                setPreferredTheme("dark");
+                document.querySelector("body").setAttribute("pref-color", "dark");
+                break;
+
+            case "dark":
+                setPreferredTheme("light");
+                document.querySelector("body").setAttribute("pref-color", "light");
+                break;
+
+            default:
+                setPreferredTheme(themeModeReverse);
+                document.querySelector("body").setAttribute("pref-color", themeModeReverse);
+                break;
         }
     };
 
@@ -53,12 +66,12 @@ function App() {
 
                     <div className="grid col-2 gap-2">
                         <div className="header__preferred-color grid-1 flex align-center">
-                            <button className="button" onClick={onButtonDarkModeHandler}>
-                                <LightDark className={`header__preferred-color-svg header__preferred-color-svg--${preferredTheme === "none" ? ThemeMode : preferredTheme}`} />
+                            <button className={`button${currentReverseThemeMode === "light" ? " button__secondary" : ""}`} onClick={onButtonDarkModeHandler}>
+                                <LightDark className={`header__preferred-color-svg header__preferred-color-svg--${currentReverseThemeMode}`} />
                             </button>
                         </div>
 
-                        <div className="header__reset grid-1 flex align-center">
+                        <div className="header__reset-code grid-1 flex align-center">
                             <button className="button" onClick={onButtonResetHandler}>
                                 <i className="icon-reset-bold" />
                             </button>
@@ -68,7 +81,7 @@ function App() {
 
                 <div className="grid-24 grid-lt-12">
                     <div className="gws-svg-prev__code-block">
-                        <CodemirrorInput onInputChange={onCodemirrorInputChangeHandler} value={codeBlock} />
+                        <CodemirrorInput onInputChange={onCodemirrorInputChangeHandler} value={codeBlock} themeColor={currentThemeMode}/>
                     </div>
                 </div>
 

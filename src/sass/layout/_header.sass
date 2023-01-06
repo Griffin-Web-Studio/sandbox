@@ -5,18 +5,23 @@
 
     &__gws-logo
         height: px-rem(70)
-        padding: px-rem(5)
+        padding: px-rem(10)
 
         svg
             height: 100%
             width: auto
 
-    &__reset .button
+    &__preferred-color .button,
+    &__reset-code .button
         font-size: px-rem(40)
-        line-height: px-em(70, 40)
+        line-height: px-em(40, 40)
+        height: px-em(70, 40)
+        padding: 0
+        padding-block: px-em(15, 40)
+        width: px-em(70, 40)
 
     &__preferred-color .button
-        width: px-rem(70)
+        padding-block: px-em(10, 40)
 
     &__preferred-color-svg
         height: px-rem(50)
@@ -25,8 +30,13 @@
 
         #rotator
             transform-origin: 50% 60%
-            transition: all 1s ease-in-out
+            animation-name: svg-pref-color-mode-sunny
+            animation-timing-function: ease-out
+            animation-duration: 1.5s
+
 
         &--dark
             #rotator
-                transform: rotate(170deg)
+                animation-name: svg-pref-color-mode-moon
+                animation-duration: 1.5s
+                -webkit-animation-fill-mode: forwards
