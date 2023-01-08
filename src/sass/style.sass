@@ -122,16 +122,23 @@ img
     max-width: 100%
     height: auto
 
+:root
+    --min-body-height: calc(100vh - #{px-rem(70 + 20 + 2 + 40 + 20)})
+
 .emoji
     font-weight: 100
 
-.gws-svg-prev
+.gws-live-preview
     &__code-block,
     &__code-preview,
     &__code-preview #client-com,
     &__code-preview #client-com .cm-editor
-        max-height: calc(100vh - px-rem(72))
-        min-height: calc(100vh - px-rem(72))
+        max-height: var(--min-body-height)
+        min-height: var(--min-body-height)
+        width: 100%
+
+        .cm-content
+            padding: 0
 
         svg
             height: auto

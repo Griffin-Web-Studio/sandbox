@@ -1,158 +1,207 @@
 @use '../abstracts' as *
+@use '../components/_buttons' as *
 
-//// Styles
-// .fancyDropdown,
-// .dropdown
-//     // Variables
-//     $input_height: px-em(55, 14)
-//     $border_radius: 0
-//     $gray_light: #fff
-//     $gray_lighter: #fff
+// Styles
+.fancyDropdown,
+.dropdown
+    // Variables
+    $font_size: px-rem(16)
+    $input_height: px-em(70, 16)
+    $border_radius: px-rem(5)
+    $gray_light: var(--pref-color-0)
+    $gray_lighter: var(--pref-color-0)
 
-//     @include gradient(to bottom, rgba(255, 255, 255, .25), rgba(255, 255, 255, 0))
-//     position: relative
-//     display: block
-//     min-width: px-rem(200)
-//     width: auto
-//     padding-left: px-em(18, 14)
-//     padding-right: px-em(30, 14)
-//     // border: solid px-em(1, 14) $gray_light
-//     border-radius: $border_radius
-//     outline: none
+    @include gradient(to bottom, rgba(255, 255, 255, .25), rgba(255, 255, 255, 0))
+    position: relative
+    display: block
+    min-width: px-rem(200)
+    width: auto
+    padding-left: px-em(18, 16)
+    padding-right: px-em(30, 16)
+    // border: solid px-em(1, 16) $gray_light
+    border-radius: $border_radius
+    outline: none
     
-//     font-size: px-rem(14)
-//     font-weight: normal
-//     line-height: $input_height
-//     text-align: left !important
-//     white-space: nowrap
+    font-size: $font_size
+    font-weight: normal
+    line-height: $input_height
+    text-align: left !important
+    white-space: nowrap
 
-//     transition: all 0.2s ease-in-out
-//     user-select: none
-//     cursor: pointer
+    transition: all 0.2s ease-in-out
+    user-select: none
+    cursor: pointer
         
-//     background-color: $gray_lighter
-//     box-shadow: 0 px-em(1, 14) 0 rgba(0, 0, 0, 0.0075)
+    background-color: $gray_lighter
+    box-shadow: 0 px-em(1, 16) 0 rgba(0, 0, 0, 0.0075)
+        
+    @if $nm-design == true
+        background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
+        box-shadow: var(--nm-inset-out)
+    @else
+        background-color: $gray_lighter
+        box-shadow: 0 px-em(1, 16) 0 rgba(0, 0, 0, 0.0075)
     
-//     &:focus
-//         outline: solid var(--brand-color) px-em(2, 16)
-//         outline-offset: px-em(4, 16)
+    &:focus
+        outline: solid var(--brand-color) px-em(2, 16)
+        outline-offset: px-em(4, 16)
 
-//     &:hover
-//         // background-color: darken($gray_lighter, 1%)
+        @if $nm-design == true
+            background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
+            box-shadow: var(--nm-inset-out-small)
 
-//     &:active
-//         // background-color: darken($gray_lighter, 2.5%) !important
+    &:hover
+        @if $nm-design == true
+            background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
+            box-shadow: var(--nm-inset-out-small)
+        @else
+            background-color: darken($gray_lighter, 1%)
 
-//     // Arrow
-//     &:before,
-//     &:after
-//         content: ''
-//         position: absolute
-//         pointer-events: none
-//         transition: all 0.125s ease-in-out
+    &:active
+        @if $nm-design == true
+            background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
+            box-shadow: var(--nm-inset)
+        @else
+            border-color: darken($gray_light, 4%)
+            background-color: darken($gray_lighter, 2.5%) !important
+            box-shadow: 0 px-em(1, 16) px-em(4, 16) rgba(0, 0, 0, .05) inset
 
-//     &:before
-//         top: 0
-//         right: 0
-//         width: px-em(55, 14)
-//         height: px-em(55, 14)
-//         background-color: var(--color-9)
+    // Arrow
+    &:before,
+    &:after
+        content: ''
+        position: absolute
+        pointer-events: none
+        transition: all 0.125s ease-in-out
 
-//     &:after
-//         top: 50%
-//         right: px-rem(div(55, 2))
-//         width: px-em(15, 14)
-//         height: px-em(15, 14)
-//         border-right: solid px-em(1, 14) var(--color-11)
-//         border-bottom: solid px-em(1, 14) var(--color-11)
-//         transform: translate(50%, -50%) rotate(45deg)
+    &:before
+        @include button
+        font-size: $font_size
+        top: 50%
+        right: 0
+        width: px-em(40, 16)
+        height: px-em(40, 16)
+        border-radius: $border_radius
+        background-color: var(--brand-color)
+        transform: translate(px-em(-2.5 + -5, 16), -50%)
 
-//     &.open
-//         @extend :active
+    &:after
+        top: 50%
+        right: px-rem(div(55, 2))
+        width: px-em(15, 16)
+        height: px-em(15, 16)
+        border-right: solid px-em(1, 16) var(--pref-color-light-0)
+        border-bottom: solid px-em(1, 16) var(--pref-color-light-0)
+        transform: translate(50%, -70%) rotate(45deg)
 
-//         &:after
-//             transform: translate(50%, -20%) rotate(-45deg) scale(1, -1)
+    &.open
+        @extend :active
 
-//         .list
-//             transform: scale(1)
-//             opacity: 1
-//             pointer-events: auto
+        &:after
+            transform: translate(50%, -20%) rotate(-45deg) scale(1, -1)
 
-//         .option
-//             cursor: pointer
+        .list
+            transform: scale(1)
+            opacity: 1
+            pointer-events: auto
 
-//     &.wide
-//         width: 100%
+        .option
+            cursor: pointer
 
-//         .list
-//             left: 0 !important
-//             right: 0 !important
+    &.wide
+        width: 100%
 
-//     .list
-//         position: fixed
-//         top: 50%
-//         left: 50%
-//         z-index: 9999
-//         margin-top: px-em(4, 14)
-//         // padding: px-em(5, 14)
-//         border-radius: $border_radius
+    .list
+        position: fixed
+        top: 50%
+        // left: 50%
+        z-index: 9999
+        margin-top: px-em(4, 16)
+        padding: px-em(5, 16)
+        border-radius: $border_radius
 
-//         opacity: 0
-//         overflow: hidden
-//         transition: all .15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity .1s linear, top 0s linear, left 0s linear
-//         transform: scale(.75)
-//         transform-origin: 50% 0
+        opacity: 0
+        overflow: hidden
+        transition: all .15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity .1s linear, top 0s linear, left 0s linear
+        transform: scale(.75)
+        transform-origin: 50% 0
 
-//         pointer-events: none
+        pointer-events: none
 
-//         background-color: #fff
+        background-color: var(--pref-color-0)
 
-//         &:hover .option:not(:hover)
-//             background-color: transparent !important
+        @if $nm-design == true
+            background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
+            box-shadow: var(--nm-inset-out-small)
+        @else
+            background-color: var(--pref-color-0)
+            box-shadow: 0 0 0 px-em(1, 16) rgba(0, 0, 0, .09)
 
-//         ul
-//             list-style: none
-//             margin: 0
-//             padding: 0
-//             // padding: px-em(10, 14)
-//             // padding-right: px-rem(5)
-//             max-height: 50vh
-//             overflow-y: auto
+        &:hover .option:not(:hover)
+            background-color: transparent !important
 
-//             background-color: #fff
+        ul
+            list-style: none
+            margin: 0
+            padding: 0
+            // padding: px-em(10, 16)
+            // padding-right: px-rem(5)
+            max-height: 50vh
+            overflow-y: auto
+
+            background-color: var(--pref-color-0)
             
-//             &::-webkit-scrollbar-track
-//                 background-color: transparent
+            &::-webkit-scrollbar-track
+                background-color: transparent
 
-//     .option
-//         padding-left: 18px
-//         padding-right: 29px
-//         border-bottom: solid px-em(1, 14) var(--pref-color-20)
-//         border-radius: 0
-//         margin-bottom: 0
-//         outline: none
+    .option
+        padding-left: 18px
+        padding-right: 29px
+        border-bottom: solid px-em(1, 16) var(--pref-color-20)
+        border-radius: 0
+        margin-bottom: 0
+        outline: none
 
-//         font-weight: 400
-//         line-height: px-em(40, 14)
-//         text-align: left
+        font-weight: 400
+        line-height: px-em(40, 16)
+        text-align: left
 
-//         cursor: default
-//         transition: all 0.2s ease-in-out
+        cursor: default
+        transition: all 0.2s ease-in-out
 
-//         background-color: #fff
+        background-color: var(--pref-color-0)
 
-//         &:hover,
-//         &:focus
-//             background-color: $gray_lighter !important
+        @if $nm-design == true
+            background-color: var(--main-bg-color-alt)
+            box-shadow: var(--nm-inset-out-small)
+        @else
+            background-color: var(--pref-color-0)
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, .09)
 
-//         &:last-of-type
-//             margin-bottom: 0
-//             border-bottom: none
+        &:hover,
+        &:focus
+            @if $nm-design == true
+                background-color: var(--main-bg-color-alt)
+                box-shadow: var(--nm-inset-small)
+            @else
+                background-color: $gray_lighter !important
 
-//         &.selected
-//             font-weight: 600
+        &:last-of-type
+            margin-bottom: 0
+            border-bottom: none
 
-//             background: $gray_lighter
+        &.selected
+            font-weight: 600
 
-//         &.selected:focus
-//             background: $gray_lighter
+            @if $nm-design == true
+                background-color: var(--main-bg-color-alt)
+                box-shadow: var(--nm-inset-small)
+            @else
+                background: $gray_lighter
+
+        &.selected:focus
+            @if $nm-design == true
+                background-color: var(--main-bg-color-alt)
+                box-shadow: var(--nm-outset-small)
+            @else
+                background: $gray_lighter

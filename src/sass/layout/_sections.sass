@@ -1,2 +1,18 @@
 @use '../abstracts' as *
 @use '../base/icons' as *
+
+.gws-live-preview
+    padding: px-rem(20)
+
+    &__header
+        border-radius: px-rem(10)
+        padding: px-rem(10)
+        box-shadow: var(--nm-outset-small)
+        background-color: var(--main-bg-color-alt)
+        
+    &__code-block,
+    &__code-preview
+        border-radius: px-rem(10)
+        overflow: hidden
+        box-shadow: var(--nm-outset-small)
+        background-color: var(--main-bg-color-alt)

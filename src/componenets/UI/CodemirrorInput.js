@@ -14,7 +14,7 @@ export default function CodemirrorInput(props) {
     return(
         <CodeMirror
         value={props.value}
-        height="100vh"
+        height="var(--min-body-height)"
         theme={themeColor === 'light' ? gruvboxLight : githubDark}
         extensions={[html({ selfClosingTags: false })]}
         onChange={onChange}

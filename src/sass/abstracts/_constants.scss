@@ -2,7 +2,7 @@
 
 $build-select: dev;
 $debug: false;
-$nm-design: false;
+$nm-design: true;
 
 @if ($build-select == dev) {
     $debug: true;
