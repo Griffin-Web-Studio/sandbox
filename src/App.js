@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef /*useMemo*/ } from "react";
 import usePrefersColorScheme from "use-prefers-color-scheme";
 import fileContents from "./images/logo.svg";
 import { ReactComponent as AppLogo } from "./images/logo.svg";
@@ -11,7 +11,7 @@ import { InputSelect } from "./componenets/UI/Inputs/Selectable/Primitives";
 function App() {
     const ThemeMode = usePrefersColorScheme();
     const [selectedMode, setSelectedMode] = useState("html");
-    const [codeTypes, setCodeTypes ] = useState([
+    const [codeTypes, setCodeTypes] = useState([
         {
             label: "HTML",
             value: "html",
@@ -26,16 +26,19 @@ function App() {
             label: "JS",
             value: "js",
             selected: false
-        },
+        }
     ]);
+    const selectedOption = codeTypes.filter((option) => option.selected === true)[0];
     const [preferredTheme, setPreferredTheme] = useState("none");
     const [isPreviewLoaded, setIsPreviewLoaded] = useState(false);
     const [codeBlock, setCodeBlock] = useState("");
+    const [consoleLogOutput, setConsoleLogOutput] = useState("");
+
     const themeModeReverse = ThemeMode === "dark" ? "light" : "dark";
     const prefThemeReverse = preferredTheme !== "none" ? (preferredTheme === "dark" ? "light" : "dark") : "none";
     const currentReverseThemeMode = prefThemeReverse === "none" ? themeModeReverse : prefThemeReverse;
     const currentThemeMode = prefThemeReverse === "none" ? ThemeMode : preferredTheme;
-    console.log("selectedMode", selectedMode);
+    const outputRef = useRef(null);
 
     useEffect(() => {
         fetch(fileContents)
@@ -52,6 +55,39 @@ function App() {
 
     const onButtonResetHandler = () => {
         setIsPreviewLoaded(false);
+    };
+
+    const onButtonRunHandler = () => {
+        // Get the input code from the text area
+        const inputCode = codeBlock;
+
+        // Override the console.log function to capture log messages
+        const consoleOutput = [];
+        const originalConsoleLog = console.log;
+        console.log = (...args) => {
+            originalConsoleLog(...args);
+            consoleOutput.push(args.join(" "));
+        };
+
+        // Create a new script element and set its innerHTML to the input code
+        const script = document.createElement("script");
+        script.innerHTML = inputCode;
+
+        // Evaluate the script and store the output
+        let output;
+        try {
+            document.body.appendChild(script);
+            output = consoleOutput.join("\n");
+        } catch (err) {
+            consoleLogOutput = err.toString();
+            output = err.toString();
+        } finally {
+            document.body.removeChild(script);
+            console.log = originalConsoleLog;
+        }
+
+        // Update the console output
+        setConsoleLogOutput(output);
     };
 
     const onButtonDarkModeHandler = () => {
@@ -74,10 +110,14 @@ function App() {
     };
 
     const onSelectUpdateHandler = (newCodeTypes) => {
-        const selectedOption = newCodeTypes.filter((option) => option.selected === true)[0];
+        const newSelectedOption = newCodeTypes.filter((option) => option.selected === true)[0];
+
+        if (newSelectedOption.value === "js") {
+            setCodeBlock('console.log("Hello World!")');
+        }
+
         setCodeTypes(newCodeTypes);
-        setSelectedMode(selectedOption.value);
-        
+        setSelectedMode(newSelectedOption.value);
     };
 
     return (
@@ -88,14 +128,14 @@ function App() {
                         <a href="https://griffin-web.studio" target="_blank" rel="noopener noreferrer">
                             <GWSlogo />
                         </a>
-                        <AppLogo style={{paddingLeft: "0.5em"}} />
+                        <AppLogo style={{ paddingLeft: "0.5em" }} />
                     </div>
 
-                    <div className="grid col-6 gap-20">
+                    <div className={`grid gap-20 ${selectedMode === "js" ? "col-7" : "col-6"}`}>
                         <div className="header__code-selector grid-4 flex align-stretch justify-stretch">
                             <InputSelect options={codeTypes} className="wide" onSelect={onSelectUpdateHandler} />
                         </div>
-                        
+
                         <div className="header__preferred-color grid-1 flex align-center">
                             <button className={`button${currentReverseThemeMode === "light" ? " button__secondary button__secondary--radius" : " button--radius button--dark"}`} onClick={onButtonDarkModeHandler}>
                                 <LightDark className={`header__preferred-color-svg header__preferred-color-svg--${currentReverseThemeMode}`} />
@@ -107,6 +147,14 @@ function App() {
                                 <i className="icon-reset-bold" />
                             </button>
                         </div>
+
+                        {selectedMode === "js" && (
+                            <div className="header__reset-code grid-1 flex align-center">
+                                <button className="button button--radius" onClick={onButtonRunHandler}>
+                                    🏃‍♂️
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </header>
 
@@ -118,8 +166,25 @@ function App() {
                     </div>
 
                     <div className="grid-24 grid-lt-12">
-                        {selectedMode === 'svg' && (<div className="gws-live-preview__code-preview flex align-center justify-center" dangerouslySetInnerHTML={{ __html: codeBlock }} />)}
-                        {selectedMode === 'html' && (<iframe srcDoc={codeBlock} className="gws-live-preview__code-preview flex align-center justify-center" title="Preview Frame" />)}
+                        {selectedMode === "svg" && <div className="gws-live-preview__code-preview flex align-center justify-center" dangerouslySetInnerHTML={{ __html: codeBlock }} />}
+                        {selectedMode === "html" && <iframe srcDoc={codeBlock} className="gws-live-preview__code-preview flex align-center justify-center" title="Preview Frame" />}
+                        {selectedMode === "js" && (
+                            <div
+                                ref={outputRef}
+                                className="gws-live-preview__code-preview"
+                                style={{
+                                    backgroundColor: "black",
+                                    color: "white",
+                                    fontFamily: "monospace",
+                                    padding: "10px",
+                                    height: "200px",
+                                    overflow: "scroll",
+                                    marginBottom: "20px",
+                                    whiteSpace: "pre-wrap"
+                                }}>
+                                {consoleLogOutput}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
