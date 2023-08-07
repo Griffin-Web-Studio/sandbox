@@ -7,6 +7,7 @@ import { ReactComponent as GWSlogo } from "./images/gws-logo.svg";
 import { InstallPWAPrompt } from "./componenets/InstallPWAPropt.js";
 import CodemirrorInput from "./componenets/UI/CodemirrorInput";
 import { InputSelect } from "./componenets/UI/Inputs/Selectable/Primitives";
+import proxyConsole from "./utils/proxy-console";
 
 function App() {
     const ThemeMode = usePrefersColorScheme();
@@ -32,22 +33,27 @@ function App() {
     const [preferredTheme, setPreferredTheme] = useState("none");
     const [isPreviewLoaded, setIsPreviewLoaded] = useState(false);
     const [codeBlock, setCodeBlock] = useState("");
-    const [consoleLogOutput, setConsoleLogOutput] = useState("");
+    const [consoleLogOutput, setConsoleLogOutput] = useState([]);
 
     const themeModeReverse = ThemeMode === "dark" ? "light" : "dark";
     const prefThemeReverse = preferredTheme !== "none" ? (preferredTheme === "dark" ? "light" : "dark") : "none";
     const currentReverseThemeMode = prefThemeReverse === "none" ? themeModeReverse : prefThemeReverse;
     const currentThemeMode = prefThemeReverse === "none" ? ThemeMode : preferredTheme;
     const outputRef = useRef(null);
+    const sandboxJS = useRef(null);
 
     useEffect(() => {
-        fetch(fileContents)
-            .then((response) => response.text())
-            .then((text) => {
-                setCodeBlock(text);
-                setIsPreviewLoaded(true);
-            });
-    }, [isPreviewLoaded, setCodeBlock, setIsPreviewLoaded]);
+        // if (selectedOption.value === "js") {
+        //     setCodeBlock("for (let i = 0; i < 20; i++) { console.log('Hello World'); }");
+        // } else {
+        //     fetch(fileContents)
+        //         .then((response) => response.text())
+        //         .then((text) => {
+        //             setCodeBlock(text);
+        //             setIsPreviewLoaded(true);
+        //         });
+        // }
+    }, [selectedOption, isPreviewLoaded, setCodeBlock, setIsPreviewLoaded]);
 
     const onCodemirrorInputChangeHandler = (value) => {
         setCodeBlock(value);
@@ -55,40 +61,42 @@ function App() {
 
     const onButtonResetHandler = () => {
         setIsPreviewLoaded(false);
+        setConsoleLogOutput([]);
     };
 
     const onButtonRunHandler = () => {
         // Get the input code from the text area
         const inputCode = codeBlock;
 
-        // Override the console.log function to capture log messages
-        const consoleOutput = [];
-        const originalConsoleLog = console.log;
-        console.log = (...args) => {
-            originalConsoleLog(...args);
-            consoleOutput.push(args.join(" "));
-        };
-
-        // Create a new script element and set its innerHTML to the input code
-        const script = document.createElement("script");
-        script.innerHTML = inputCode;
-
-        // Evaluate the script and store the output
-        let output;
         try {
-            document.body.appendChild(script);
-            output = consoleOutput.join("\n");
-        } catch (err) {
-            consoleLogOutput = err.toString();
-            output = err.toString();
-        } finally {
-            document.body.removeChild(script);
-            console.log = originalConsoleLog;
-        }
+            const sandboxWindow = sandboxJS.current.contentWindow;
+            // const code = `${inputCode}`;
+            sandboxWindow.eval(inputCode);
 
-        // Update the console output
-        setConsoleLogOutput(output);
+            //     // Get the console log output from the sandbox
+            //     const consoleLogOutput = sandboxWindow.console.logOutput;
+            //     setConsoleLogOutput(consoleLogOutput);
+        } catch (e) {
+            //   setConsoleLogOutput((oldLogs) => oldLogs += e.message);
+        }
+        console.log(proxyConsole)
     };
+
+    useEffect(() => {
+        // if (!sandboxJS) return;
+
+        // // Define a reference to the original console object
+        // const originalConsole = sandboxJS.contentWindow.console;
+
+        // // Override the console.log method to intercept messages
+        // console.log = function () {
+        //     // Call the original console.log method to log messages to the browser console
+        //     originalConsole.log.apply(originalConsole, arguments);
+
+        //     // Add the message to the logs array
+        //     setConsoleLogOutput((logs) => [...logs, Array.prototype.slice.call(arguments).join(" ")]);
+        // };
+    }, []);
 
     const onButtonDarkModeHandler = () => {
         switch (preferredTheme) {
@@ -168,6 +176,7 @@ function App() {
                     <div className="grid-24 grid-lt-12">
                         {selectedMode === "svg" && <div className="gws-live-preview__code-preview flex align-center justify-center" dangerouslySetInnerHTML={{ __html: codeBlock }} />}
                         {selectedMode === "html" && <iframe srcDoc={codeBlock} className="gws-live-preview__code-preview flex align-center justify-center" title="Preview Frame" />}
+                        {selectedMode === "js" && <iframe ref={sandboxJS} title="sandbox" className="screen-reader-text" />}
                         {selectedMode === "js" && (
                             <div
                                 ref={outputRef}
@@ -182,7 +191,11 @@ function App() {
                                     marginBottom: "20px",
                                     whiteSpace: "pre-wrap"
                                 }}>
-                                {consoleLogOutput}
+                                <div>
+                                    {consoleLogOutput.map((log, index) => (
+                                        <div key={index}>{log}</div>
+                                    ))}
+                                </div>
                             </div>
                         )}
                     </div>
