@@ -58,7 +58,11 @@ function App() {
 
           <div className="grid col-6 gap-20">
             <div className="header__code-selector grid-4 flex align-stretch justify-stretch">
-              {/* <InputSelect options={codeTypes} className="wide" onSelect={onSelectUpdateHandler} /> */}
+              {/* <InputSelect
+                options={codeTypes}
+                className="wide"
+                onSelect={onSelectUpdateHandler}
+              /> */}
             </div>
 
             <div className="header__preferred-color grid-1 flex align-center">
@@ -77,9 +81,12 @@ function App() {
             </div>
 
             <div className="header__reset-code grid-1 flex align-center">
-              {/* <button className="button button--radius" onClick={onButtonResetHandler}>
-                                <i className="icon-reset-bold" />
-                            </button> */}
+              <button
+                className="button button--radius"
+                // onClick={onButtonResetHandler}
+              >
+                <i className="icon-reset-bold" />
+              </button>
             </div>
           </div>
         </header>
@@ -87,13 +94,28 @@ function App() {
         <div className="gws-live-preview__body body grid-24 grid gap-20">
           <div className="grid-24 grid-lt-12">
             <div className="gws-live-preview__code-block">
-              {/* <CodemirrorInput onInputChange={onCodemirrorInputChangeHandler} value={codeBlock} themeColor={currentThemeMode} /> */}
+              {/* <CodemirrorInput
+                onInputChange={onCodemirrorInputChangeHandler}
+                value={codeBlock}
+                themeColor={currentThemeMode}
+              /> */}
             </div>
           </div>
 
           <div className="grid-24 grid-lt-12">
-            {/* {selectedMode === 'svg' && (<div className="gws-live-preview__code-preview flex align-center justify-center" dangerouslySetInnerHTML={{ __html: codeBlock }} />)}
-                        {selectedMode === 'html' && (<iframe srcDoc={codeBlock} className="gws-live-preview__code-preview flex align-center justify-center" title="Preview Frame" />)} */}
+            {/* {selectedMode === "svg" && (
+              <div
+                className="gws-live-preview__code-preview flex align-center justify-center"
+                dangerouslySetInnerHTML={{ __html: codeBlock }}
+              />
+            )}
+            {selectedMode === "html" && ( */}
+            <iframe
+              srcDoc={codeBlock}
+              className="gws-live-preview__code-preview flex align-center justify-center"
+              title="Preview Frame"
+            />
+            {/*)} */}
           </div>
         </div>
       </div>
