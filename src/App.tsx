@@ -2,13 +2,13 @@ import React from "react";
 import usePrefersColorScheme from "use-prefers-color-scheme";
 
 // Images
-import Logo from "@/assets/logo.svg?react";
 import LightDark from "@/assets/light-dark.svg?react";
 import GwsLogo from "@/assets/logo-garage.svg?react";
 import logo from "@/assets/logo.svg";
 import Editor from "./components/ui/Editor";
+import { Selector } from "./components/ui/Selector";
 
-enum EditorMode {
+enum editorMode {
   HTML = "html",
   SVG = "svg",
   JS = "js",
@@ -22,24 +22,24 @@ function App() {
   );
   const [previewLoaded, setPreviewLoaded] = React.useState<boolean>(false);
   const [codeBlock, setCodeBlock] = React.useState<string>("");
-  const [selectedMode, setSelectedMode] = React.useState<EditorMode>(
-    EditorMode.HTML
+  const [selectedMode, setSelectedMode] = React.useState<editorMode>(
+    editorMode.HTML
   );
   // TODO: Move this inside the context provider
   const [codeTypes, setCodeTypes] = React.useState([
     {
       label: "HTML",
-      value: EditorMode.HTML,
+      value: editorMode.HTML,
       selected: true,
     },
     {
       label: "SVG (No HTML)",
-      value: EditorMode.SVG,
+      value: editorMode.SVG,
       selected: false,
     },
     {
       label: "JS",
-      value: EditorMode.JS,
+      value: editorMode.JS,
       selected: false,
     },
   ]);
@@ -78,35 +78,36 @@ function App() {
     document.body?.setAttribute("pref-color", "dark");
   };
 
-  // const onSelectUpdateHandler = (newCodeTypes) => {
-  //   const selectedOption = newCodeTypes.filter(
-  //     (option) => option.selected === true
-  //   )[0];
-  //   setCodeTypes(newCodeTypes);
-  //   setSelectedMode(selectedOption.value);
-  // };
+  const onSelectUpdateHandler = (newCodeTypes) => {
+    const selectedOption = newCodeTypes.filter(
+      (option) => option.selected === true
+    )[0];
+    setCodeTypes(newCodeTypes);
+    setSelectedMode(selectedOption.value);
+  };
+
   return (
     <div className="gws-live-preview">
       <div className="grid gap-20">
         <header className="gws-live-preview__header header grid-24 flex justify-space-between align-stretch">
-          <div className="header__gws-logo">
+          <div className="header__gws-logo flex flow-row">
             <a
               href="https://griffin-web.studio"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <GwsLogo />
+              <GwsLogo style={{ height: "130%" }} />
             </a>
-            <Logo style={{ paddingLeft: "0.5em" }} />
+            <img src={logo} alt="App Logo" style={{ paddingLeft: "1em" }} />
           </div>
 
           <div className="grid col-6 gap-20">
             <div className="header__code-selector grid-4 flex align-stretch justify-stretch">
-              {/* <InputSelect
+              <Selector
                 options={codeTypes}
                 className="wide"
                 onSelect={onSelectUpdateHandler}
-              /> */}
+              />
             </div>
 
             <div className="header__preferred-color grid-1 flex align-center">
