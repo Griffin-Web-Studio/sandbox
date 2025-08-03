@@ -1,5 +1,8 @@
 import React from "react";
 
+// Images
+import Logo from "@/assets/logo.svg?react";
+
 function App() {
   return (
     <div className="gws-live-preview">
@@ -13,7 +16,7 @@ function App() {
             >
               {/* <GWSlogo /> */}
             </a>
-            {/* <AppLogo style={{paddingLeft: "0.5em"}} /> */}
+            <Logo style={{ paddingLeft: "0.5em" }} />
           </div>
 
           <div className="grid col-6 gap-20">
