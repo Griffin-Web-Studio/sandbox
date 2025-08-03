@@ -3,6 +3,7 @@ import usePrefersColorScheme from "use-prefers-color-scheme";
 
 // Images
 import Logo from "@/assets/logo.svg?react";
+import GwsLogo from "@/assets/logo-garage.svg?react";
 
 function App() {
   const preferredColourScheme = usePrefersColorScheme();
@@ -17,7 +18,7 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {/* <GWSlogo /> */}
+              <GwsLogo />
             </a>
             <Logo style={{ paddingLeft: "0.5em" }} />
           </div>
