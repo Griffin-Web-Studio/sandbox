@@ -7,6 +7,12 @@ import LightDark from "@/assets/light-dark.svg?react";
 import GwsLogo from "@/assets/logo-garage.svg?react";
 import logo from "@/assets/logo.svg";
 
+enum EditorMode {
+  HTML = "html",
+  SVG = "svg",
+  JS = "js",
+}
+
 function App() {
   const preferredColourScheme = usePrefersColorScheme();
   const darkTheme = preferredColourScheme === "dark";
@@ -15,6 +21,27 @@ function App() {
   );
   const [previewLoaded, setPreviewLoaded] = React.useState<boolean>(false);
   const [codeBlock, setCodeBlock] = React.useState<string>("");
+  const [selectedMode, setSelectedMode] = React.useState<EditorMode>(
+    EditorMode.HTML
+  );
+  // TODO: Move this inside the context provider
+  const [codeTypes, setCodeTypes] = React.useState([
+    {
+      label: "HTML",
+      value: EditorMode.HTML,
+      selected: true,
+    },
+    {
+      label: "SVG (No HTML)",
+      value: EditorMode.SVG,
+      selected: false,
+    },
+    {
+      label: "JS",
+      value: EditorMode.JS,
+      selected: false,
+    },
+  ]);
 
   React.useEffect(() => {
     fetch(logo)
@@ -28,6 +55,10 @@ function App() {
   React.useEffect(() => {
     document.body?.setAttribute("pref-color", preferredDark ? "dark" : "light");
   }, [preferredDark]);
+
+  const onButtonResetHandler = () => {
+    setPreviewLoaded(false);
+  };
 
   const onPreferredThemeHandler = () => {
     if (preferredDark) {
@@ -83,7 +114,7 @@ function App() {
             <div className="header__reset-code grid-1 flex align-center">
               <button
                 className="button button--radius"
-                // onClick={onButtonResetHandler}
+                onClick={onButtonResetHandler}
               >
                 <i className="icon-reset-bold" />
               </button>
@@ -103,19 +134,19 @@ function App() {
           </div>
 
           <div className="grid-24 grid-lt-12">
-            {/* {selectedMode === "svg" && (
+            {selectedMode === "svg" && (
               <div
                 className="gws-live-preview__code-preview flex align-center justify-center"
                 dangerouslySetInnerHTML={{ __html: codeBlock }}
               />
             )}
-            {selectedMode === "html" && ( */}
-            <iframe
-              srcDoc={codeBlock}
-              className="gws-live-preview__code-preview flex align-center justify-center"
-              title="Preview Frame"
-            />
-            {/*)} */}
+            {selectedMode === "html" && (
+              <iframe
+                srcDoc={codeBlock}
+                className="gws-live-preview__code-preview flex align-center justify-center"
+                title="Preview Frame"
+              />
+            )}
           </div>
         </div>
       </div>
