@@ -2,7 +2,7 @@
 
 > A simple Tool to overlay the Spec Design over the live preview website.
 
-### [Homepage](https://external-projects.griffin-studio.co.uk/gws-svg-previewer/) | [Demo](https://external-projects.griffin-studio.co.uk/gws-svg-previewer/)
+### [Homepage](https://external-projects.griffin-studio.co.uk/sandbox/) | [Demo](https://external-projects.griffin-studio.co.uk/sandbox/)
 
 
 ## Author
@@ -15,7 +15,7 @@
 
 ## Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://gitlab.griffin-studio.dev/external-projects/gws-svg-previewer/-/issues). You can also take a look at the [contributing guide](https://gitlab.griffin-studio.dev/external-projects/gws-svg-previewer/-/wikis/home).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://gitlab.griffin-studio.dev/external-projects/sandbox/-/issues). You can also take a look at the [contributing guide](https://gitlab.griffin-studio.dev/external-projects/sandbox/-/wikis/home).
 
 ## Show your support
 
