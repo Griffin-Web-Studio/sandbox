@@ -629,7 +629,7 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    GWS SVG Previewer
+    SandBox
     Copyright (C) 2023 Griffin web Studio Limited
     Copyright (C) 2023 Rihards Simanovics <rihards.s@griffin-web.studio>
 
@@ -645,22 +645,6 @@ the "copyright" line and a pointer to where the full notice is found.
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-    Commercial use of this program is strictly prohibited without
-    obtaining a separate license from the copyright holder.
-
-    This project uses the following OSS components that are licensed under the MIT license:
-
-    - ReactJS (Copyright: Facebook, Inc. and its affiliates)
-    - CodeMirror (Copyright: Marijn Haverbeke and others)
-    - React-Codemirror (Copyright: [UIW])
-    - Fantasticon (Copyright: Tancredi Trugenberger)
-    - Jest (Copyright: Facebook, Inc. and its affiliates)
-    - Sass (Copyright: Sass Core Team)
-    - Web Vitals (Copyright: Google LLC)
-
-    Please see the individual license files for the full text of the MIT
-    license and the copyright notice for each of these components.
 
 Also add information on how to contact you by electronic and paper mail.
 
