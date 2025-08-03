@@ -8,7 +8,8 @@
 		"vscode": {
 			"extensions": [
 				"eamodio.gitlens",
-				"streetsidesoftware.code-spell-checker-british-english"
+				"streetsidesoftware.code-spell-checker-british-english",
+				"esbenp.prettier-vscode"
 			]
 		}
 	},
