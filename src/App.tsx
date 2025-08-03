@@ -6,6 +6,7 @@ import Logo from "@/assets/logo.svg?react";
 import LightDark from "@/assets/light-dark.svg?react";
 import GwsLogo from "@/assets/logo-garage.svg?react";
 import logo from "@/assets/logo.svg";
+import Editor from "./components/ui/Editor";
 
 enum EditorMode {
   HTML = "html",
@@ -56,6 +57,10 @@ function App() {
     document.body?.setAttribute("pref-color", preferredDark ? "dark" : "light");
   }, [preferredDark]);
 
+  const onEditorChangeHandler = (value: string) => {
+    setCodeBlock(value);
+  };
+
   const onButtonResetHandler = () => {
     setPreviewLoaded(false);
   };
@@ -72,6 +77,14 @@ function App() {
     localStorage.setItem("preferredDark", "true");
     document.body?.setAttribute("pref-color", "dark");
   };
+
+  // const onSelectUpdateHandler = (newCodeTypes) => {
+  //   const selectedOption = newCodeTypes.filter(
+  //     (option) => option.selected === true
+  //   )[0];
+  //   setCodeTypes(newCodeTypes);
+  //   setSelectedMode(selectedOption.value);
+  // };
   return (
     <div className="gws-live-preview">
       <div className="grid gap-20">
@@ -125,11 +138,11 @@ function App() {
         <div className="gws-live-preview__body body grid-24 grid gap-20">
           <div className="grid-24 grid-lt-12">
             <div className="gws-live-preview__code-block">
-              {/* <CodemirrorInput
-                onInputChange={onCodemirrorInputChangeHandler}
+              <Editor
+                onChange={onEditorChangeHandler}
                 value={codeBlock}
-                themeColor={currentThemeMode}
-              /> */}
+                preferredDark={preferredDark}
+              />
             </div>
           </div>
 
