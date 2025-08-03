@@ -1,9 +1,12 @@
 import React from "react";
+import usePrefersColorScheme from "use-prefers-color-scheme";
 
 // Images
 import Logo from "@/assets/logo.svg?react";
 
 function App() {
+  const preferredColourScheme = usePrefersColorScheme();
+  const darkTheme = preferredColourScheme.match("dark");
   return (
     <div className="gws-live-preview">
       <div className="grid gap-20">
