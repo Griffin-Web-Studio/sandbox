@@ -7,13 +7,15 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "fantasticon": "fantasticon --config .fantasticon.cjs"
   },
   "dependencies": {
     "@codemirror/lang-html": "^6.4.9",
     "@uiw/codemirror-theme-github": "^4.24.2",
     "@uiw/codemirror-theme-gruvbox-dark": "^4.24.2",
     "@uiw/react-codemirror": "^4.24.2",
+    "fantasticon": "^3.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sass": "^1.89.2",
