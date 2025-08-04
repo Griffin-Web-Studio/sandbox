@@ -1,36 +1,56 @@
 import React, { useState, useRef, useEffect } from "react";
 
-const Selector = (props) => {
-  const { options, onSelect, multiple, value, className, ...otherAttributes } =
-    props;
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const listRef = useRef(null);
+export interface option {
+  value: string;
+  selected: boolean;
+  label: string;
+}
 
-  //need selected option for single select
-  const selectedOption = options.filter(
-    (option) => option.selected === true
-  )[0];
+export interface SelectorProps {
+  options: option[];
+  onSelect: (options: option[]) => void;
+  className?: string;
+  multiple?: boolean;
+}
+
+export const Selector: React.FC<SelectorProps> = ({
+  options,
+  onSelect,
+  multiple = false,
+  className = "",
+  ...rest
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const currentOption = options.filter((option) => option.selected === true)[0];
 
   useEffect(() => {
     function handleResize() {
+      const dropdown = dropdownRef.current;
+      const list = listRef.current;
+
+      if (!dropdown || !list) return;
+
       // Recalculate the position of the list element here
-      const dropdownRect = dropdownRef.current.getBoundingClientRect();
-      listRef.current.style.top = `${dropdownRect.bottom}px`;
-      listRef.current.style.right = `${
-        window.innerWidth - dropdownRect.right
-      }px`;
-      listRef.current.style.minWidth = `${dropdownRef.current.offsetWidth}px`;
+      const dropdownRect = dropdown.getBoundingClientRect();
+      list.style.top = `${dropdownRect.bottom}px`;
+      list.style.right = `${window.innerWidth - dropdownRect.right}px`;
+      list.style.minWidth = `${dropdown.offsetWidth}px`;
     }
 
     function handleScroll() {
+      const dropdown = dropdownRef.current;
+      const list = listRef.current;
+
+      if (!dropdown || !list) return;
+
       // Recalculate the position of the list element here
-      const dropdownRect = dropdownRef.current.getBoundingClientRect();
-      listRef.current.style.top = `${dropdownRect.bottom}px`;
-      listRef.current.style.right = `${
-        window.innerWidth - dropdownRect.right
-      }px`;
-      listRef.current.style.minWidth = `${dropdownRef.current.offsetWidth}px`;
+      const dropdownRect = dropdown.getBoundingClientRect();
+      list.style.top = dropdownRect.bottom + "px";
+      list.style.right = window.innerWidth - dropdownRect.right + "px";
+      list.style.minWidth = dropdown.offsetWidth + "px";
     }
 
     handleScroll();
@@ -42,12 +62,13 @@ const Selector = (props) => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [dropdownRef, listRef]);
 
   //handle auto close on click outside
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setIsOpen(false);
       }
     }
@@ -61,7 +82,7 @@ const Selector = (props) => {
 
   //handle auto close on escape key
   useEffect(() => {
-    function handleKeyDown(event) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setIsOpen(false);
       }
@@ -74,41 +95,22 @@ const Selector = (props) => {
     };
   }, []);
 
-  //handle list click
-  // useEffect(() => {
-  //     function handleListClick(event) {
-  //         if (event.target.classList.contains("option")) {
-  //             const selectedValue = event.target.getAttribute("value");
-  //             const selectedOption = options.filter((option) => option.value === selectedValue)[0];
-  //             onSelect(selectedOption);
-  //             setIsOpen(false);
-  //         }
-  //     }
+  const onOptionSelectHandler = (event: React.MouseEvent<HTMLLIElement>) => {
+    const optionValue = event.currentTarget.getAttribute("value");
 
-  //     listRef.current.addEventListener("click", handleListClick);
+    if (currentOption.value === optionValue) return;
 
-  //     return () => {
-  //         listRef.current.removeEventListener("click", handleListClick);
-  //     };
-  // }, [options, onSelect]);
-
-  //handle list keydown
-  const onOptionSelectHandler = (event) => {
-    const selectedValue = event.target.getAttribute("value");
-
-    if (selectedOption.value !== selectedValue) {
-      const UpdatedSelectedValue = options.map((item) => {
-        if (item.selected) {
-          return { ...item, selected: false };
-        } else if (item.value === selectedValue) {
-          return { ...item, selected: true };
-        } else {
-          return item;
-        }
-      });
-      onSelect(UpdatedSelectedValue);
-      setIsOpen(false);
-    }
+    const updatedOptions = options.map((item) => {
+      if (item.selected) {
+        return { ...item, selected: false };
+      } else if (item.value === optionValue) {
+        return { ...item, selected: true };
+      } else {
+        return item;
+      }
+    });
+    onSelect(updatedOptions);
+    setIsOpen(false);
   };
 
   return (
@@ -116,26 +118,25 @@ const Selector = (props) => {
       ref={dropdownRef}
       className={`fancyDropdown ${isOpen ? "open" : "closed"} ${className}`}
       onClick={() => {
-        setIsOpen((oldState) => !oldState);
+        setIsOpen((old) => !old);
       }}
-      tabIndex="0"
+      tabIndex={0}
       aria-label={multiple ? "Select options" : "select an option"}
-      {...otherAttributes}
+      {...rest}
     >
       <span className="current">
-        {multiple ? "Options selected" : selectedOption.label}
+        {multiple ? "Options selected" : currentOption.label}
       </span>
       <div ref={listRef} className="list">
         <ul>
-          {options.map((option) => (
+          {options.map(({ value, selected, label }) => (
             <li
-              key={option.value}
-              className={`option ${option.selected ? " selected" : ""}`}
-              value={option.value}
-              label={option.label}
+              key={value}
+              className={`option ${selected ? " selected" : ""}`}
+              value={value}
               onClick={onOptionSelectHandler}
             >
-              {option.label}
+              {label}
             </li>
           ))}
         </ul>
