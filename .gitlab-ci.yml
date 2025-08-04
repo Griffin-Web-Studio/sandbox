@@ -10,7 +10,7 @@ build:
     - yarn run build
   artifacts:
     paths:
-      - build
+      - dist
 
 pages:
   stage: deploy
