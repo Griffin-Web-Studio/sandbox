@@ -1,25 +1,25 @@
 image: node
 
 build:
- stage: build
- cache:
-   paths:
-     - node_modules/
- script:
-   - yarn install
-   - yarn run build
- artifacts:
-   paths:
-     - build
+  stage: build
+  cache:
+    paths:
+      - node_modules/
+  script:
+    - yarn install
+    - yarn run build
+  artifacts:
+    paths:
+      - build
 
 pages:
   stage: deploy
-  dependencies: 
+  dependencies:
     - build
   script:
     - rm -rf public
-    - cp build/index.html build/404.html
-    - mv build public
+    - cp dist/index.html dist/404.html
+    - mv dist public
   artifacts:
     paths:
       - public
