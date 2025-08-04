@@ -7,40 +7,32 @@ import GwsLogo from "@/assets/logo-garage.svg?react";
 import Logo from "@/assets/logo.svg?react";
 import logo from "@/assets/logo.svg";
 import Editor from "./components/ui/Editor";
-import { Selector } from "./components/ui/Selector";
-
-enum editorMode {
-  HTML = "html",
-  SVG = "svg",
-  JS = "js",
-}
+import { Selector, type option } from "./components/ui/Selector";
 
 function App() {
   const preferredColourScheme = usePrefersColorScheme();
   const darkTheme = preferredColourScheme === "dark";
-  const [preferredDark, setPreferredDark] = React.useState<boolean>(
-    localStorage.getItem("preferredDark") === "true"
-  );
+  const [preferredDark, setPreferredDark] = React.useState<boolean>(darkTheme);
   const [previewLoaded, setPreviewLoaded] = React.useState<boolean>(false);
   const [codeBlock, setCodeBlock] = React.useState<string>("");
-  const [selectedMode, setSelectedMode] = React.useState<editorMode>(
-    editorMode.HTML
-  );
+  const [selectedMode, setSelectedMode] = React.useState("html");
   // TODO: Move this inside the context provider
-  const [codeTypes, setCodeTypes] = React.useState([
+  const [codeTypes, setCodeTypes] = React.useState<
+    { label: string; value: string; selected: boolean }[]
+  >([
     {
       label: "HTML",
-      value: editorMode.HTML,
+      value: "html",
       selected: true,
     },
     {
       label: "SVG (No HTML)",
-      value: editorMode.SVG,
+      value: "svg",
       selected: false,
     },
     {
       label: "JS",
-      value: editorMode.JS,
+      value: "js",
       selected: false,
     },
   ]);
@@ -79,11 +71,11 @@ function App() {
     document.body?.setAttribute("pref-color", "dark");
   };
 
-  const onSelectUpdateHandler = (newCodeTypes) => {
-    const selectedOption = newCodeTypes.filter(
+  const onSelectUpdateHandler = (options: option[]) => {
+    const selectedOption = options.filter(
       (option) => option.selected === true
     )[0];
-    setCodeTypes(newCodeTypes);
+    setCodeTypes(options);
     setSelectedMode(selectedOption.value);
   };
 
@@ -148,21 +140,23 @@ function App() {
             </div>
           </div>
 
-          <div className="grid-24 grid-lt-12">
-            {selectedMode === "svg" && (
-              <div
-                className="gws-live-preview__code-preview flex align-center justify-center"
-                dangerouslySetInnerHTML={{ __html: codeBlock }}
-              />
-            )}
-            {selectedMode === "html" && (
-              <iframe
-                srcDoc={codeBlock}
-                className="gws-live-preview__code-preview flex align-center justify-center"
-                title="Preview Frame"
-              />
-            )}
-          </div>
+          {previewLoaded && (
+            <div className="grid-24 grid-lt-12">
+              {selectedMode === "svg" && (
+                <div
+                  className="gws-live-preview__code-preview flex align-center justify-center"
+                  dangerouslySetInnerHTML={{ __html: codeBlock }}
+                />
+              )}
+              {selectedMode === "html" && (
+                <iframe
+                  srcDoc={codeBlock}
+                  className="gws-live-preview__code-preview flex align-center justify-center"
+                  title="Preview Frame"
+                />
+              )}
+            </div>
+          )}
         </div>
       </div>
 
