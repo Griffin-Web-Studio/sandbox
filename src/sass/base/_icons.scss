@@ -1,10 +1,12 @@
+@use 'sass:map';
+
 $icons-font: "icons";
 
 @font-face {
     font-family: $icons-font;
-    src: url("../../fonts/icons.ttf?85da9b398ce641fb202f5431f1deb801") format("truetype"),
-url("../../fonts/icons.woff?85da9b398ce641fb202f5431f1deb801") format("woff"),
-url("../../fonts/icons.woff2?85da9b398ce641fb202f5431f1deb801") format("woff2");
+    src: url("/fonts/icons.ttf?78a9180ff7a8fecd5eb797e192617953") format("truetype"),
+url("/fonts/icons.woff?78a9180ff7a8fecd5eb797e192617953") format("woff"),
+url("/fonts/icons.woff2?78a9180ff7a8fecd5eb797e192617953") format("woff2");
 }
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
@@ -19,29 +21,29 @@ url("../../fonts/icons.woff2?85da9b398ce641fb202f5431f1deb801") format("woff2");
 }
 
 $icons-map: (
-    "apple-share": "\f101",
-    "focus-bottom": "\f102",
-    "focus-top": "\f103",
-    "inverted": "\f104",
-    "reset-bold": "\f105",
-    "reset": "\f106",
+    "reset": "\f101",
+    "reset-bold": "\f102",
+    "inverted": "\f103",
+    "focus-top": "\f104",
+    "focus-bottom": "\f105",
+    "apple-share": "\f106",
 );
 
-.icon-apple-share:before {
-    content: map-get($icons-map, "apple-share");
-}
-.icon-focus-bottom:before {
-    content: map-get($icons-map, "focus-bottom");
-}
-.icon-focus-top:before {
-    content: map-get($icons-map, "focus-top");
-}
-.icon-inverted:before {
-    content: map-get($icons-map, "inverted");
+.icon-reset:before {
+    content: map.get($icons-map, "reset");
 }
 .icon-reset-bold:before {
-    content: map-get($icons-map, "reset-bold");
+    content: map.get($icons-map, "reset-bold");
 }
-.icon-reset:before {
-    content: map-get($icons-map, "reset");
+.icon-inverted:before {
+    content: map.get($icons-map, "inverted");
+}
+.icon-focus-top:before {
+    content: map.get($icons-map, "focus-top");
+}
+.icon-focus-bottom:before {
+    content: map.get($icons-map, "focus-bottom");
+}
+.icon-apple-share:before {
+    content: map.get($icons-map, "apple-share");
 }
