@@ -51,11 +51,11 @@ function App() {
   const onButtonResetHandler = () => {
     let target: string = "";
     if ("html" === selectedMode) {
-      target = "/sample/sample.html";
+      target = "./sample/sample.html";
     } else if ("svg" === selectedMode) {
       target = logo;
     } else if ("js" === selectedMode) {
-      target = "/sample/hi_mom.js";
+      target = "./sample/hi_mom.js";
     }
     fetch(target)
       .then((response) => response.text())
