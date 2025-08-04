@@ -4,6 +4,7 @@ import usePrefersColorScheme from "use-prefers-color-scheme";
 // Images
 import LightDark from "@/assets/light-dark.svg?react";
 import GwsLogo from "@/assets/logo-garage.svg?react";
+import Logo from "@/assets/logo.svg?react";
 import logo from "@/assets/logo.svg";
 import Editor from "./components/ui/Editor";
 import { Selector } from "./components/ui/Selector";
@@ -98,7 +99,7 @@ function App() {
             >
               <GwsLogo style={{ height: "130%" }} />
             </a>
-            <img src={logo} alt="App Logo" style={{ paddingLeft: "1em" }} />
+            <Logo style={{ paddingLeft: "1em" }} />
           </div>
 
           <div className="grid col-6 gap-20">
