@@ -12,7 +12,8 @@ import Editor, { type supportedLanguages } from "./components/ui/Editor";
 import { Selector, type option } from "./components/ui/Selector";
 
 // Contexts
-import EditorContext from "./context/EditorContext";
+import EditorContext, { type editorStoreValues } from "./context/EditorContext";
+import type { languageOption } from "./context/EditorProvider";
 
 function App() {
   const editorContext = React.useContext(EditorContext);
@@ -25,24 +26,8 @@ function App() {
     React.useState<supportedLanguages>("html");
   // TODO: Move this inside the context provider
   const [codeTypes, setCodeTypes] = React.useState<
-    { label: string; value: string; selected: boolean }[]
-  >([
-    {
-      label: "HTML",
-      value: "html",
-      selected: true,
-    },
-    {
-      label: "SVG (No HTML)",
-      value: "svg",
-      selected: false,
-    },
-    {
-      label: "JS",
-      value: "js",
-      selected: false,
-    },
-  ]);
+    editorStoreValues["codeSelection"] | undefined
+  >(editorStore?.codeSelection);
 
   const onEditorChangeHandler = React.useCallback(
     (value: string) => {
@@ -99,7 +84,7 @@ function App() {
     const selectedOption = options.filter(
       (option) => option.selected === true
     )[0];
-    setCodeTypes(options);
+    setCodeTypes(options as languageOption[]);
     setSelectedMode(selectedOption.value as supportedLanguages);
   };
 
@@ -119,16 +104,20 @@ function App() {
             >
               <GwsLogo style={{ height: "130%" }} />
             </a>
-            <Logo style={{ paddingLeft: "1em" }} />
+            <Logo
+              style={{ height: "100%", width: "100%", paddingLeft: "1em" }}
+            />
           </div>
 
           <div className="grid col-6 gap-20">
             <div className="header__code-selector grid-4 flex align-stretch justify-stretch">
-              <Selector
-                options={codeTypes}
-                className="wide"
-                onSelect={onSelectUpdateHandler}
-              />
+              {codeTypes && (
+                <Selector
+                  options={codeTypes}
+                  className="wide"
+                  onSelect={onSelectUpdateHandler}
+                />
+              )}
             </div>
 
             <div className="header__preferred-color grid-1 flex align-center">

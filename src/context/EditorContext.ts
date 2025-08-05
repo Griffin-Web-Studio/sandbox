@@ -1,4 +1,5 @@
 import React from "react";
+import type { languageOption } from "./EditorProvider";
 
 export interface editorStoreValues {
   codeStore: {
@@ -6,6 +7,7 @@ export interface editorStoreValues {
     svg: string;
     js: string;
   };
+  codeSelection: languageOption[];
 }
 
 export interface EditorContextType {
