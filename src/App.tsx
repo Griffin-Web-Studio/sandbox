@@ -102,6 +102,10 @@ function App() {
     setSelectedMode(selectedOption.value);
   };
 
+  React.useEffect(() => {
+    document.body?.setAttribute("pref-color", preferredDark ? "dark" : "light");
+  }, [preferredDark]);
+
   return (
     <div className="gws-live-preview">
       <div className="grid gap-20">
