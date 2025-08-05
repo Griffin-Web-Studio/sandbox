@@ -178,11 +178,10 @@ function App() {
 
           <div className="grid-24 grid-lt-12">
             {selectedMode === "xml" && (
-              <div
+              <iframe
+                srcDoc={localStorage.getItem("svg_code") ?? ""}
                 className="gws-live-preview__code-preview flex align-center justify-center"
-                dangerouslySetInnerHTML={{
-                  __html: localStorage.getItem("svg_code") ?? "",
-                }}
+                title="Preview Frame"
               />
             )}
             {selectedMode === "html" && (
