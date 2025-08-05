@@ -8,12 +8,15 @@ import GwsLogo from "@/assets/logo-garage.svg?react";
 import Logo from "@/assets/logo.svg?react";
 
 // Components
-import Editor, { type supportedLanguages } from "./components/ui/Editor";
+import { type supportedLanguages } from "./components/ui/Editor";
 import { Selector, type option } from "./components/ui/Selector";
 
 // Contexts
 import EditorContext, { type editorStoreValues } from "./context/EditorContext";
 import type { languageOption } from "./context/EditorProvider";
+import JSEditor from "./components/editor/JSEditor";
+import XMLEditor from "./components/editor/XMLEditor";
+import HTMLEditor from "./components/editor/HTMLEditor";
 
 function App() {
   const editorContext = React.useContext(EditorContext);
@@ -29,43 +32,33 @@ function App() {
     editorStoreValues["codeSelection"] | undefined
   >(editorStore?.codeSelection);
 
-  const onEditorChangeHandler = React.useCallback(
-    (value: string) => {
+  const onButtonResetHandler = React.useCallback(() => {
+    (async () => {
       if (!setEditorStore) return;
       if ("html" === selectedMode) {
+        const value = await getHtmlSample();
         localStorage.setItem("html_code", value);
         setEditorStore((old) => ({
           ...old,
           codeStore: { ...old.codeStore, html: value },
         }));
       } else if ("xml" === selectedMode) {
-        localStorage.setItem("svg_code", value);
+        const value = await getSvgSample();
+        localStorage.setItem("xml_code", value);
         setEditorStore((old) => ({
           ...old,
-          codeStore: { ...old.codeStore, svg: value },
+          codeStore: { ...old.codeStore, xml: value },
         }));
       } else if ("js" === selectedMode) {
+        const value = await getJsSample();
         localStorage.setItem("js_code", value);
         setEditorStore((old) => ({
           ...old,
           codeStore: { ...old.codeStore, js: value },
         }));
       }
-    },
-    [setEditorStore, selectedMode]
-  );
-
-  const onButtonResetHandler = React.useCallback(() => {
-    (async () => {
-      if ("html" === selectedMode) {
-        onEditorChangeHandler(await getHtmlSample());
-      } else if ("xml" === selectedMode) {
-        onEditorChangeHandler(await getSvgSample());
-      } else if ("js" === selectedMode) {
-        onEditorChangeHandler(await getJsSample());
-      }
     })();
-  }, [selectedMode, onEditorChangeHandler]);
+  }, [selectedMode, setEditorStore]);
 
   const onPreferredThemeHandler = () => {
     if (preferredDark) {
@@ -147,51 +140,13 @@ function App() {
         </header>
 
         <div className="gws-live-preview__body body grid-24 grid gap-20">
-          <div className="grid-24 grid-lt-12">
-            <div className="gws-live-preview__code-block">
-              {"html" === selectedMode && (
-                <Editor
-                  onChange={onEditorChangeHandler}
-                  value={editorStore?.codeStore.html}
-                  preferredDark={preferredDark}
-                  language="html"
-                />
-              )}
-              {"xml" === selectedMode && (
-                <Editor
-                  onChange={onEditorChangeHandler}
-                  value={editorStore?.codeStore.svg}
-                  preferredDark={preferredDark}
-                  language="xml"
-                />
-              )}
-              {"js" === selectedMode && (
-                <Editor
-                  onChange={onEditorChangeHandler}
-                  value={editorStore?.codeStore.js}
-                  preferredDark={preferredDark}
-                  language="js"
-                />
-              )}
-            </div>
-          </div>
-
-          <div className="grid-24 grid-lt-12">
-            {selectedMode === "xml" && (
-              <iframe
-                srcDoc={localStorage.getItem("svg_code") ?? ""}
-                className="gws-live-preview__code-preview flex align-center justify-center"
-                title="Preview Frame"
-              />
-            )}
-            {selectedMode === "html" && (
-              <iframe
-                srcDoc={localStorage.getItem("html_code") ?? ""}
-                className="gws-live-preview__code-preview flex align-center justify-center"
-                title="Preview Frame"
-              />
-            )}
-          </div>
+          {selectedMode === "html" && (
+            <HTMLEditor preferredDark={preferredDark} />
+          )}
+          {selectedMode === "xml" && (
+            <XMLEditor preferredDark={preferredDark} />
+          )}
+          {selectedMode === "js" && <JSEditor preferredDark={preferredDark} />}
         </div>
       </div>
 

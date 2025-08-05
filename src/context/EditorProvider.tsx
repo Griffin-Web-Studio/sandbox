@@ -13,15 +13,15 @@ export interface EditorProviderProps {
 
 if (!localStorage.getItem("html_code"))
   localStorage.setItem("html_code", await getHtmlSample());
-if (!localStorage.getItem("svg_code"))
-  localStorage.setItem("svg_code", await getSvgSample());
+if (!localStorage.getItem("xml_code"))
+  localStorage.setItem("xml_code", await getSvgSample());
 if (!localStorage.getItem("js_code"))
   localStorage.setItem("js_code", await getJsSample());
 
 const defaultValue: editorStoreValues = {
   codeStore: {
     html: localStorage.getItem("html_code") ?? "",
-    svg: localStorage.getItem("svg_code") ?? "",
+    svg: localStorage.getItem("xml_code") ?? "",
     js: localStorage.getItem("js_code") ?? "",
   },
   codeSelection: [
