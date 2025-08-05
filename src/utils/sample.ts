@@ -7,7 +7,7 @@ export const getHtmlSample = async () => {
 };
 
 export const getSvgSample = async () => {
-  return await fetch("./public/images/logo.svg")
+  return await fetch("./images/logo.svg")
     .then((response) => response.text())
     .then((text) => {
       return text;
