@@ -1,5 +1,6 @@
 import React from "react";
 import usePrefersColorScheme from "use-prefers-color-scheme";
+import { getHtmlSample, getJsSample, getSvgSample } from "./utils/sample";
 
 // Images
 import LightDark from "@/assets/light-dark.svg?react";
@@ -20,7 +21,6 @@ function App() {
   const preferredColourScheme = usePrefersColorScheme();
   const darkTheme = preferredColourScheme === "dark";
   const [preferredDark, setPreferredDark] = React.useState<boolean>(darkTheme);
-  const [codeBlock, setCodeBlock] = React.useState<string>("");
   const [selectedMode, setSelectedMode] = React.useState("html");
   // TODO: Move this inside the context provider
   const [codeTypes, setCodeTypes] = React.useState<
@@ -69,21 +69,17 @@ function App() {
     [setEditorStore, selectedMode]
   );
 
-  const onButtonResetHandler = () => {
-    let target: string = "";
-    if ("html" === selectedMode) {
-      target = "./sample/sample.html";
-    } else if ("svg" === selectedMode) {
-      target = logo;
-    } else if ("js" === selectedMode) {
-      target = "./sample/hi_mom.js";
-    }
-    fetch(target)
-      .then((response) => response.text())
-      .then((text) => {
-        setCodeBlock(text);
-      });
-  };
+  const onButtonResetHandler = React.useCallback(() => {
+    (async () => {
+      if ("html" === selectedMode) {
+        onEditorChangeHandler(await getHtmlSample());
+      } else if ("svg" === selectedMode) {
+        onEditorChangeHandler(await getSvgSample());
+      } else if ("js" === selectedMode) {
+        onEditorChangeHandler(await getJsSample());
+      }
+    })();
+  }, [selectedMode, onEditorChangeHandler]);
 
   const onPreferredThemeHandler = () => {
     if (preferredDark) {
