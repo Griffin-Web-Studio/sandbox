@@ -8,7 +8,7 @@ import GwsLogo from "@/assets/logo-garage.svg?react";
 import Logo from "@/assets/logo.svg?react";
 
 // Components
-import Editor from "./components/ui/Editor";
+import Editor, { type supportedLanguages } from "./components/ui/Editor";
 import { Selector, type option } from "./components/ui/Selector";
 
 // Contexts
@@ -21,7 +21,8 @@ function App() {
   const preferredColourScheme = usePrefersColorScheme();
   const darkTheme = preferredColourScheme === "dark";
   const [preferredDark, setPreferredDark] = React.useState<boolean>(darkTheme);
-  const [selectedMode, setSelectedMode] = React.useState("html");
+  const [selectedMode, setSelectedMode] =
+    React.useState<supportedLanguages>("html");
   // TODO: Move this inside the context provider
   const [codeTypes, setCodeTypes] = React.useState<
     { label: string; value: string; selected: boolean }[]
@@ -52,7 +53,7 @@ function App() {
           ...old,
           codeStore: { ...old.codeStore, html: value },
         }));
-      } else if ("svg" === selectedMode) {
+      } else if ("xml" === selectedMode) {
         localStorage.setItem("svg_code", value);
         setEditorStore((old) => ({
           ...old,
@@ -73,7 +74,7 @@ function App() {
     (async () => {
       if ("html" === selectedMode) {
         onEditorChangeHandler(await getHtmlSample());
-      } else if ("svg" === selectedMode) {
+      } else if ("xml" === selectedMode) {
         onEditorChangeHandler(await getSvgSample());
       } else if ("js" === selectedMode) {
         onEditorChangeHandler(await getJsSample());
@@ -99,7 +100,7 @@ function App() {
       (option) => option.selected === true
     )[0];
     setCodeTypes(options);
-    setSelectedMode(selectedOption.value);
+    setSelectedMode(selectedOption.value as supportedLanguages);
   };
 
   React.useEffect(() => {
@@ -164,13 +165,15 @@ function App() {
                   onChange={onEditorChangeHandler}
                   value={editorStore?.codeStore.html}
                   preferredDark={preferredDark}
+                  language="html"
                 />
               )}
-              {"svg" === selectedMode && (
+              {"xml" === selectedMode && (
                 <Editor
                   onChange={onEditorChangeHandler}
                   value={editorStore?.codeStore.svg}
                   preferredDark={preferredDark}
+                  language="xml"
                 />
               )}
               {"js" === selectedMode && (
@@ -178,13 +181,14 @@ function App() {
                   onChange={onEditorChangeHandler}
                   value={editorStore?.codeStore.js}
                   preferredDark={preferredDark}
+                  language="js"
                 />
               )}
             </div>
           </div>
 
           <div className="grid-24 grid-lt-12">
-            {selectedMode === "svg" && (
+            {selectedMode === "xml" && (
               <div
                 className="gws-live-preview__code-preview flex align-center justify-center"
                 dangerouslySetInnerHTML={{
