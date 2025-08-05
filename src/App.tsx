@@ -5,11 +5,18 @@ import usePrefersColorScheme from "use-prefers-color-scheme";
 import LightDark from "@/assets/light-dark.svg?react";
 import GwsLogo from "@/assets/logo-garage.svg?react";
 import Logo from "@/assets/logo.svg?react";
-import logo from "@/assets/logo.svg";
+
+// Components
 import Editor from "./components/ui/Editor";
 import { Selector, type option } from "./components/ui/Selector";
 
+// Contexts
+import EditorContext from "./context/EditorContext";
+
 function App() {
+  const editorContext = React.useContext(EditorContext);
+  const editorStore = editorContext?.editorStore;
+  const setEditorStore = editorContext?.setEditorStore;
   const preferredColourScheme = usePrefersColorScheme();
   const darkTheme = preferredColourScheme === "dark";
   const [preferredDark, setPreferredDark] = React.useState<boolean>(darkTheme);
@@ -36,17 +43,31 @@ function App() {
     },
   ]);
 
-  React.useEffect(() => {
-    onButtonResetHandler();
-  });
-
-  React.useEffect(() => {
-    document.body?.setAttribute("pref-color", preferredDark ? "dark" : "light");
-  }, [preferredDark]);
-
-  const onEditorChangeHandler = (value: string) => {
-    setCodeBlock(value);
-  };
+  const onEditorChangeHandler = React.useCallback(
+    (value: string) => {
+      if (!setEditorStore) return;
+      if ("html" === selectedMode) {
+        localStorage.setItem("html_code", value);
+        setEditorStore((old) => ({
+          ...old,
+          codeStore: { ...old.codeStore, html: value },
+        }));
+      } else if ("svg" === selectedMode) {
+        localStorage.setItem("svg_code", value);
+        setEditorStore((old) => ({
+          ...old,
+          codeStore: { ...old.codeStore, svg: value },
+        }));
+      } else if ("js" === selectedMode) {
+        localStorage.setItem("js_code", value);
+        setEditorStore((old) => ({
+          ...old,
+          codeStore: { ...old.codeStore, js: value },
+        }));
+      }
+    },
+    [setEditorStore, selectedMode]
+  );
 
   const onButtonResetHandler = () => {
     let target: string = "";
@@ -138,11 +159,27 @@ function App() {
         <div className="gws-live-preview__body body grid-24 grid gap-20">
           <div className="grid-24 grid-lt-12">
             <div className="gws-live-preview__code-block">
-              <Editor
-                onChange={onEditorChangeHandler}
-                value={codeBlock}
-                preferredDark={preferredDark}
-              />
+              {"html" === selectedMode && (
+                <Editor
+                  onChange={onEditorChangeHandler}
+                  value={editorStore?.codeStore.html}
+                  preferredDark={preferredDark}
+                />
+              )}
+              {"svg" === selectedMode && (
+                <Editor
+                  onChange={onEditorChangeHandler}
+                  value={editorStore?.codeStore.svg}
+                  preferredDark={preferredDark}
+                />
+              )}
+              {"js" === selectedMode && (
+                <Editor
+                  onChange={onEditorChangeHandler}
+                  value={editorStore?.codeStore.js}
+                  preferredDark={preferredDark}
+                />
+              )}
             </div>
           </div>
 
@@ -150,12 +187,14 @@ function App() {
             {selectedMode === "svg" && (
               <div
                 className="gws-live-preview__code-preview flex align-center justify-center"
-                dangerouslySetInnerHTML={{ __html: codeBlock }}
+                dangerouslySetInnerHTML={{
+                  __html: localStorage.getItem("svg_code") ?? "",
+                }}
               />
             )}
             {selectedMode === "html" && (
               <iframe
-                srcDoc={codeBlock}
+                srcDoc={localStorage.getItem("html_code") ?? ""}
                 className="gws-live-preview__code-preview flex align-center justify-center"
                 title="Preview Frame"
               />
