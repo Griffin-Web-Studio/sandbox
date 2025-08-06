@@ -4,7 +4,7 @@ import type { languageOption } from "./EditorProvider";
 export interface editorStoreValues {
   codeStore: {
     html: string;
-    svg: string;
+    xml: string;
     js: string;
   };
   codeSelection: languageOption[];

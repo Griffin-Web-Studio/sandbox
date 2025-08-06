@@ -29,7 +29,7 @@ const XMLEditor: React.FC<XMLEditorProps> = ({ preferredDark }) => {
         <div className="gws-live-preview__code-block">
           <Editor
             onChange={onEditorChangeHandler}
-            value={editorStore?.codeStore.svg}
+            value={editorStore?.codeStore.xml}
             preferredDark={preferredDark}
             language="xml"
           />

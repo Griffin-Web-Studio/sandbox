@@ -21,7 +21,7 @@ if (!localStorage.getItem("js_code"))
 const defaultValue: editorStoreValues = {
   codeStore: {
     html: localStorage.getItem("html_code") ?? "",
-    svg: localStorage.getItem("xml_code") ?? "",
+    xml: localStorage.getItem("xml_code") ?? "",
     js: localStorage.getItem("js_code") ?? "",
   },
   codeSelection: [
