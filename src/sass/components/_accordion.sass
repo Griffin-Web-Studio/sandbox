@@ -1,107 +1,123 @@
 @use '../abstracts' as *
-    
-// .accordion
-//     @if $nm-design == true
-//         background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
-        
-//     .accordion-group
-//         margin: 0
-//         margin-bottom: px-rem(10)
-//         box-shadow: var(--nm-outset)
 
-//         &.is-active
-//             .accordion-panel
-//                 max-height: px-rem(300)
-//                 opacity: 1
+.accordion
+    @if $nm-design == true
+        background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
 
-//             .accordion-title
-//                 background-color: var(--brand-color-alt)
+    &__group
+        margin: 0
+        margin-bottom: px-rem(10)
 
-//                 &:before,
-//                 &:after
-//                     transform: translateY(-50%) rotate(90deg)
+        &--active
+            .accordion
+                &__panel
+                    max-height: px-rem(300)
+                    opacity: 1
 
-//                 .accordion-button
-//                     &:before
-//                         border-color: var(--brand-color-alt) transparent transparent transparent
-//                         border-width: px-rem(15) px-rem(15) 0 px-rem(15)
+                &__title
+                    background-color: var(--brand-color-alt)
 
-//         // @include at-least($mobile)
-//         //     &:hover
-//         //         .accordion-panel
-//         //             max-height: px-rem(300)
-//         //             opacity: 1
+                    @if $nm-design == true
+                        box-shadow: var(--nm-inset-out-small)
 
-//         //         .accordion-title
-//         //             background-color: var(--brand-color-alt)
+                    &:before,
+                    &:after
+                        transform: translateY(-50%) rotate(90deg)
 
-//         //             &:before,
-//         //             &:after
-//         //                 transform: translateY(-50%) rotate(90deg)
+                &__button
+                    &:before
+                        border-color: var(--brand-color-alt) transparent transparent transparent
+                        border-width: px-rem(15) px-rem(15) 0 px-rem(15)
 
-//         //             .accordion-button
-//         //                 &:before
-//         //                     border-color: var(--brand-color-alt) transparent transparent transparent
-//         //                     border-width: px-rem(15) px-rem(15) 0 px-rem(15)
+        // @include at-least($mobile)
+        //     &:hover
+        //         .accordion-panel
+        //             max-height: px-rem(300)
+        //             opacity: 1
 
-//         .accordion-title
-//             background-color: var(--brand-color)
-//             color: var(--color-1)
-//             position: relative
-//             border-bottom: px-rem(2) solid var(--brand-color)
-//             transition: all 0.3s ease-in-out
+        //         .accordion-title
+        //             background-color: var(--brand-color-alt)
 
-//             &:before,
-//             &:after
-//                 content: ""
-//                 position: absolute
-//                 top: 50%
-//                 right: px-rem(15)
-//                 transform: translateY(-50%) rotate(90deg)
-//                 width: px-rem(2)
-//                 height: px-rem(10)
-//                 background-color: var(--color-1)
-//                 transition: all 0.3s ease-in-out
-//                 cursor: pointer
+        //             &:before,
+        //             &:after
+        //                 transform: translateY(-50%) rotate(90deg)
 
-//             &:after
-//                 transform: translateY(-50%)
+        //             .accordion-button
+        //                 &:before
+        //                     border-color: var(--brand-color-alt) transparent transparent transparent
+        //                     border-width: px-rem(15) px-rem(15) 0 px-rem(15)
 
-//             .accordion-button
-//                 box-shadow: none
+    &__title
+        position: relative
+        width: 100%
+        border-bottom: px-rem(2) solid var(--brand-color)
+        background-color: var(--brand-color)
+        color: var(--color-1)
+        transition: all 0.3s ease-in-out
 
-//                 &:before
-//                     content: ""
-//                     position: absolute
-//                     top: 100%
-//                     left: px-rem(15)
-//                     z-index: 1
-//                     width: 0px
-//                     height: 0px
-//                     border-style: solid
-//                     border-width: 0 px-rem(15) 0 px-rem(15)
-//                     border-color: var(--brand-color) transparent transparent transparent
-//                     transition: all 0.1s ease-in-out
+        @if $nm-design == true
+            box-shadow: var(--nm-inset-out)
+            border-radius: px-rem(5)
+            border: none
+            margin-bottom: px-rem(10)
 
-//         .accordion-title,
-//         .accordion-panel
-//             padding: px-rem(10)
+        &:before,
+        &:after
+            content: ""
+            position: absolute
+            top: 50%
+            right: px-rem(15)
+            transform: translateY(-50%) rotate(90deg)
+            width: px-rem(2)
+            height: px-rem(10)
+            background-color: var(--color-1)
+            transition: all 0.3s ease-in-out
+            cursor: pointer
 
-//             a
-//                 display: block
-//                 color: var(--color-1)
-//                 font-weight: 700
+        &:after
+            transform: translateY(-50%)
 
-//         .accordion-panel
-//             background-color: var(--color-1)
-//             border-left: px-rem(2) solid var(--brand-color)
-//             font-size: px-rem(15)
+    &__button
+        box-shadow: none
 
-//             max-height: 0px
-//             padding: 0
-//             overflow: hidden
-//             opacity: 0
-//             transition: all 0.3s ease-in-out
+        &:before
+            content: ""
+            position: absolute
+            top: 100%
+            left: px-rem(15)
+            z-index: 1
+            width: 0px
+            height: 0px
+            border-style: solid
+            border-width: 0 px-rem(15) 0 px-rem(15)
+            border-color: var(--brand-color) transparent transparent transparent
+            transition: all 0.1s ease-in-out
 
-//             .accordion-panel-inner
-//                 padding: px-rem(10)
+    &__title,
+    &__panel
+        padding: px-rem(10)
+
+        a
+            display: block
+            color: var(--color-1)
+            font-weight: 700
+
+    &__panel
+        background-color: var(--main-bg-color)
+        border-left: px-rem(2) solid var(--brand-color)
+        font-size: px-rem(15)
+
+        max-height: 0px
+        padding: 0
+        overflow: hidden
+        opacity: 0
+        transition: all 0.3s ease-in-out
+
+        @if $nm-design == true
+            box-shadow: var(--nm-inset)
+            border-radius: px-rem(5)
+            border-left: none
+            margin-bottom: px-rem(10)
+
+        .accordion-panel__inner
+            padding: px-rem(10)

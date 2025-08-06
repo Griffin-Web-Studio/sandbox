@@ -1,0 +1,41 @@
+@use 'sass:math'
+@use '../constants' as *
+@use '../functions' as *
+@use 'mixins' as *
+
+@mixin label
+  margin-bottom: px-em(7, 16)
+  max-width: 100%
+  line-height: normal
+  color: var(--background-rv-lighter)
+  font-family: var(--font-family-2)
+  font-size: px-rem(16)
+
+@mixin input
+  color: var(--pref-color-100)
+  border: solid px-em(2, 25) var(--background-lighter)
+  border-radius: px-em(10, 25)
+  margin: 0
+  width: 100%
+  min-width: 100%
+  max-width: 100%
+
+  box-shadow: var(--nm-inset), var(--nm-outset)
+  background-color: var(--background-lighter-t)
+  transition: all 0.3s ease-in-out
+
+  @include placeholder
+    // user input text inherits properties from placeholder!
+    font-size: px-rem(25, m)
+    line-height: px-em(60, 25)
+    padding-inline: px-em(20, 25)
+    font-weight: 400
+    color: var(--pref-color-t-rv-50)
+
+    @include at-least($mobile)
+      font-size: px-rem(25)
+
+  &:focus
+    outline: none
+    box-shadow: var(--nm-inset), var(--nm-outset)
+    background-color: var(--background-light)

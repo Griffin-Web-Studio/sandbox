@@ -1,0 +1,25 @@
+@use '../abstracts' as *
+
+.alert-box
+    &__title
+        @if $nm-design == true
+            padding: px-rem(10) px-rem(20)
+            border-radius: px-rem(5)
+            box-shadow: var(--nm-outset)
+            background-color: var(--brand-color)
+            color: var(--pref-color-100)
+
+    &__content
+        &-outer
+            @if $nm-design == true
+                padding: px-rem(4)
+                border-radius: px-rem(5)
+                box-shadow: var(--nm-outset)
+                background-color: var(--brand-color)
+        
+        &-inner
+            @if $nm-design == true
+                padding: px-rem(20)
+                border-radius: px-rem(4)
+                box-shadow: var(--nm-inset)
+                background-color: var(--main-bg-color)

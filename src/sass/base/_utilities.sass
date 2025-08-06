@@ -1,5 +1,52 @@
 @use '../abstracts' as *
-    
+@use '../abstracts/mixins/_button' as buttons
+
+@for $i from 0 through 200
+    .margin-#{$i}
+        margin: px-rem($i)
+
+    .margin-top-#{$i}
+        margin-top: px-rem($i)
+
+    .margin-right-#{$i}
+        margin-right: px-rem($i)
+
+    .margin-bottom-#{$i}
+        margin-bottom: px-rem($i)
+
+    .margin-left-#{$i}
+        margin-left: px-rem($i)
+
+    .margin-block-#{$i}
+        margin-block: px-rem($i)
+
+    .margin-inline-#{$i}
+        margin-inline: px-rem($i)
+
+    .padding-#{$i}
+        padding: px-rem($i)
+
+    .padding-top-#{$i}
+        padding-top: px-rem($i)
+
+    .padding-right-#{$i}
+        padding-right: px-rem($i)
+
+    .padding-bottom-#{$i}
+        padding-bottom: px-rem($i)
+
+    .padding-left-#{$i}
+        padding-left: px-rem($i)
+
+    .padding-block-#{$i}
+        padding-block: px-rem($i)
+
+    .padding-inline-#{$i}
+        padding-inline: px-rem($i)
+
+.full-screen-height
+    height: 100vh
+
 // Text meant only for screen readers.
 .screen-reader-text
     border: 0
@@ -13,21 +60,74 @@
     width: 1px
     word-wrap: normal !important
 
+@include until($mobile)
+    .hide-mobile
+        display: none !important
 
+@include at-least($mobile)
+    .hide-from-at-least-mobile
+        display: none !important
+
+@include between($mobile, $tablet)
+    .hide-tablet
+        display: none !important
+
+@include at-least($tablet)
+    .hide-from-at-least-tablet
+        display: none !important
+
+@include until($tablet)
+    .hide-until-tablet
+        display: none !important
+
+@include at-least($tablet)
+    .hide-desktop
+        display: none !important
+
+@include until($desktop)
+    .hide-until-desktop
+        display: none !important
+
+.loadingGlimmer
+    width: 100%
+    height: 100%
+    border-radius: 16px
+    background-color: #f6f7f8
+    background-image: linear-gradient(90deg,#f6f7f8 0%,#eaebef 20%,#f6f7f8 40%)
+    background-repeat: repeat
+    background-size: 200% auto
+    display: inline-block
+    position: relative
+    animation-duration: 3s
+    animation-fill-mode: forwards
+    animation-iteration-count: infinite
+    animation-name: placeholderShimmer
+    animation-timing-function: linear
+    white-space: nowrap
+    color: transparent !important
+    pointer-events: none !important
+
+    &--dark
+        filter: invert(1)
+
+@keyframes placeholderShimmer
+    0%,
+    50%
+        background-position: 100% 0
+    100%
+        background-position: -100% 0
 
 .centre-view
     margin: 0 auto
+    max-width: var(--centre-view-width)
     width: 100%
 
     @each $center-vw-sizes-lable, $center-vw-sizes-map in $center-vw-map
         @if $center-vw-sizes-lable == default
-            @include center-vw($center-vw-sizes-lable, $center-vw-sizes-map)         
+            @include center-vw($center-vw-sizes-lable, $center-vw-sizes-map)
         @else
             &.#{$center-vw-sizes-lable}
                 @include center-vw($center-vw-sizes-lable, $center-vw-sizes-map)
-
-
-
 
 ///////////////
 // Gutenberg //
@@ -37,8 +137,6 @@
     clear: both
     text-align: center
     margin-inline: auto
-
-
 
 /////////////////////
 // Page scroll bar //
@@ -52,7 +150,7 @@
     @include at-least($mobile)
         width: px-rem(15)
         height: px-rem(15)
-  
+
 // Scroll bar track
 ::-webkit-scrollbar-track
     background-color: var(--main-bg-color-alt)
@@ -61,7 +159,7 @@
     @include at-least($mobile)
         width: px-rem(20)
         height: px-rem(20)
-  
+
 // Scroll bar track
 body::-webkit-scrollbar-track
     background-color: var(--main-bg-color-alt)
@@ -82,7 +180,7 @@ body::-webkit-scrollbar-track
     background-color: var(--brand-color-alt)
 
 // Works on common browsers
-::selection 
+::selection
     background-color: var(--brand-color)
     color: var(--pref-color-0)
 

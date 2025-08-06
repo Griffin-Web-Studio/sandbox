@@ -1,21 +1,19 @@
 @use 'sass:math'
-@use 'constants' as *
-@use 'functions' as *
+@use 'sass:map'
+@use 'sass:list'
+@use '../constants' as *
+@use '../functions' as *
 
 @mixin at-least($media-width)
     @if $media-width < 1
         $media-width: -1px
-        
+
     @media screen and (min-width: ($media-width + 1))
         @content
-
-
 
 @mixin until($media-width)
     @media screen and (max-width: ($media-width))
         @content
-
-
 
 @mixin between($media-width-start, $media-width-end)
     @if $media-width-start < 1
@@ -23,8 +21,6 @@
 
     @media screen and (min-width: ($media-width-start + 1)) and (max-width: $media-width-end)
         @content
-
-
 
 @mixin font-icon
     line-height: 1
@@ -35,8 +31,6 @@
     -webkit-font-smoothing: antialiased
     -moz-osx-font-smoothing: grayscale
     font-family: var(--font-family-icons)
-
-
 
 @mixin placeholder
     @content
@@ -50,49 +44,41 @@
     &::-ms-input-placeholder
         @content
 
-
-
 @mixin props-val($props, $val)
     @each $prop in $props
         #{$prop}: #{$val}
 
-    
-    
 @mixin gradient($direction, $top_color, $bottom_color)
     background-image: linear-gradient($direction, $top_color 0%, $bottom_color 100%)
     background-repeat: repeat-x
 
-
-
-@mixin bg-cover
+@mixin cover-bg
     background-size: cover
     background-position: center
     background-repeat: no-repeat
 
-
-
-@mixin bg-contain
+@mixin contain-bg
     background-size: contain
     background-position: center
     background-repeat: no-repeat
 
-
-
 @mixin center-vw-override($media, $media-map, $key: "")
     .#{$key}full-width-override
-        $design-vw: map-get(map-get($design-sizes-map, $media), vw)
-        margin-inline: calc( ( ( ( 100vw - #{px-rem(16)} ) - #{pct-calc($media-map, $design-vw) + 'vw'} ) / 2) * -1 )
-        
+        $design-vw: map.get(map.get($design-sizes-map, $media), vw)
+        @if ($debug == true)
+            margin-inline: calc( ( ( ( 100vw ) - #{pct-calc($media-map, $design-vw) + 'vw'} ) / 2) * -1 )
+        @else if ($debug == false)
+            // 16px account for scrollbar
+            margin-inline: calc( ( ( ( 100vw - #{px-rem(16)} ) - #{pct-calc($media-map, $design-vw) + 'vw'} ) / 2) * -1 )
+
         @media (pointer:coarse)
             margin-inline: calc( ( ( 100vw - #{pct-calc($media-map, $design-vw) + 'vw'} ) / 2) * -1 )
 
-
-    
 @mixin center-vw($sizes-lable, $sizes-map)
     @each $media, $media-map in $sizes-map
         @each $flex in $screen-sizes
-            $key: nth($flex, 1)   // Screen Size
-            $value: nth($flex, 2) // Screen Size value
+            $key: list.nth($flex, 1) // Screen Size
+            $value: list.nth($flex, 2) // Screen Size value
 
             // No Offset in Grid
 
@@ -112,6 +98,20 @@
                     @include until($mobile)
                         @include center-vw-override($media, $media-map, $key)
 
+@mixin island-bg-outer
+    background: var(--noise-bg, #ffffff)
+
+    border: px-rem(3) solid var(--background-lighter, #F5F9FF)
+    border-radius: px-rem(10)
+
+    overflow: hidden
+    box-shadow: var(--nm-modal-outer)
+
+@mixin island-bg-inner
+    background-color: var(--background-lighter-t, #f5f9ff80)
+
+    box-shadow: var(--nm-modal-inner)
+    // backdrop-filter: blur(px-rem(0.4))
 
 @mixin elementRadius($size, $type: 'rem', $em: map-get(map-get($design-sizes-map, desktop), fs))
     @if type-of($type) != string
@@ -155,7 +155,7 @@
     @else if $type == em
         &--radius
             border-radius: px-em($size, $em)
-            
+
         &--radius-bottom
             border-bottom-right-radius: px-em($size, $em)
             border-bottom-left-radius: px-em($size, $em)
@@ -183,5 +183,3 @@
 
         &--radius-bottom-left
             border-bottom-left-radius: px-em($size, $em)
-         
-    

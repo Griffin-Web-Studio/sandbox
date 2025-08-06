@@ -75,13 +75,13 @@ const Header: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <GwsLogo style={{ height: "130%" }} />
+          <GwsLogo style={{ height: "145%" }} />
         </a>
         <Logo style={{ height: "100%", width: "100%", paddingLeft: "1em" }} />
       </div>
 
       <div className="grid col-6 gap-20">
-        <div className="header__code-selector grid-4 flex align-stretch justify-stretch">
+        <div className="header__code-selector grid-4 flex align-center justify-stretch">
           {codeTypes && (
             <Selector
               options={codeTypes}

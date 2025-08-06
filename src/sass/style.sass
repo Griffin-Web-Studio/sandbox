@@ -1,154 +1,81 @@
-/**
- * ========== ABSTRACTS
- *
- * all Sass tools and helpers used across the project.
- * Every global variable, function, mixin and placeholder should be put in here.
- */
+//
+// ========== ABSTRACTS
+//
+// All sass tools and helpers used across the project.
+// Every global constant, function, mixin and placeholder should be put in here.
+// Also is used to store default styles for some components like buttins.
+//
 @use 'abstracts' as *
-/**
- * ============================================================
- */
 
-/**
- * ========== VENDORS
- *
- * The CSS files from external libraries and frameworks
- */
+//
+// ========== VENDORS
+//
+// The CSS files from external libraries and frameworks
+//
 @use 'vendors'
-/**
- * ============================================================
- */
 
- /**
-  * ========== FRAMEWORK
-  *
-  * all Sass tools and helpers used across the project.
-  * Every global variable, function, mixin and placeholder should be put in here.
-  */
+//
+// ========== FRAMEWORK
+//
+// all Sass tools and helpers used across the project.
+// Every global variable, function, mixin and placeholder should be put in here.
+//
 @use 'frameworks'
-/**
- * ============================================================
- */
 
- /**
-  * ========== BASE
-  *
-  * The boilerplate code for the project. In there, you might find some typographic
-  * rules, and probably a stylesheet defining some standard styles for commonly
-  * used HTML elements.
-  *
-  */
+//
+// ========== BASE
+//
+// The boilerplate code for the project. In there, you might find some typographic
+// rules, and probably a stylesheet defining some standard styles for commonly
+// used HTML elements.
+//
 @use 'base'
-/**
- * ============================================================
- */
 
-/**
- * ========== COMPONENTS
- *
- * For smaller components, there is the components folder.
- * While layout/ is macro (defining the global wireframe), components/ is more
- * focused on widgets. It contains all kind of specific modules like a slider,
- * a loader, a widget, and basically anything along those lines. There are usually
- * a lot of files in components/ since the whole site/application should be mostly
- * composed of tiny modules.
- */
+//
+// ========== COMPONENTS
+//
+// For smaller components, there is the components folder.
+// While layout/ is macro (defining the global wireframe), components/ is more
+// focused on widgets. It contains all kind of specific modules like a slider,
+// a loader, a widget, and basically anything along those lines. There are usually
+// a lot of files in components/ since the whole site/application should be mostly
+// composed of tiny modules.
+// 
 @use 'components'
-/**
- * ============================================================
- */
 
-/**
- * ========== LAYOUT
- *
- * Everything that takes part in laying out the site or application.
- * This folder could have stylesheet for the main parts of the site (header,
- * footer, navigation, sidebar…), the flexbox or even CSS styles
- * for all the forms.
- */
+//
+// ========== LAYOUT
+//
+// Everything that takes part in laying out the site or application.
+// This folder could have stylesheet for the main parts of the site (header,
+// footer, navigation, sidebar…), the flexbox or even CSS styles
+// for all the forms.
+// 
 @use 'layout'
-/**
- * ============================================================
- */
 
-/**
- * ========== WooCommerce
- *
- * For smaller components, there is the components folder.
- * While layout/ is macro (defining the global wireframe), components/ is more
- * focused on widgets. It contains all kind of specific modules like a slider,
- * a loader, a widget, and basically anything along those lines. There are usually
- * a lot of files in components/ since the whole site/application should be mostly
- * composed of tiny modules.
- */
-//@use 'woocommerce'
-/**
- * ============================================================
- */
-
-/**
- * ========== Animations
- *
- * Any CSS animations such as those that use @keyframes should be stored in here.
- * Feel free to create file for each complex animation but if's something that
- * take about 10 ~ 20 lines (roughly, not a hard line) try and store it in animations
- * file. Once created a new file don't forget to add it to the _+animations.scss order.
- */
+// 
+// ========== Animations
+// 
+// Any CSS animations such as those that use @keyframes should be stored in here.
+// Feel free to create file for each complex animation but if's something that
+// take about ~10 ~20 lines (roughly, not a hard line) try and store it in animations
+// file. Once created a new file don't forget to add it to the _index.scss order.
+// 
 @use 'animations'
-/**
- * ============================================================
- */
 
-/**
- * ========== Hard Overrides
- *
- * To override any of the styles above use the space below
- */
-html
+//
+// ========== Hard Overrides
+// 
+// Below are the override for any of the styles imported from above imports.
+//
+
+html, body
     scroll-behavior: smooth
-
-html,
-body
     width: 100%
+    min-height: 100vh
     height: 100%
-
-*,
-*:before,
-*:after
-    box-sizing: border-box
-
-img
-    display: block
-    max-width: 100%
-    height: auto
-
-:root
-    --min-body-height: calc(100vh - #{px-rem(70 + 20 + 2 + 40 + 20)})
-
-.emoji
-    font-weight: 100
-
-.gws-live-preview
-    &__code-block,
-    &__code-preview,
-    &__code-preview #client-com,
-    &__code-preview #client-com .cm-editor
-        max-height: var(--min-body-height)
-        min-height: var(--min-body-height)
-        width: 100%
-
-        .cm-content
-            padding: 0
-
-        svg
-            height: auto
-            width: auto
-
-body,
-html
     margin: 0
     padding: 0
-    min-height: 100vh
 
 html
     display: flex
@@ -160,3 +87,27 @@ body
 
 iframe
     border: none
+
+*,
+*:before,
+*:after
+    box-sizing: border-box
+
+    // @if $debug == false
+    //     cursor: none !important
+
+*
+    &:focus
+        outline: solid var(--brand-color) px-em(2, 16)
+        outline-offset: px-em(4, 16)
+
+img
+    display: block
+    max-width: 100%
+    height: auto
+
+:root
+    --min-body-height: calc(100vh - #{px-rem(70 + 20 + 2 + 40 + 20)})
+
+.emoji
+    font-weight: 100

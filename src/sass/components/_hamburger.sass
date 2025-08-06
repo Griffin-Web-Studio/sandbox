@@ -1,58 +1,66 @@
 @use '../abstracts' as *
+@use 'buttons' as *
 
-// .hamburger[data-nav-toggle=mobile],
-// .hamburger[data-nav-toggle=more]
-//     font-size: px-rem(10, m)
-//     line-height: px-em(13, 10)
-//     display: flex
-//     align-items: center
-//     justify-content: center
-//     flex-flow: column
-//     width: px-em(100, 10)
-//     letter-spacing: px-em(1.5, 10)
-//     background-color: var(--brand-color)
-//     color: var(--pref-color-0)
-//     text-transform: uppercase
-//     transition: all 0.3s ease-in-out
+.site-header .hamburger-wrap .special-btn
+  &.hamburger,
+  &.hamburger-close
+    @include button
 
-//     @include at-least($mobile)
-//         font-size: px-rem(10)
-//         width: px-em(72, 10)
+    &
+      display: flex
+      align-items: center
+      justify-content: space-between
+      font-size: px-rem(12, m)
+      line-height: px-em(65, 20)
+      border-radius: px-em(5, 20)
+      padding-inline: px-em(20, 20)
+      color: var(--pref-color-light-0)
 
-//     &:hover
-//         background-color: var(--brand-color-alt)
-//         color: var(--pref-color-0)
-        
-//         .hamburger-dots [class^=dot-]
-//             background-color: var(--pref-color-0)
+    @include at-least($mobile)
+      font-size: px-rem(20)
 
-//     .hamburger-dots
-//         position: relative
-//         width: px-rem(6)
-//         height: px-rem(6)
-//         margin-bottom: px-em(8, 10)
-//         margin-top: px-rem(10) // correction for not perfect meddle allignment
-        
-//         [class^=dot-]
-//             position: absolute
-//             top: 0
-//             right: 0
-//             width: px-rem(6)
-//             height: px-rem(6)
-//             border-radius: 100%
-//             background-color: var(--pref-color-0)
-//             transition: all 0.3s ease-in-out
+.hamburgerBars
+  &__barsWrap
+    position: relative
+    display: block
+    width: var(--hamburger-width)
+    height: var(--hamburger-height)
+    margin-left: px-rem(20)
 
-//             &.dot-1
-//                 right: calc(100% + px-rem(8))
+    @include at-least($mobile)
+      display: block
 
-//             &.dot-3
-//                 left: calc(100% + px-rem(8))
+    &--active
+      *[class^=line-]
+        &.line-1
+          transform: translateY(calc(1 * var(--hamburger-translateY))) translateX(0) rotate(45deg)
+        &.line-2
+          opacity: 0
+        &.line-3
+          transform: translateY(calc(-1 * var(--hamburger-translateY))) translateX(0) rotate(-45deg)
 
-// .hamburger[data-nav-toggle=more]
-//     @include until($mobile)
-//         display: none
+    *[class^=line-]
+      position: absolute
+      left: 0
+      display: block
+      width: var(--hamburger-width)
+      height: var(--hamburger-line-height)
+      border-radius: px-em(2, 16)
+      background-color: var(--pref-color-light-0)
+      outline: px-rem(1) solid transparent
+      transition: all 0.5s, opacity 100ms
 
-// .hamburger[data-nav-toggle=mobile]
-//     @include at-least($mobile)
-//         display: none
+      // .is-open-menu &
+      //   background-color: var(--brand-color)
+
+      &.line-1
+        top: 0
+
+      &.line-2
+        width: auto
+        top: calc((var(--hamburger-height) / 2) - (var(--hamburger-line-height) / 2))
+        left: 0
+        right: 0
+
+      &.line-3
+        bottom: 0

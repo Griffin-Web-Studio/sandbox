@@ -1,0 +1,43 @@
+@use '../abstracts' as *
+
+.meta-rating
+    width: 100%
+    min-width: calc((173 / 320) * 100%)
+    margin: auto
+    font-size: px-rem(17)
+    text-align: center
+    font-weight: 500
+    font-family: var(--font-family-alt)
+    line-height: calc(22 / 17)
+    color: var(--color-5)
+
+    > a
+        display: flex
+        align-items: center
+        justify-content: center
+
+    .star-container
+        width: px-rem(139)
+
+        .empty-stars
+            position: relative
+            padding-top: 14.5%
+            width: 100%
+            @include cover-bg
+            background-position: left
+            // background-image: url('../images/empty-stars.svg')
+
+            .earned-stars
+                position: absolute
+                top: 0
+                bottom: 0
+                left: 0
+                @include cover-bg
+                background-position: left
+                // background-image: url('../images/earned-stars.svg')
+
+    .text-rating
+        position: relative
+        line-height: 1
+        bottom: - px-rem(2)
+        margin-left: px-rem(10)

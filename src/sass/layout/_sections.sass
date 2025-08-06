@@ -1,15 +1,28 @@
 @use '../abstracts' as *
-@use '../base/icons' as *
-
 .gws-live-preview
     padding: px-rem(20)
+
+    &__code-block,
+    &__code-preview,
+    &__code-preview #client-com,
+    &__code-preview #client-com .cm-editor
+        max-height: var(--min-body-height)
+        min-height: var(--min-body-height)
+        width: 100%
+
+        .cm-content
+            padding: 0
+
+        svg
+            height: auto
+            width: auto
 
     &__header
         border-radius: px-rem(10)
         padding: px-rem(10)
         box-shadow: var(--nm-outset-small)
         background-color: var(--main-bg-color-alt)
-        
+
     &__code-block,
     &__code-preview
         border-radius: px-rem(10)

@@ -1,345 +1,336 @@
-@use '../abstracts' as *;
+@use "sass:color";
+@use "sass:map";
+@use "../abstracts" as *;
 
 @mixin dark-mode {
-    @media (prefers-color-scheme: dark) {
-        :root {
-            @content;
-        }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      @content;
     }
+  }
 
-    [pref-color="dark"] {
-        @content;
-    }
+  [pref-color="dark"] {
+    @content;
+  }
 }
 
 @mixin light-mode {
-    @media (prefers-color-scheme: light) {
-        :root {
-            @content;
-        }
-    }
-
-    [pref-color="light"] {
-        @content;
-    }
-}
-
-:root {
-    // VCs (Light Steps)
-    @for $size from 0 to 101 {
-        --pref-color-light-#{$size}: #{darken($full-light, $size)};
-    }
-
-    // VCs (Light Steps Transparentize)
-    @for $size from 0 to 101 {
-        --pref-color-light-t-#{$size}: #{transparentize($full-light, div($size, 100))};
-    }
-    
-    // VCs (Dark Steps)
-    @for $size from 0 to 101 {
-        --pref-color-dark-#{$size}: #{lighten($full-dark, $size)};
-    }
-    
-    // VCs (Dark Steps Transparentize)
-    @for $size from 0 to 101 {
-        --pref-color-dark-t-#{$size}: #{transparentize($full-dark, div($size, 100))};
-    }
-
-    --pref-color-wt: #{$full-light};
-    --pref-color-bk: #{$full-dark};
-}
-    
-@include dark-mode {
-    // VCs (Dark Steps)
-    @for $size from 0 to 101 {
-        --pref-color-#{$size}: var(--pref-color-dark-#{$size});
-    }
-
-    // VC Child Pref Color Intensity Grow Step (AUto)
-    --pref-color-AU: #{transparentize(lighten($full-dark, 99), 0.99)};
-    // VS Full Pref Reverse
-    --pref-color-RV: #{$full-light};
-    // VS Full Pref Shadow
-    --pref-color-shadow: var(--pref-color-20);
-    // VS Full Pref Neumorphic Shadow
-    --pref-color-nm-shadow: var(--pref-color-dark-t-0);
-    // VS Full Pref Neumorphic Shadow weak
-    --pref-color-nm-shadow-weak: var(--pref-color-dark-t-50);
-    // VS Full Pref Neumorphic Light Shadow
-    --pref-color-nm-glow: var(--pref-color-light-t-90);
-    // VS Full Pref Neumorphic Light Shadow weak
-    --pref-color-nm-glow-weak:   var(--pref-color-light-t-90);
-    // VS Full Pref Neumorphic Rim color
-    --pref-color-nm-rim: var(--pref-color-2);
-    // VS Full Pref Neumorphic outward shadow
-    --nm-outset:
-        #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
-        #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
-    --ds-nm-outset:
-        drop-shadow(#{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
-        drop-shadow(#{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
-    
-    // VS Full Pref Neumorphic outward shadow (Small)
-    --nm-outset-small:
-        #{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow),
-        #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow);
-    --ds-nm-outset-small:
-        drop-shadow(#{px-rem(1.5)} #{px-rem(-1.5)} #{px-rem(6)} var(--pref-color-nm-glow))
-        drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow));
-    
-    // VS Full Pref Neumorphic inward shadow
-    --nm-inset:
-        inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
-        inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
-    --ds-nm-inset:
-        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
-        drop-shadow(inset #{px-rem(-6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
-    
-    // VS Full Pref Neumorphic inward Out shadow
-    --nm-inset-out:
-        inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak),
-        inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow),
-        #{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak);
-    --ds-nm-inset-out:
-        drop-shadow(inset #{px-rem(-3)} #{px-rem(3)} #{px-rem(12)} var(--pref-color-nm-glow-weak))
-        drop-shadow(inset #{px-rem(6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-shadow))
-        drop-shadow(#{px-rem(-3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow-weak));
-    
-    // VS Full Pref Neumorphic inward (Small)
-    --nm-inset-small:
-        inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
-        inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
-    --ds-nm-inset-small:
-        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
-        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
-    
-    // VS Full Pref Neumorphic inward Out (Small)
-    --nm-inset-out-small:
-        inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
-        inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
-        #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
-    --ds-nm-inset-out-small:
-        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
-        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-        drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
-
-    // VC Main BG Color
-    --main-bg-color:     var(--pref-color-5);
-    // VC Main BG Color Alt
-    --main-bg-color-alt: var(--pref-color-7);
-
-    // VTCs (Variable Text Colors)
-    --text-color: var(--pref-color-RV);
-    --link-color: var(--brand-color);
-    --pref-brand-color: var(--pref-color-100);
-}
-
-
-@include light-mode {
-    // VCs (Light Steps)
-    @for $size from 0 to 101 {
-        --pref-color-#{$size}: var(--pref-color-light-#{$size});
-    }
-
-    // VC Child Pref Color Intensity Grow Step (AUto)
-    --pref-color-AU:             #{transparentize(darken($full-light, 99), 0.99)};
-    // VS Full Pref Reverse
-    --pref-color-RV:             #{$full-dark};
-    // VS Full Pref Shadow
-    --pref-color-shadow:         var(--pref-color-20);
-    // VS Full Pref Neumorphic Shadow
-    --pref-color-nm-shadow:      var(--pref-color-dark-t-88);
-    // VS Full Pref Neumorphic Shadow Weak
-    --pref-color-nm-shadow-weak:      var(--pref-color-dark-t-80);
-    // VS Full Pref Neumorphic Light Shadow
-    --pref-color-nm-glow:        var(--pref-color-light-t-20);
-    // VS Full Pref Neumorphic Light Shadow
-    --pref-color-nm-glow-weak:   var(--pref-color-light-t-60);
-    // VS Full Pref Neumorphic Rim color
-    --pref-color-nm-rim:         var(--pref-color-2);
-
-    // VS Full Pref Neumorphic outward shadow
-    --nm-outset:
-        #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow),
-        #{px-rem(0)} #{px-rem(0)} #{px-rem(12)} #{px-rem(6)} var(--pref-color-nm-glow);
-    --ds-nm-outset:
-        drop-shadow(#{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow))
-        drop-shadow(#{px-rem(-6)} #{px-rem(-6)} #{px-rem(12)} var(--pref-color-nm-glow));
-
-    // VS Full Pref Neumorphic outward shadow (Small)
-    --nm-outset-small:
-        #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow),
-        #{px-rem(0)} #{px-rem(0)} #{px-rem(6)} #{px-rem(3)} var(--pref-color-nm-glow);
-    --ds-nm-outset-small:
-        drop-shadow(#{px-rem(3)} #{px-rem(3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-        drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(6)} var(--pref-color-nm-glow));
-
-    // VS Full Pref Neumorphic outward shadow (Small)
-    --nm-outset-xsmall:
-        #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
-        #{px-rem(0)} #{px-rem(0)} #{px-rem(3)} #{px-rem(1.5)} var(--pref-color-nm-glow);
-    --ds-nm-outset-xsmall:
-        drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow))
-        drop-shadow(#{px-rem(0)} #{px-rem(0)} #{px-rem(3)} var(--pref-color-nm-glow));
-
-    // VS Full Pref Neumorphic inward shadow
-    --nm-inset:
-        inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow),
-        inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow);
-    --ds-nm-inset:
-        drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} var(--pref-color-nm-glow))
-        drop-shadow(inset #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} var(--pref-color-nm-shadow));
-
-    // VS Full Pref Neumorphic inward Out shadow
-    --nm-inset-out:
-        inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow),
-        inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak),
-        #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak);
-    --ds-nm-inset-out:
-        drop-shadow(inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-        drop-shadow(inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
-        drop-shadow(#{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
-
-    // VS Full Pref Neumorphic inward (Small)
-    --nm-inset-small:
-        inset #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow),
-        inset #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow);
-    --ds-nm-inset-small:
-        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-glow))
-        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-shadow));
-
-    // VS Full Pref Neumorphic inward Out (Small)
-    --nm-inset-out-small:
-        inset #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} var(--pref-color-nm-shadow),
-        inset #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(3)} var(--pref-color-nm-glow-weak),
-        #{px-rem(0.75)} #{px-rem(0.75)} #{px-rem(1.5)} var(--pref-color-nm-shadow-weak);
-    --ds-nm-inset-out-small:
-        drop-shadow(inset #{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(6)} var(--pref-color-nm-glow-weak))
-        drop-shadow(inset #{px-rem(3)} #{px-rem(-3)} #{px-rem(6)} var(--pref-color-nm-shadow))
-        drop-shadow(#{px-rem(-1.5)} #{px-rem(1.5)} #{px-rem(3)} var(--pref-color-nm-shadow-weak));
-
-    // VC Main BG Color
-    --main-bg-color:     var(--pref-color-6);
-    // VC Main BG Color Alt
-    --main-bg-color-alt: var(--pref-color-10);
-
-    // VTCs (Variable Text Colors)
-    --text-color: var(--pref-color-RV);
-    --link-color: var(--brand-color-secondary-alt);
-    --pref-brand-color: var(--brand-color);
-}
-
-
-
-// Desktop Specific Root Vars
-:root {
-    // TFs (Theme Fonts)
-    --font-size:   #{px-vw(map-get(map-get($design-sizes-map, mobile), fs), m)};
-    --line-height: #{px-em(map-get(map-get($design-sizes-map, mobile), lh), map-get(map-get($design-sizes-map, mobile), fs))};
-
-    --font-family:       'Montserrat', sans-serif;
-    --font-family-2:     'Libre Baskerville', serif;
-    --font-family-3:     'Baskervville', serif;
-    --font-family-icons: 'icons';
-        
-    --headings-font-family: var(--font-family-2);
-    --headings-font-weight: 400;
-    --headings-line-height: 1.3;
-
-    // RVCs (Reserved Variable colours)
-
-    --color-1:  hsl(0, 0%, 100%);                   // white
-    --color-2:  hsl(0, 0%, 0%);                     // black
-    --color-3:  hsl(218, 58%, 28%);                 // #1e3c71
-    --color-4:  hsl(206, 62%, 64%);                 // #6aabdc
-    --color-5:  #{darken(hsl(218, 58%, 28%), 10)};  // #1e3c71
-    --color-6:  #{darken(hsl(206, 62%, 64%), 10)};  // #6aabdc
-    --color-7:  hsl(0, 0%, 0%);                     // #na
-    --color-8:  hsl(0, 0%, 0%);                     // #na
-    --color-9:  hsl(0, 0%, 0%);                     // #na
-    --color-10: hsl(0, 0%, 0%);                     // #na
-    --color-11: hsl(0, 0%, 0%);                     // #na
-    --color-12: hsl(0, 0%, 0%);                     // #na
-    --color-13: hsl(0, 0%, 0%);                     // #na
-    --color-14: hsl(0, 0%, 0%);                     // #na
-
-    // VBCs (Variable Brand Colors)
-    --brand-color:               var(--color-3);
-    --brand-color-alt:           var(--color-5);
-    --brand-color-secondary:     var(--color-4);
-    --brand-color-secondary-alt: var(--color-6);
-
-    --button-color:      var(--brand-color);
-    --button-text-color: var(--pref-color-light-0);
-    --headings-color:    var(--brand-color);
-
-    // VSS (Viewport & Screen Sizes)
-    --s-mobile:  #{$s-mobile};
-    --m-mobile:  #{$m-mobile};
-    --l-mobile:  #{$l-mobile};
-    --s-tablet:  #{$s-tablet};
-    --m-tablet:  #{$m-tablet};
-    --l-tablet:  #{$l-tablet};
-    --s-laptop:  #{$s-laptop};
-    --m-laptop:  #{$m-laptop};
-    --l-laptop:  #{$l-laptop};
-    --s-desktop: #{$s-desktop};
-    --m-desktop: #{$m-desktop};
-    --l-desktop: #{$l-desktop};
-
-    //// Cvw (Center ViewportWidth)
-    @each $label_i, $map_i in $center-vw-map {
-        --centre-vw-#{$label_i}: #{px-vw(map-get($map_i, mobile), m)};
-    }
-        
-    // DCSs (Design Column Settings)
-    --flex-gutter: #{px-rem(20)};
-    
-    //Header Options
-    --header-height:       #{px-rem(96, m)};
-    --header-small-height: #{px-rem(60, m)};
-
-    // Hamburger
-    --hamburger-height:      #{px-rem(24, m)};
-    --hamburger-width:       #{px-rem(28.19, m)};
-    --hamburger-line-height: #{px-rem(4, m)};
-    --hamburger-translateY:  (var(--hamburger-height) - var(--hamburger-line-height)) / 2;
-
-    --mobile-break: #{$mobile};
-    --tablet-break: #{$tablet};
-}
-
-
-
-// Mobile (ROOT) Variables
-@include at-least($mobile) {
+  @media (prefers-color-scheme: light) {
     :root {
-        // TFSs (Theme Fonts Sizes)
-        --font-size:   #{px-vw(map-get(map-get($design-sizes-map, desktop), fs), d)};
-        --line-height: #{px-em(map-get(map-get($design-sizes-map, desktop), lh), map-get(map-get($design-sizes-map, desktop), fs))};
-
-        //// Cvw (Center ViewportWidth)
-        @each $label_i, $map_i in $center-vw-map {
-            --centre-vw-#{$label_i}: #{px-vw(map-get($map_i, desktop), d)};
-        }
-
-        // Header
-        --header-height: #{px-rem(72, d)};
-        --header-small-height: #{px-rem(100)};
-
-        // Hamburger
-        --hamburger-height:      #{px-rem(30, d)};
-        --hamburger-width:       #{px-rem(38, d)};
-        --hamburger-line-height: #{px-rem(4, d)};
-        --hamburger-translateY:  (var(--hamburger-height) - var(--hamburger-line-height)) / 2;
+      @content;
     }
+  }
+
+  [pref-color="light"] {
+    @content;
+  }
 }
 
-// Tablet Specific Root Vars
-// @media only screen and (min-width: $l-mobile) {
-//     :root {
-//         // Cvw (Center ViewportWidth)
-//         --centre-view-width:       #{px-vw(331, t)}
-//         --centre-view-width-small: #{px-vw(600, t)}    
-//     }
-// }
+@mixin light-nm($prefix: "") {
+  --nm#{$prefix}-modal-outer: #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} #{px-rem(0)} rgba(255, 255, 255, 0.80), #{px-rem(3)} #{px-rem(3)} #{px-rem(12)} #{px-rem(0)} rgba(0, 0, 0, 0.12);
+  --nm#{$prefix}-modal-inner: #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.25) inset, #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} #{px-rem(0)} rgba(255, 255, 255, 0.80) inset;
+
+  --nm#{$prefix}-inset: #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} #{px-rem(0)} rgba(255, 255, 255, 0.60) inset, #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.25) inset;
+  --nm#{$prefix}-inset-small: #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} #{px-rem(0)} rgba(255, 255, 255, 0.60) inset, #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} #{px-rem(0)} rgba(0, 0, 0, 0.25) inset;
+
+  --nm#{$prefix}-inset-out: #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.25) inset, #{px-rem(3)} #{px-rem(3)} #{px-rem(12)} #{px-rem(0)} rgba(255, 255, 255, 0.60) inset, #{px-rem(6)} #{px-rem(6)} #{px-rem(12)} #{px-rem(-4)} rgba(0, 0, 0, 0.12);
+  --nm#{$prefix}-inset-out-small: #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} #{px-rem(0)} rgba(0, 0, 0, 0.25) inset, #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} #{px-rem(0)} #FFF inset, #{px-rem(2.5)} #{px-rem(2.5)} #{px-rem(6)} #{px-rem(-2)} rgba(0, 0, 0, 0.25);
+
+  --nm#{$prefix}-outset: #{px-rem(3)} #{px-rem(3)} #{px-rem(12)} #{px-rem(0)} rgba(0, 0, 0, 0.12), #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} #{px-rem(0)} rgba(255, 255, 255, 0.80);
+  --nm#{$prefix}-outset-small: #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(6)} #{px-rem(0)} #fff, #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.25);
+
+  // VC Main BG Color
+  --main-bg-color: var(--pref-color-6);
+  // VC Main BG Color Alt
+  --main-bg-color-alt: var(--pref-color-10);
+
+  // VTCs (Variable Text Colors)
+  --text-color: var(--pref-color-RV);
+  --link-color: var(--brand-color-secondary-alt);
+  --pref-brand-color: var(--brand-color);
+}
+
+@mixin dark-nm($prefix: "") {
+  --nm#{$prefix}-modal-outer: #{px-rem(3)} #{px-rem(3)} #{px-rem(12)} #{px-rem(0)} rgba(0, 0, 0, 0.80), #{px-rem(-2)} #{px-rem(-2)} #{px-rem(6)} #{px-rem(0)} rgba(128, 128, 128, 0.30);
+  --nm#{$prefix}-modal-inner: #{px-rem(3)} #{px-rem(3)} #{px-rem(12)} #{px-rem(0)} rgba(0, 0, 0, 0.80) inset, #{px-rem(-3)} #{px-rem(-3)} #{px-rem(12)} #{px-rem(0)} rgba(128, 128, 128, 0.10) inset;
+
+  --nm#{$prefix}-inset: #{px-rem(3)} #{px-rem(3)} #{px-rem(12)} #{px-rem(0)} rgba(0, 0, 0, 0.30) inset, 0 0 0 #ffffff00, #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} #{px-rem(0)} rgba(128, 128, 128, 0.10) inset;
+  --nm#{$prefix}-inset-small: #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(5)} #{px-rem(0)} rgba(0, 0, 0, 0.30) inset, 0 0 0 #ffffff00, #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} #{px-rem(0)} rgba(128, 128, 128, 0.12) inset;
+
+  --nm#{$prefix}-inset-out:  #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} #{px-rem(0)} rgba(255, 255, 255, 0.12) inset, #{px-rem(3)} #{px-rem(3)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.20), #{px-rem(-3)} #{px-rem(-3)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.40) inset;
+  --nm#{$prefix}-inset-out-small: #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(3)} #{px-rem(0)} rgba(255, 255, 255, 0.12) inset, #{px-rem(2.5)} #{px-rem(2.5)} #{px-rem(6)} #{px-rem(-2)} rgba(0, 0, 0, 0.25), #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(3)} #{px-rem(0)} rgba(0, 0, 0, 0.30) inset;
+
+  --nm#{$prefix}-outset: #{px-rem(3)} #{px-rem(3)} #{px-rem(9)} #{px-rem(0)} rgba(128, 128, 128, 0.12), #{px-rem(-3)} #{px-rem(-3)} #{px-rem(9)} #{px-rem(0)} rgba(0, 0, 0, 0.25);
+  --nm#{$prefix}-outset-small: #{px-rem(-1.5)} #{px-rem(-1.5)} #{px-rem(6)} #{px-rem(0)} rgba(0, 0, 0, 0.25), #{px-rem(1.5)} #{px-rem(1.5)} #{px-rem(6)} #{px-rem(0)} rgba(255, 255, 255, 0.12);
+  
+
+
+  // VC Main BG Color
+  --main-bg-color: var(--pref-color-5);
+  // VC Main BG Color Alt
+  --main-bg-color-alt: var(--pref-color-7);
+
+  // VTCs (Variable Text Colors)
+  --text-color: var(--pref-color-RV);
+  --link-color: var(--brand-color);
+  --pref-brand-color: var(--pref-color-100);
+}
+
+:root {
+  // VCs (Light Steps)
+  @for $size from 0 to 101 {
+    --pref-color-light-#{$size}: #{color.scale(
+        $full-light,
+        $lightness: -$size * 1%
+      )};
+  }
+
+  // VCs (Light Steps Transparentize)
+  @for $size from 0 to 101 {
+    --pref-color-light-t-#{$size}: #{color.scale(
+        $full-light,
+        $alpha: -$size * 1%
+      )};
+  }
+
+  // VCs (Dark Steps)
+  @for $size from 0 to 101 {
+    --pref-color-dark-#{$size}: #{color.scale(
+        $full-dark,
+        $lightness: $size * 1%
+      )};
+  }
+
+  // VCs (Dark Steps Transparentize)
+  @for $size from 0 to 101 {
+    --pref-color-dark-t-#{$size}: #{color.scale(
+        $full-dark,
+        $alpha: -$size * 1%
+      )};
+  }
+
+  @include light-nm("-light");
+  @include dark-nm("-dark");
+
+  --pref-color-wt: #{$full-light};
+  --pref-color-bk: #{$full-dark};
+}
+
+
+// Root Colours (Pref Colours Dark)
+@include dark-mode {
+    // RC - Preferred
+    @for $size from 0 to 101 {
+      --pref-color-#{$size}: var(--pref-color-dark-#{$size});
+    }
+
+    // RC - Preferred ReVersed
+    @for $size from 0 to 101 {
+      --pref-color-rv-#{$size}: var(--pref-color-light-#{$size});
+    }
+
+    // RC - Preferred transparentize
+    @for $size from 0 to 101 {
+      --pref-color-t-#{$size}: var(--pref-color-dark-t-#{$size});
+    }
+
+    // RC - Preferred transparentize ReVersed
+    @for $size from 0 to 101 {
+      --pref-color-t-rv-#{$size}: var(--pref-color-light-t-#{$size});
+    }
+
+    // RC - Child Pref Color Intensity Grow Step (AUto)
+    --pref-color-AU: #{color.scale(
+        color.scale($full-light, $lightness: -1%),
+        $alpha: -99%
+      )};
+    // RC - Full Pref Colours Reverse
+    --pref-color-RV: #{$full-light};
+    
+    @include dark-nm;
+}
+
+// Root Colours (Pref Colours Light)
+@include light-mode {
+    // RC - Preferred
+    @for $size from 0 to 101 {
+      --pref-color-#{$size}: var(--pref-color-light-#{$size});
+    }
+
+    // RC - Preferred ReVersed
+    @for $size from 0 to 101 {
+      --pref-color-rv-#{$size}: var(--pref-color-dark-#{$size});
+    }
+
+    // RC - Preferred transparentize
+    @for $size from 0 to 101 {
+      --pref-color-t-#{$size}: var(--pref-color-light-t-#{$size});
+    }
+
+    // RC - Preferred transparentize ReVersed
+    @for $size from 0 to 101 {
+      --pref-color-t-rv-#{$size}: var(--pref-color-dark-t-#{$size});
+    }
+
+    // Root Colour Child Pref Color Intensity Grow Step (AUto)
+    --pref-color-AU: #{color.scale(
+        color.scale($full-dark, $lightness: 1%),
+        $alpha: -99%
+      )};
+    // Root Colour Full Pref Colours Reverse
+    --pref-color-RV: #{$full-dark};
+    
+    @include light-nm;
+}
+
+// Mobile
+:root {
+  // Theme Font Options
+  --source-font-size: #{map.get(map.get($design-sizes-map, mobile), fs)};
+  --font-size: #{px-vw(map.get(map.get($design-sizes-map, mobile), fs), m)};
+  --line-height: #{px-em(
+      map.get(map.get($design-sizes-map, mobile), fs),
+      map.get(map.get($design-sizes-map, mobile), fs)
+    )};
+
+  // Theme
+  --noise-bg: var(--noise-image-url, url("/assets/png/noise-dark.png")) repeat 512px, var(--page-bg);
+
+  // Theme Fonts
+  --font-family:       'Montserrat', sans-serif;
+  --font-family-2:     'Libre Baskerville', serif;
+  --font-family-3:     'Baskervville', serif;
+  --font-family-icons: 'icons';
+
+  // Theme Font Headings
+  --headings-font-family: var(--font-family-2);
+  --headings-font-weight: 700;
+  --headings-line-height: 1.3;
+
+  // RC - Reserved Variable Colours
+  --color-1: hsl(0, 0%, 100%); // white
+  --color-2: hsl(0, 0%, 0%); // black
+  --color-3: hsl(218, 58%, 28%); // #1e3c71
+  --color-4: hsl(206, 62%, 64%); // #6aabdc
+  --color-5: #{darken(hsl(218, 58%, 28%), 10)}; // #1e3c71
+  --color-6: #{darken(hsl(206, 62%, 64%), 10)}; // #6aabdc
+  --color-7: hsl(0, 0%, 0%); // #na
+  --color-8: hsl(0, 0%, 0%); // #na
+  --color-9: hsl(0, 0%, 0%); // #na
+  --color-10: hsl(0, 0%, 0%); // #na
+  --color-11: hsl(0, 0%, 0%); // #na
+  --color-12: hsl(0, 0%, 0%); // #na
+  --color-13: hsl(0, 0%, 0%); // #na
+  --color-14: hsl(0, 0%, 0%); // #na
+
+  // RBC - Root Brand Colours
+  --brand-color:               var(--color-3);
+  --brand-color-alt:           var(--color-5);
+  --brand-color-secondary:     var(--color-4);
+  --brand-color-secondary-alt: var(--color-6);
+  --button-color: var(--brand-color);
+
+  --button-color: var(--brand-color);
+  --button-text-color: var(--pref-color-light-0);
+  --headings-color: var(--brand-color);
+
+  // Root VW Breaking Points
+  --s-mobile: #{$s-mobile};
+  --m-mobile: #{$m-mobile};
+  --l-mobile: #{$l-mobile};
+  --s-tablet: #{$s-tablet};
+  --m-tablet: #{$m-tablet};
+  --l-tablet: #{$l-tablet};
+  --s-laptop: #{$s-laptop};
+  --m-laptop: #{$m-laptop};
+  --l-laptop: #{$l-laptop};
+  --s-desktop: #{$s-desktop};
+  --m-desktop: #{$m-desktop};
+  --l-desktop: #{$l-desktop};
+
+  --mobile-break: #{$mobile};
+  --tablet-break: #{$tablet};
+
+  // Center ViewportWidth
+  @each $label_i, $map_i in $center-vw-map {
+    --centre-vw-#{$label_i}: #{px-vw(map.get($map_i, mobile), m)};
+  }
+
+  // RGS - Root Gutter Space
+  --flex-gutter: #{px-rem(20, m)};
+
+  // RHO - Root Header Options
+  --header-height: #{px-rem(96, m)};
+  --header-small-height: #{px-rem(60, m)};
+
+  // RHamO - Root Hamburger Options
+  --hamburger-height: #{px-rem(24, m)};
+  --hamburger-width: #{px-rem(28.19, m)};
+  --hamburger-line-height: #{px-rem(4, m)};
+  --hamburger-translateY: (
+      var(--hamburger-height) - var(--hamburger-line-height)
+    ) / 2;
+}
+
+// Tablet (At Least Mobile)
+@include at-least($mobile) {
+  :root {
+    // Theme Font Options
+    --source-font-size: #{map.get(map.get($design-sizes-map, tablet), fs)};
+    --font-size: #{px-vw(map.get(map.get($design-sizes-map, tablet), fs), t)};
+    --line-height: #{px-em(
+        map.get(map.get($design-sizes-map, tablet), lh),
+        map.get(map.get($design-sizes-map, tablet), fs)
+      )};
+
+    // Center ViewportWidth
+    @each $label_i, $map_i in $center-vw-map {
+      --centre-vw-#{$label_i}: #{px-vw(map.get($map_i, tablet), t)};
+    }
+
+    // RGS - Root Gutter Space
+    --flex-gutter: #{px-rem(20, t)};
+
+    // RHO - Root Header Options
+    --header-height: #{px-rem(140, t)};
+    --header-small-height: #{px-rem(100, t)};
+
+    // RHamO - Root Hamburger Options
+    --hamburger-height: #{px-rem(30, t)};
+    --hamburger-width: #{px-rem(38, t)};
+    --hamburger-line-height: #{px-rem(4, t)};
+  }
+}
+
+// Desktop (At Least Tablet)
+@include at-least($tablet) {
+  :root {
+    // Theme Font Options
+    --source-font-size: #{map.get(map.get($design-sizes-map, desktop), fs)};
+    --font-size: #{px-vw(map.get(map.get($design-sizes-map, desktop), fs), d)};
+    --line-height: #{px-em(
+        map.get(map.get($design-sizes-map, desktop), lh),
+        map.get(map.get($design-sizes-map, desktop), fs)
+      )};
+
+    // Center ViewportWidth
+    @each $label_i, $map_i in $center-vw-map {
+      --centre-vw-#{$label_i}: #{px-vw(map.get($map_i, desktop), d)};
+    }
+
+    // RGS - Root Gutter Space
+    --flex-gutter: #{px-rem(20, d)};
+
+    // RHO - Root Header Options
+    --header-height: #{px-rem(140, d)};
+    --header-small-height: #{px-rem(100, d)};
+
+    // RHamO - Root Hamburger Options
+    --hamburger-height: #{px-rem(30, d)};
+    --hamburger-width: #{px-rem(38, d)};
+    --hamburger-line-height: #{px-rem(4, d)};
+    --hamburger-translateY: (
+        var(--hamburger-height) - var(--hamburger-line-height)
+      ) / 2;
+  }
+}

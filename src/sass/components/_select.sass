@@ -1,47 +1,43 @@
 @use '../abstracts' as *
-@use '../components/_buttons' as *
 
 // Styles
 .fancyDropdown,
 .dropdown
     // Variables
-    $font_size: px-rem(16)
-    $input_height: px-em(70, 16)
-    $border_radius: px-rem(5)
-    $gray_light: var(--pref-color-0)
-    $gray_lighter: var(--pref-color-0)
+    $input_height: px-em(42, 14)
+    $border_radius: px-em(6, 14)
+    $gray_light: #eee
+    $gray_lighter: #f6f6f6
 
     @include gradient(to bottom, rgba(255, 255, 255, .25), rgba(255, 255, 255, 0))
     position: relative
-    display: block
+    display: inline-block
     min-width: px-rem(200)
     width: auto
-    padding-left: px-em(18, 16)
-    padding-right: px-em(30, 16)
-    // border: solid px-em(1, 16) $gray_light
+    height: $input_height
+    padding-left: px-em(18, 14)
+    padding-right: px-em(30, 14)
+    // border: solid px-em(1, 14) $gray_light
     border-radius: $border_radius
     outline: none
-    
-    font-size: $font_size
+
+    font-size: px-rem(14)
     font-weight: normal
-    line-height: $input_height
+    line-height: px-em(42 - 2, 14)
     text-align: left !important
     white-space: nowrap
 
     transition: all 0.2s ease-in-out
     user-select: none
     cursor: pointer
-        
-    background-color: $gray_lighter
-    box-shadow: 0 px-em(1, 16) 0 rgba(0, 0, 0, 0.0075)
-        
+
     @if $nm-design == true
         background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
         box-shadow: var(--nm-inset-out)
     @else
         background-color: $gray_lighter
-        box-shadow: 0 px-em(1, 16) 0 rgba(0, 0, 0, 0.0075)
-    
+        box-shadow: 0 px-em(1, 14) 0 rgba(0, 0, 0, 0.0075)
+
     &:focus
         outline: solid var(--brand-color) px-em(2, 16)
         outline-offset: px-em(4, 16)
@@ -64,41 +60,30 @@
         @else
             border-color: darken($gray_light, 4%)
             background-color: darken($gray_lighter, 2.5%) !important
-            box-shadow: 0 px-em(1, 16) px-em(4, 16) rgba(0, 0, 0, .05) inset
+            box-shadow: 0 px-em(1, 14) px-em(4, 14) rgba(0, 0, 0, .05) inset
 
     // Arrow
-    &:before,
     &:after
-        content: ''
-        position: absolute
-        pointer-events: none
+        height: 0
+        width: 0
+        border-left: px-em(4, 14) solid transparent
+        border-right: px-em(4, 14) solid transparent
+        border-top: px-em(4, 14) solid #777
+        transform: origin(50% 20%)
         transition: all 0.125s ease-in-out
-
-    &:before
-        @include button
-        font-size: $font_size
+        content: ''
+        display: block
+        margin-top: px-em(-2, 14)
+        pointer-events: none
+        position: absolute
+        right: px-em(10, 14)
         top: 50%
-        right: 0
-        width: px-em(40, 16)
-        height: px-em(40, 16)
-        border-radius: $border_radius
-        background-color: var(--brand-color)
-        transform: translate(px-em(-2.5 + -5, 16), -50%)
-
-    &:after
-        top: 50%
-        right: px-rem(div(55, 2))
-        width: px-em(15, 16)
-        height: px-em(15, 16)
-        border-right: solid px-em(1, 16) var(--pref-color-light-0)
-        border-bottom: solid px-em(1, 16) var(--pref-color-light-0)
-        transform: translate(50%, -70%) rotate(45deg)
 
     &.open
         @extend :active
 
         &:after
-            transform: translate(50%, -20%) rotate(-45deg) scale(1, -1)
+            transform: rotate(-180deg)
 
         .list
             transform: scale(1)
@@ -111,31 +96,33 @@
     &.wide
         width: 100%
 
+        .list
+            left: 0 !important
+            right: 0 !important
+
     .list
-        position: fixed
-        top: 50%
-        // left: 50%
-        z-index: 9999
-        margin-top: px-em(4, 16)
-        padding: px-em(5, 16)
+        position: absolute
+        top: 100%
+        left: 0
+        z-index: 999
+        margin-top: px-em(4, 14)
+        padding: px-em(5, 14)
         border-radius: $border_radius
 
         opacity: 0
         overflow: hidden
-        transition: all .15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity .1s linear, top 0s linear, left 0s linear
+        transition: all .15s cubic-bezier(0.25, 0, 0.25, 1.75), opacity .1s linear
         transform: scale(.75)
         transform-origin: 50% 0
 
         pointer-events: none
 
-        background-color: var(--pref-color-0)
-
         @if $nm-design == true
             background: linear-gradient(to bottom right, var(--main-bg-color), var(--main-bg-color-alt))
             box-shadow: var(--nm-inset-out-small)
         @else
-            background-color: var(--pref-color-0)
-            box-shadow: 0 0 0 px-em(1, 16) rgba(0, 0, 0, .09)
+            background-color: #fff
+            box-shadow: 0 0 0 px-em(1, 14) rgba(0, 0, 0, .09)
 
         &:hover .option:not(:hover)
             background-color: transparent !important
@@ -144,64 +131,65 @@
             list-style: none
             margin: 0
             padding: 0
-            // padding: px-em(10, 16)
+            padding: px-em(10, 14)
             // padding-right: px-rem(5)
             max-height: 50vh
             overflow-y: auto
 
-            background-color: var(--pref-color-0)
-            
+            @if $nm-design == true
+                background-color: var(--main-bg-alt)
+                box-shadow: var(--nm-inset-small)
+            @else
+                background-color: #fff
+                box-shadow: 0 0 0 1px rgba(0, 0, 0, .09)
+
             &::-webkit-scrollbar-track
                 background-color: transparent
 
     .option
         padding-left: 18px
         padding-right: 29px
-        border-bottom: solid px-em(1, 16) var(--pref-color-20)
-        border-radius: 0
-        margin-bottom: 0
+        border-radius: px-em(4, 14)
+        margin-bottom: px-em(10, 14)
         outline: none
 
         font-weight: 400
-        line-height: px-em(40, 16)
+        line-height: $input_height - 2
         text-align: left
 
         cursor: default
         transition: all 0.2s ease-in-out
 
-        background-color: var(--pref-color-0)
-
         @if $nm-design == true
-            background-color: var(--main-bg-color-alt)
-            box-shadow: var(--nm-inset-out-small)
+            background-color: var(--main-bg-alt)
+            box-shadow: var(--nm-inset-out)
         @else
-            background-color: var(--pref-color-0)
+            background-color: #fff
             box-shadow: 0 0 0 1px rgba(0, 0, 0, .09)
 
         &:hover,
         &:focus
             @if $nm-design == true
-                background-color: var(--main-bg-color-alt)
-                box-shadow: var(--nm-inset-small)
+                background-color: var(--main-bg-alt)
+                box-shadow: var(--nm-inset-out-small)
             @else
                 background-color: $gray_lighter !important
 
         &:last-of-type
             margin-bottom: 0
-            border-bottom: none
 
         &.selected
             font-weight: 600
 
             @if $nm-design == true
-                background-color: var(--main-bg-color-alt)
+                background-color: var(--main-bg-alt)
                 box-shadow: var(--nm-inset-small)
             @else
                 background: $gray_lighter
 
         &.selected:focus
             @if $nm-design == true
-                background-color: var(--main-bg-color-alt)
+                background-color: var(--main-bg-alt)
                 box-shadow: var(--nm-outset-small)
             @else
                 background: $gray_lighter
