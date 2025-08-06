@@ -1,5 +1,6 @@
 import React from "react";
 import type { languageOption } from "./EditorProvider";
+import type { supportedLanguages } from "@/components/ui/Editor";
 
 export interface editorStoreValues {
   codeStore: {
@@ -9,6 +10,7 @@ export interface editorStoreValues {
   };
   codeSelection: languageOption[];
   preferredDark: boolean;
+  selectedLanguage: supportedLanguages;
 }
 
 export interface EditorContextType {

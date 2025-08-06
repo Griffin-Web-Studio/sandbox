@@ -59,6 +59,7 @@ const EditorProvider: React.FC<EditorProviderProps> = ({ children }) => {
       },
     ],
     preferredDark: darkTheme,
+    selectedLanguage: "html",
   };
   const [editorStore, setEditorStore] =
     React.useState<editorStoreValues>(defaultValue);

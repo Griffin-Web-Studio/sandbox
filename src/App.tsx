@@ -22,40 +22,25 @@ function App() {
   const editorStore = editorContext?.editorStore;
   const setEditorStore = editorContext?.setEditorStore;
   const preferredDark = editorStore?.preferredDark;
-  const [selectedMode, setSelectedMode] =
-    React.useState<supportedLanguages>("html");
+  const selectedLanguage = editorStore?.selectedLanguage;
   // TODO: Move this inside the context provider
   const [codeTypes, setCodeTypes] = React.useState<
     editorStoreValues["codeSelection"] | undefined
   >(editorStore?.codeSelection);
 
-  const onButtonResetHandler = React.useCallback(() => {
+  const onButtonResetHandler = () => {
     (async () => {
-      if (!setEditorStore) return;
-      if ("html" === selectedMode) {
-        const value = await getHtmlSample();
-        localStorage.setItem("html_code", value);
-        setEditorStore((old) => ({
-          ...old,
-          codeStore: { ...old.codeStore, html: value },
-        }));
-      } else if ("xml" === selectedMode) {
-        const value = await getSvgSample();
-        localStorage.setItem("xml_code", value);
-        setEditorStore((old) => ({
-          ...old,
-          codeStore: { ...old.codeStore, xml: value },
-        }));
-      } else if ("js" === selectedMode) {
-        const value = await getJsSample();
-        localStorage.setItem("js_code", value);
-        setEditorStore((old) => ({
-          ...old,
-          codeStore: { ...old.codeStore, js: value },
-        }));
-      }
+      if (!setEditorStore || !selectedLanguage) return;
+      const codeSampleGenerator = new CodeSampleGenerator(selectedLanguage);
+      const value = await codeSampleGenerator.generateSample();
+
+      localStorage.setItem(`${selectedLanguage}_code`, value);
+      setEditorStore((old) => ({
+        ...old,
+        codeStore: { ...old.codeStore, [selectedLanguage]: value },
+      }));
     })();
-  }, [selectedMode, setEditorStore]);
+  };
 
   const onPreferredThemeHandler = () => {
     if (!setEditorStore) return;
@@ -72,11 +57,19 @@ function App() {
   };
 
   const onSelectUpdateHandler = (options: option[]) => {
-    const selectedOption = options.filter(
+    const codeSelection = options as languageOption[];
+
+    if (!setEditorStore) return;
+
+    const selectedOption = codeSelection.filter(
       (option) => option.selected === true
     )[0];
-    setCodeTypes(options as languageOption[]);
-    setSelectedMode(selectedOption.value as supportedLanguages);
+
+    setEditorStore((old) => ({
+      ...old,
+      codeSelection,
+      selectedLanguage: selectedOption.value,
+    }));
   };
 
   React.useEffect(() => {
@@ -138,14 +131,11 @@ function App() {
         </header>
 
         <div className="gws-live-preview__body body grid-24 grid gap-20">
-          {selectedMode === "html" && (
-            <HTMLEditor preferredDark={preferredDark} />
-          )}
-          {selectedMode === "xml" && (
-            <XMLEditor preferredDark={preferredDark} />
-          )}
-          {selectedMode === "js" && <JSEditor preferredDark={preferredDark} />}
-        </div>
+          {selectedLanguage === "html" && <HTMLEditor />}
+
+          {selectedLanguage === "xml" && <XMLEditor />}
+
+          {selectedLanguage === "js" && <JSEditor />}
       </div>
 
       {/* <InstallPWAPrompt /> */}
