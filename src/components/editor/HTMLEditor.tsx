@@ -2,14 +2,13 @@ import React from "react";
 import Editor from "../ui/Editor";
 import EditorContext from "@/context/EditorContext";
 
-interface HTMLEditorProps {
-  preferredDark: boolean;
-}
+// interface HTMLEditorProps
 
-const HTMLEditor: React.FC<HTMLEditorProps> = ({ preferredDark }) => {
+const HTMLEditor: React.FC = () => {
   const editorContext = React.useContext(EditorContext);
   const editorStore = editorContext?.editorStore;
   const setEditorStore = editorContext?.setEditorStore;
+  const preferredDark = editorStore?.preferredDark ?? false;
 
   const onEditorChangeHandler = React.useCallback(
     (value: string) => {

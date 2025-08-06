@@ -2,14 +2,13 @@ import React from "react";
 import Editor from "../ui/Editor";
 import EditorContext from "@/context/EditorContext";
 
-interface JSEditorProps {
-  preferredDark: boolean;
-}
+// interface JSEditorProps
 
-const JSEditor: React.FC<JSEditorProps> = ({ preferredDark }) => {
+const JSEditor: React.FC = () => {
   const editorContext = React.useContext(EditorContext);
   const editorStore = editorContext?.editorStore;
   const setEditorStore = editorContext?.setEditorStore;
+  const preferredDark = editorStore?.preferredDark ?? false;
   const consoleRef = React.useRef<HTMLDivElement>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const sandboxRef = React.useRef<HTMLIFrameElement>(null);

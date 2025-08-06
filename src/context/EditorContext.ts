@@ -8,6 +8,7 @@ export interface editorStoreValues {
     js: string;
   };
   codeSelection: languageOption[];
+  preferredDark: boolean;
 }
 
 export interface EditorContextType {

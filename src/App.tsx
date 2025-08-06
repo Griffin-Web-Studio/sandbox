@@ -1,5 +1,4 @@
 import React from "react";
-import usePrefersColorScheme from "use-prefers-color-scheme";
 import { getHtmlSample, getJsSample, getSvgSample } from "./utils/sample";
 
 // Images
@@ -22,9 +21,7 @@ function App() {
   const editorContext = React.useContext(EditorContext);
   const editorStore = editorContext?.editorStore;
   const setEditorStore = editorContext?.setEditorStore;
-  const preferredColourScheme = usePrefersColorScheme();
-  const darkTheme = preferredColourScheme === "dark";
-  const [preferredDark, setPreferredDark] = React.useState<boolean>(darkTheme);
+  const preferredDark = editorStore?.preferredDark;
   const [selectedMode, setSelectedMode] =
     React.useState<supportedLanguages>("html");
   // TODO: Move this inside the context provider
@@ -61,14 +58,15 @@ function App() {
   }, [selectedMode, setEditorStore]);
 
   const onPreferredThemeHandler = () => {
+    if (!setEditorStore) return;
     if (preferredDark) {
-      setPreferredDark(false);
+      setEditorStore((old) => ({ ...old, preferredDark: false }));
       localStorage.setItem("preferredDark", "false");
       document.body?.setAttribute("pref-color", "light");
       return;
     }
 
-    setPreferredDark(true);
+    setEditorStore((old) => ({ ...old, preferredDark: true }));
     localStorage.setItem("preferredDark", "true");
     document.body?.setAttribute("pref-color", "dark");
   };

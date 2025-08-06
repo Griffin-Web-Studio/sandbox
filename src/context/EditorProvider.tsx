@@ -1,4 +1,5 @@
 import React from "react";
+import usePrefersColorScheme from "use-prefers-color-scheme";
 
 // Context
 import EditorContext, { type editorStoreValues } from "./EditorContext";
@@ -31,32 +32,34 @@ if (!localStorage.getItem("js_code"))
     await CodeSampleGenerator.generateLanguageSample("js")
   );
 
-const defaultValue: editorStoreValues = {
-  codeStore: {
-    html: localStorage.getItem("html_code") ?? "",
-    xml: localStorage.getItem("xml_code") ?? "",
-    js: localStorage.getItem("js_code") ?? "",
-  },
-  codeSelection: [
-    {
-      label: "HTML",
-      value: "html",
-      selected: true,
-    },
-    {
-      label: "XML",
-      value: "xml",
-      selected: false,
-    },
-    {
-      label: "JS",
-      value: "js",
-      selected: false,
-    },
-  ],
-};
-
 const EditorProvider: React.FC<EditorProviderProps> = ({ children }) => {
+  const preferredColourScheme = usePrefersColorScheme();
+  const darkTheme = preferredColourScheme === "dark";
+  const defaultValue: editorStoreValues = {
+    codeStore: {
+      html: localStorage.getItem("html_code") ?? "",
+      xml: localStorage.getItem("xml_code") ?? "",
+      js: localStorage.getItem("js_code") ?? "",
+    },
+    codeSelection: [
+      {
+        label: "HTML",
+        value: "html",
+        selected: true,
+      },
+      {
+        label: "XML",
+        value: "xml",
+        selected: false,
+      },
+      {
+        label: "JS",
+        value: "js",
+        selected: false,
+      },
+    ],
+    preferredDark: darkTheme,
+  };
   const [editorStore, setEditorStore] =
     React.useState<editorStoreValues>(defaultValue);
 
