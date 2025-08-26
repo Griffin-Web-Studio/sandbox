@@ -5,8 +5,8 @@ import usePrefersColorScheme from "use-prefers-color-scheme";
 import EditorContext, { type editorStoreValues } from "./EditorContext";
 
 // Types
-import type { supportedLanguages } from "@/components/ui/Editor";
-import type { option } from "@/components/ui/Selector";
+import { type supportedLanguages } from "@/components/ui/Editor";
+import { type option } from "@/components/ui/Selector";
 import { CodeSampleGenerator } from "@/utils/sample";
 
 export interface languageOption extends option {

@@ -1,6 +1,7 @@
 import React from "react";
 import Editor from "../ui/Editor";
 import EditorContext from "@/context/EditorContext";
+import inspect from "object-inspect";
 
 // interface JSEditorProps
 
@@ -41,26 +42,34 @@ const JSEditor: React.FC = () => {
 
     // Override console methods to capture output
     sandboxWindow.console.log = (...args: unknown[]) => {
+      const formattedLog = args.map((arg) => inspect(arg)).join(" ");
+
       if (consoleRef.current) {
-        consoleRef.current.innerHTML += `<span style="color: black;">${args.join(
-          " "
-        )}</span><br>`;
+        const logEntry = document.createElement("div");
+        logEntry.textContent = formattedLog;
+        consoleRef.current.appendChild(logEntry);
       }
     };
 
     sandboxWindow.console.warn = (...args: unknown[]) => {
+      const formattedLog = args.map((arg) => inspect(arg)).join(" ");
+
       if (consoleRef.current) {
-        consoleRef.current.innerHTML += `<span style="color: orange;">Warning: ${args.join(
-          " "
-        )}</span><br>`;
+        const logEntry = document.createElement("div");
+        logEntry.style.color = "orange";
+        logEntry.textContent = formattedLog;
+        consoleRef.current.appendChild(logEntry);
       }
     };
 
     sandboxWindow.console.error = (...args: unknown[]) => {
+      const formattedLog = args.map((arg) => inspect(arg)).join(" ");
+
       if (consoleRef.current) {
-        consoleRef.current.innerHTML += `<span style="color: red;">Error: ${args.join(
-          " "
-        )}</span><br>`;
+        const logEntry = document.createElement("div");
+        logEntry.style.color = "red";
+        logEntry.textContent = formattedLog;
+        consoleRef.current.appendChild(logEntry);
       }
     };
 

@@ -17,6 +17,7 @@
     "@uiw/codemirror-theme-monokai": "^4.24.2",
     "@uiw/react-codemirror": "^4.24.2",
     "fantasticon": "^3.0.0",
+    "object-inspect": "^1.13.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "sass": "^1.89.2",
