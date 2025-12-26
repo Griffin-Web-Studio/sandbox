@@ -1,6 +1,13 @@
-image: node
+stages:
+    - dependency_analysis
+    - build
+    - deploy
+
+include:
+  - remote: "https://gitlab.griffin-studio.dev/external-projects/ci-templates/-/raw/main/DC.gitlab-ci.yml"
 
 build:
+  image: node:lts
   stage: build
   cache:
     paths:
